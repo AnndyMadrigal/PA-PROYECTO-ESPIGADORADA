@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PA_PROYECTO_ESPIGADORADA.Models.UserModel
+@{
     ViewBag.Title = "Registro";
     Layout = "~/Views/Shared/_External_Layout.cshtml";
 }
@@ -23,37 +24,26 @@
                     </div>
                 }
 
-                <form method="post" action="">
-                    <div class="row g-2 mb-2">
-                        <div class="col-md-6 form-floating">
-                            <input type="text" class="form-control bg-light" id="FirstName" name="firstName" placeholder="Nombre" required>
-                            <label for="FirstName" class="ms-2">Nombre</label>
-                        </div>
-                        <div class="col-md-6 form-floating">
-                            <input type="text" class="form-control bg-light" id="LastName" name="lastName" placeholder="Apellidos" required>
-                            <label for="LastName" class="ms-2">Apellidos</label>
-                        </div>
+                @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @id = "FormRegister" }))
+                {
+                    <div class="form-floating mb-2">
+                        @Html.TextBoxFor(m => m.Identification, new { @class = "form-control bg-light", @placeholder = "Identificación", @onkeyup = "CheckName()" })
+                        <label for="Identification">Identificación</label>
                     </div>
 
                     <div class="form-floating mb-2">
-                        <input type="email" class="form-control bg-light" id="Email" name="email" placeholder="Correo" required>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control bg-light SoloLectura", @placeholder = "Nombre", @readOnly = "true" })
+                        <label for="Name">Nombre</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control bg-light", @placeholder = "Correo Electrónico", @type = "email" })
                         <label for="Email">Correo Electrónico</label>
                     </div>
 
-                    <div class="form-floating mb-2">
-                        <input type="text" class="form-control bg-light" id="Username" name="username" placeholder="Usuario" required>
-                        <label for="Username">Usuario</label>
-                    </div>
-
-                    <div class="row g-2 mb-4">
-                        <div class="col-md-6 form-floating">
-                            <input type="password" class="form-control bg-light" id="Password" name="password" placeholder="Contraseña" required>
-                            <label for="Password" class="ms-2">Contraseña</label>
-                        </div>
-                        <div class="col-md-6 form-floating">
-                            <input type="password" class="form-control bg-light" id="ConfirmPassword" name="confirmPassword" placeholder="Confirmar" required>
-                            <label for="ConfirmPassword" class="ms-2">Confirmar</label>
-                        </div>
+                    <div class="form-floating mb-4">
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control bg-light", @type = "password", @placeholder = "Contraseña" })
+                        <label for="Password">Contraseña</label>
                     </div>
 
                     <div class="d-grid mb-3">
@@ -61,10 +51,20 @@
                     </div>
 
                     <div class="text-center">
-                        <small class="text-muted">¿Ya tienes una cuenta? <a href="@Url.Action("Login", "Home")" class="text-primary fw-bold text-decoration-none">Inicia Sesión</a></small>
+                        <small class="text-muted">
+                            ¿Ya tienes una cuenta?
+                            <a href="@Url.Action("Login", "Home")" class="text-primary fw-bold text-decoration-none">Inicia Sesión</a>
+                        </small>
                     </div>
-                </form>
+                }
             </div>
         </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+    <script src="~/Template/js/functions/register.js"></script>
+}

@@ -1,0 +1,1476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Espiga_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="product_categories">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_name" Type="nvarchar" MaxLength="120" Nullable="false" />
+          <Property Name="is_active" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sku" Type="varchar" MaxLength="60" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="500" />
+          <Property Name="image_url" Type="varchar" MaxLength="500" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="unit_of_measure" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="min_stock" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="tax_id" Type="int" Nullable="false" />
+          <Property Name="is_active" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="promotions">
+          <Key>
+            <PropertyRef Name="promotion_id" />
+          </Key>
+          <Property Name="promotion_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="promotion_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="promotion_type" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="promotion_value" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="start_date" Type="datetime" Nullable="false" />
+          <Property Name="end_date" Type="datetime" Nullable="false" />
+          <Property Name="is_active" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_code" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="role_name" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="settings">
+          <Key>
+            <PropertyRef Name="setting_id" />
+          </Key>
+          <Property Name="setting_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="currency_symbol" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="support_email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="low_stock_threshold" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="taxes">
+          <Key>
+            <PropertyRef Name="tax_id" />
+          </Key>
+          <Property Name="tax_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tax_name" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="tax_rate" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="is_active" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_addresses">
+          <Key>
+            <PropertyRef Name="address_id" />
+          </Key>
+          <Property Name="address_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="address_type" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="district_id" Type="int" Nullable="false" />
+          <Property Name="address_line_1" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="address_line_2" Type="nvarchar" MaxLength="255" />
+          <Property Name="zip_code" Type="varchar" MaxLength="12" />
+          <Property Name="is_primary" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_phones">
+          <Key>
+            <PropertyRef Name="phone_id" />
+          </Key>
+          <Property Name="phone_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="phone_type" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="country_code" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="is_primary" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="identification" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="is_active" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cantons">
+          <Key>
+            <PropertyRef Name="canton_id" />
+          </Key>
+          <Property Name="canton_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="province_id" Type="int" Nullable="false" />
+          <Property Name="canton_name" Type="nvarchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="districts">
+          <Key>
+            <PropertyRef Name="district_id" />
+          </Key>
+          <Property Name="district_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="canton_id" Type="int" Nullable="false" />
+          <Property Name="district_name" Type="nvarchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="provinces">
+          <Key>
+            <PropertyRef Name="province_id" />
+          </Key>
+          <Property Name="province_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="province_name" Type="nvarchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inventory_movements">
+          <Key>
+            <PropertyRef Name="movement_id" />
+          </Key>
+          <Property Name="movement_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="movement_datetime" Type="datetime" Nullable="false" />
+          <Property Name="movement_type" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="qty_signed" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="reference_table" Type="varchar" MaxLength="50" />
+          <Property Name="reference_id" Type="int" />
+          <Property Name="notes" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="inventory_stock">
+          <Key>
+            <PropertyRef Name="inventory_stock_id" />
+          </Key>
+          <Property Name="inventory_stock_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="qty_available" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="payment_terms">
+          <Key>
+            <PropertyRef Name="term_id" />
+          </Key>
+          <Property Name="term_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="term_name" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="days_due" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="purchase_invoice_lines">
+          <Key>
+            <PropertyRef Name="purchase_invoice_line_id" />
+          </Key>
+          <Property Name="purchase_invoice_line_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="purchase_invoice_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="qty" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="unit_cost" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_id" Type="int" Nullable="false" />
+          <Property Name="tax_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="line_total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="lot_reference" Type="nvarchar" MaxLength="80" />
+          <Property Name="expiration_date" Type="date" />
+          <Property Name="received_date" Type="date" />
+        </EntityType>
+        <EntityType Name="purchase_invoices">
+          <Key>
+            <PropertyRef Name="purchase_invoice_id" />
+          </Key>
+          <Property Name="purchase_invoice_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplier_id" Type="int" Nullable="false" />
+          <Property Name="invoice_number" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="invoice_date" Type="date" Nullable="false" />
+          <Property Name="term_id" Type="int" Nullable="false" />
+          <Property Name="due_date" Type="date" Nullable="false" />
+          <Property Name="subtotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tax_total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="notes" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="suppliers">
+          <Key>
+            <PropertyRef Name="supplier_id" />
+          </Key>
+          <Property Name="supplier_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="phone" Type="varchar" MaxLength="30" />
+          <Property Name="is_active" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sales_invoice_lines">
+          <Key>
+            <PropertyRef Name="sales_invoice_line_id" />
+          </Key>
+          <Property Name="sales_invoice_line_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sales_invoice_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="qty_sold" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="unit_price_list" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="unit_price_final" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="promotion_id" Type="int" />
+          <Property Name="discount_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tax_id" Type="int" Nullable="false" />
+          <Property Name="tax_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="line_subtotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="line_total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sales_invoices">
+          <Key>
+            <PropertyRef Name="sales_invoice_id" />
+          </Key>
+          <Property Name="sales_invoice_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sales_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="sales_datetime" Type="datetime" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="payment_method" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="payment_reference" Type="nvarchar" MaxLength="80" />
+          <Property Name="subtotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="discount_total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tax_total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="notes" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FK_cantons_provinces">
+          <End Role="provinces" Type="Self.provinces" Multiplicity="1" />
+          <End Role="cantons" Type="Self.cantons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="cantons">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_districts_cantons">
+          <End Role="cantons" Type="Self.cantons" Multiplicity="1" />
+          <End Role="districts" Type="Self.districts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cantons">
+              <PropertyRef Name="canton_id" />
+            </Principal>
+            <Dependent Role="districts">
+              <PropertyRef Name="canton_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inventory_movements_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="inventory_movements" Type="Self.inventory_movements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="inventory_movements">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inventory_stock_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="inventory_stock" Type="Self.inventory_stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="inventory_stock">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_product_categories">
+          <End Role="product_categories" Type="Self.product_categories" Multiplicity="1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product_categories">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_taxes">
+          <End Role="taxes" Type="Self.taxes" Multiplicity="1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taxes">
+              <PropertyRef Name="tax_id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="tax_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchase_invoice_lines_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="purchase_invoice_lines" Type="Self.purchase_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="purchase_invoice_lines">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchase_invoice_lines_purchase_invoices">
+          <End Role="purchase_invoices" Type="Self.purchase_invoices" Multiplicity="1" />
+          <End Role="purchase_invoice_lines" Type="Self.purchase_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchase_invoices">
+              <PropertyRef Name="purchase_invoice_id" />
+            </Principal>
+            <Dependent Role="purchase_invoice_lines">
+              <PropertyRef Name="purchase_invoice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchase_invoice_lines_taxes">
+          <End Role="taxes" Type="Self.taxes" Multiplicity="1" />
+          <End Role="purchase_invoice_lines" Type="Self.purchase_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taxes">
+              <PropertyRef Name="tax_id" />
+            </Principal>
+            <Dependent Role="purchase_invoice_lines">
+              <PropertyRef Name="tax_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchase_invoices_payment_terms">
+          <End Role="payment_terms" Type="Self.payment_terms" Multiplicity="1" />
+          <End Role="purchase_invoices" Type="Self.purchase_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payment_terms">
+              <PropertyRef Name="term_id" />
+            </Principal>
+            <Dependent Role="purchase_invoices">
+              <PropertyRef Name="term_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchase_invoices_suppliers">
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="1" />
+          <End Role="purchase_invoices" Type="Self.purchase_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplier_id" />
+            </Principal>
+            <Dependent Role="purchase_invoices">
+              <PropertyRef Name="supplier_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoice_lines_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="sales_invoice_lines" Type="Self.sales_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="sales_invoice_lines">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoice_lines_promotions">
+          <End Role="promotions" Type="Self.promotions" Multiplicity="0..1" />
+          <End Role="sales_invoice_lines" Type="Self.sales_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="promotions">
+              <PropertyRef Name="promotion_id" />
+            </Principal>
+            <Dependent Role="sales_invoice_lines">
+              <PropertyRef Name="promotion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoice_lines_sales_invoices">
+          <End Role="sales_invoices" Type="Self.sales_invoices" Multiplicity="1" />
+          <End Role="sales_invoice_lines" Type="Self.sales_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales_invoices">
+              <PropertyRef Name="sales_invoice_id" />
+            </Principal>
+            <Dependent Role="sales_invoice_lines">
+              <PropertyRef Name="sales_invoice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoice_lines_taxes">
+          <End Role="taxes" Type="Self.taxes" Multiplicity="1" />
+          <End Role="sales_invoice_lines" Type="Self.sales_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taxes">
+              <PropertyRef Name="tax_id" />
+            </Principal>
+            <Dependent Role="sales_invoice_lines">
+              <PropertyRef Name="tax_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoices_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="sales_invoices" Type="Self.sales_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="sales_invoices">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_addresses_districts">
+          <End Role="districts" Type="Self.districts" Multiplicity="1" />
+          <End Role="user_addresses" Type="Self.user_addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="districts">
+              <PropertyRef Name="district_id" />
+            </Principal>
+            <Dependent Role="user_addresses">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_addresses_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="user_addresses" Type="Self.user_addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="user_addresses">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_phones_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="user_phones" Type="Self.user_phones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="user_phones">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="RegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
+          <Parameter Name="Identification" Type="varchar" Mode="In" />
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Espiga_DBModelStoreContainer">
+          <EntitySet Name="product_categories" EntityType="Self.product_categories" Schema="core" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="core" store:Type="Tables" />
+          <EntitySet Name="promotions" EntityType="Self.promotions" Schema="core" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="core" store:Type="Tables" />
+          <EntitySet Name="settings" EntityType="Self.settings" Schema="core" store:Type="Tables" />
+          <EntitySet Name="taxes" EntityType="Self.taxes" Schema="core" store:Type="Tables" />
+          <EntitySet Name="user_addresses" EntityType="Self.user_addresses" Schema="core" store:Type="Tables" />
+          <EntitySet Name="user_phones" EntityType="Self.user_phones" Schema="core" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="core" store:Type="Tables" />
+          <EntitySet Name="cantons" EntityType="Self.cantons" Schema="geo" store:Type="Tables" />
+          <EntitySet Name="districts" EntityType="Self.districts" Schema="geo" store:Type="Tables" />
+          <EntitySet Name="provinces" EntityType="Self.provinces" Schema="geo" store:Type="Tables" />
+          <EntitySet Name="inventory_movements" EntityType="Self.inventory_movements" Schema="inventory" store:Type="Tables" />
+          <EntitySet Name="inventory_stock" EntityType="Self.inventory_stock" Schema="inventory" store:Type="Tables" />
+          <EntitySet Name="payment_terms" EntityType="Self.payment_terms" Schema="purchasing" store:Type="Tables" />
+          <EntitySet Name="purchase_invoice_lines" EntityType="Self.purchase_invoice_lines" Schema="purchasing" store:Type="Tables" />
+          <EntitySet Name="purchase_invoices" EntityType="Self.purchase_invoices" Schema="purchasing" store:Type="Tables" />
+          <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="purchasing" store:Type="Tables" />
+          <EntitySet Name="sales_invoice_lines" EntityType="Self.sales_invoice_lines" Schema="sales" store:Type="Tables" />
+          <EntitySet Name="sales_invoices" EntityType="Self.sales_invoices" Schema="sales" store:Type="Tables" />
+          <AssociationSet Name="FK_cantons_provinces" Association="Self.FK_cantons_provinces">
+            <End Role="provinces" EntitySet="provinces" />
+            <End Role="cantons" EntitySet="cantons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_districts_cantons" Association="Self.FK_districts_cantons">
+            <End Role="cantons" EntitySet="cantons" />
+            <End Role="districts" EntitySet="districts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inventory_movements_products" Association="Self.FK_inventory_movements_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="inventory_movements" EntitySet="inventory_movements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inventory_stock_products" Association="Self.FK_inventory_stock_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="inventory_stock" EntitySet="inventory_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_product_categories" Association="Self.FK_products_product_categories">
+            <End Role="product_categories" EntitySet="product_categories" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_taxes" Association="Self.FK_products_taxes">
+            <End Role="taxes" EntitySet="taxes" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchase_invoice_lines_products" Association="Self.FK_purchase_invoice_lines_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="purchase_invoice_lines" EntitySet="purchase_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchase_invoice_lines_purchase_invoices" Association="Self.FK_purchase_invoice_lines_purchase_invoices">
+            <End Role="purchase_invoices" EntitySet="purchase_invoices" />
+            <End Role="purchase_invoice_lines" EntitySet="purchase_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchase_invoice_lines_taxes" Association="Self.FK_purchase_invoice_lines_taxes">
+            <End Role="taxes" EntitySet="taxes" />
+            <End Role="purchase_invoice_lines" EntitySet="purchase_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchase_invoices_payment_terms" Association="Self.FK_purchase_invoices_payment_terms">
+            <End Role="payment_terms" EntitySet="payment_terms" />
+            <End Role="purchase_invoices" EntitySet="purchase_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchase_invoices_suppliers" Association="Self.FK_purchase_invoices_suppliers">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="purchase_invoices" EntitySet="purchase_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoice_lines_products" Association="Self.FK_sales_invoice_lines_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoice_lines_promotions" Association="Self.FK_sales_invoice_lines_promotions">
+            <End Role="promotions" EntitySet="promotions" />
+            <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoice_lines_sales_invoices" Association="Self.FK_sales_invoice_lines_sales_invoices">
+            <End Role="sales_invoices" EntitySet="sales_invoices" />
+            <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoice_lines_taxes" Association="Self.FK_sales_invoice_lines_taxes">
+            <End Role="taxes" EntitySet="taxes" />
+            <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoices_users" Association="Self.FK_sales_invoices_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="sales_invoices" EntitySet="sales_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_addresses_districts" Association="Self.FK_user_addresses_districts">
+            <End Role="districts" EntitySet="districts" />
+            <End Role="user_addresses" EntitySet="user_addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_addresses_users" Association="Self.FK_user_addresses_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="user_addresses" EntitySet="user_addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_phones_users" Association="Self.FK_user_phones_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="user_phones" EntitySet="user_phones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_roles" Association="Self.FK_users_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Espiga_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="product_categories">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_name" Type="String" MaxLength="120" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="is_active" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK_products_product_categories" FromRole="product_categories" ToRole="products" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sku" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="product_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="image_url" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="unit_of_measure" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="min_stock" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="tax_id" Type="Int32" Nullable="false" />
+          <Property Name="is_active" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="product_categories" Relationship="Self.FK_products_product_categories" FromRole="products" ToRole="product_categories" />
+          <NavigationProperty Name="inventory_movements" Relationship="Self.FK_inventory_movements_products" FromRole="products" ToRole="inventory_movements" />
+          <NavigationProperty Name="inventory_stock" Relationship="Self.FK_inventory_stock_products" FromRole="products" ToRole="inventory_stock" />
+          <NavigationProperty Name="taxes" Relationship="Self.FK_products_taxes" FromRole="products" ToRole="taxes" />
+          <NavigationProperty Name="purchase_invoice_lines" Relationship="Self.FK_purchase_invoice_lines_products" FromRole="products" ToRole="purchase_invoice_lines" />
+          <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_products" FromRole="products" ToRole="sales_invoice_lines" />
+        </EntityType>
+        <EntityType Name="promotions">
+          <Key>
+            <PropertyRef Name="promotion_id" />
+          </Key>
+          <Property Name="promotion_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="promotion_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="promotion_type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="promotion_value" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="is_active" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_promotions" FromRole="promotions" ToRole="sales_invoice_lines" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="role_id" />
+          </Key>
+          <Property Name="role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_code" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role_name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.FK_users_roles" FromRole="roles" ToRole="users" />
+        </EntityType>
+        <EntityType Name="settings">
+          <Key>
+            <PropertyRef Name="setting_id" />
+          </Key>
+          <Property Name="setting_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="currency_symbol" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="support_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="low_stock_threshold" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="taxes">
+          <Key>
+            <PropertyRef Name="tax_id" />
+          </Key>
+          <Property Name="tax_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tax_name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tax_rate" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="is_active" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK_products_taxes" FromRole="taxes" ToRole="products" />
+          <NavigationProperty Name="purchase_invoice_lines" Relationship="Self.FK_purchase_invoice_lines_taxes" FromRole="taxes" ToRole="purchase_invoice_lines" />
+          <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_taxes" FromRole="taxes" ToRole="sales_invoice_lines" />
+        </EntityType>
+        <EntityType Name="user_addresses">
+          <Key>
+            <PropertyRef Name="address_id" />
+          </Key>
+          <Property Name="address_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="address_type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="district_id" Type="Int32" Nullable="false" />
+          <Property Name="address_line_1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address_line_2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="zip_code" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="is_primary" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="districts" Relationship="Self.FK_user_addresses_districts" FromRole="user_addresses" ToRole="districts" />
+          <NavigationProperty Name="users" Relationship="Self.FK_user_addresses_users" FromRole="user_addresses" ToRole="users" />
+        </EntityType>
+        <EntityType Name="user_phones">
+          <Key>
+            <PropertyRef Name="phone_id" />
+          </Key>
+          <Property Name="phone_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="phone_type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="country_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="is_primary" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="Self.FK_user_phones_users" FromRole="user_phones" ToRole="users" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="identification" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="is_active" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="roles" Relationship="Self.FK_users_roles" FromRole="users" ToRole="roles" />
+          <NavigationProperty Name="user_addresses" Relationship="Self.FK_user_addresses_users" FromRole="users" ToRole="user_addresses" />
+          <NavigationProperty Name="user_phones" Relationship="Self.FK_user_phones_users" FromRole="users" ToRole="user_phones" />
+          <NavigationProperty Name="sales_invoices" Relationship="Self.FK_sales_invoices_users" FromRole="users" ToRole="sales_invoices" />
+        </EntityType>
+        <EntityType Name="cantons">
+          <Key>
+            <PropertyRef Name="canton_id" />
+          </Key>
+          <Property Name="canton_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="province_id" Type="Int32" Nullable="false" />
+          <Property Name="canton_name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="provinces" Relationship="Self.FK_cantons_provinces" FromRole="cantons" ToRole="provinces" />
+          <NavigationProperty Name="districts" Relationship="Self.FK_districts_cantons" FromRole="cantons" ToRole="districts" />
+        </EntityType>
+        <EntityType Name="districts">
+          <Key>
+            <PropertyRef Name="district_id" />
+          </Key>
+          <Property Name="district_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="canton_id" Type="Int32" Nullable="false" />
+          <Property Name="district_name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user_addresses" Relationship="Self.FK_user_addresses_districts" FromRole="districts" ToRole="user_addresses" />
+          <NavigationProperty Name="cantons" Relationship="Self.FK_districts_cantons" FromRole="districts" ToRole="cantons" />
+        </EntityType>
+        <EntityType Name="provinces">
+          <Key>
+            <PropertyRef Name="province_id" />
+          </Key>
+          <Property Name="province_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="province_name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="cantons" Relationship="Self.FK_cantons_provinces" FromRole="provinces" ToRole="cantons" />
+        </EntityType>
+        <EntityType Name="inventory_movements">
+          <Key>
+            <PropertyRef Name="movement_id" />
+          </Key>
+          <Property Name="movement_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movement_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="movement_type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="qty_signed" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="reference_table" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="reference_id" Type="Int32" />
+          <Property Name="notes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="products" Relationship="Self.FK_inventory_movements_products" FromRole="inventory_movements" ToRole="products" />
+        </EntityType>
+        <EntityType Name="inventory_stock">
+          <Key>
+            <PropertyRef Name="inventory_stock_id" />
+          </Key>
+          <Property Name="inventory_stock_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="qty_available" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK_inventory_stock_products" FromRole="inventory_stock" ToRole="products" />
+        </EntityType>
+        <EntityType Name="payment_terms">
+          <Key>
+            <PropertyRef Name="term_id" />
+          </Key>
+          <Property Name="term_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="term_name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="days_due" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="purchase_invoices" Relationship="Self.FK_purchase_invoices_payment_terms" FromRole="payment_terms" ToRole="purchase_invoices" />
+        </EntityType>
+        <EntityType Name="purchase_invoice_lines">
+          <Key>
+            <PropertyRef Name="purchase_invoice_line_id" />
+          </Key>
+          <Property Name="purchase_invoice_line_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="purchase_invoice_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="qty" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="unit_cost" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="tax_id" Type="Int32" Nullable="false" />
+          <Property Name="tax_amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="line_total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="lot_reference" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="expiration_date" Type="DateTime" Precision="0" />
+          <Property Name="received_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="products" Relationship="Self.FK_purchase_invoice_lines_products" FromRole="purchase_invoice_lines" ToRole="products" />
+          <NavigationProperty Name="taxes" Relationship="Self.FK_purchase_invoice_lines_taxes" FromRole="purchase_invoice_lines" ToRole="taxes" />
+          <NavigationProperty Name="purchase_invoices" Relationship="Self.FK_purchase_invoice_lines_purchase_invoices" FromRole="purchase_invoice_lines" ToRole="purchase_invoices" />
+        </EntityType>
+        <EntityType Name="purchase_invoices">
+          <Key>
+            <PropertyRef Name="purchase_invoice_id" />
+          </Key>
+          <Property Name="purchase_invoice_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplier_id" Type="Int32" Nullable="false" />
+          <Property Name="invoice_number" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="invoice_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="term_id" Type="Int32" Nullable="false" />
+          <Property Name="due_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="subtotal" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tax_total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="notes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="payment_terms" Relationship="Self.FK_purchase_invoices_payment_terms" FromRole="purchase_invoices" ToRole="payment_terms" />
+          <NavigationProperty Name="purchase_invoice_lines" Relationship="Self.FK_purchase_invoice_lines_purchase_invoices" FromRole="purchase_invoices" ToRole="purchase_invoice_lines" />
+          <NavigationProperty Name="suppliers" Relationship="Self.FK_purchase_invoices_suppliers" FromRole="purchase_invoices" ToRole="suppliers" />
+        </EntityType>
+        <EntityType Name="suppliers">
+          <Key>
+            <PropertyRef Name="supplier_id" />
+          </Key>
+          <Property Name="supplier_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="purchase_invoices" Relationship="Self.FK_purchase_invoices_suppliers" FromRole="suppliers" ToRole="purchase_invoices" />
+        </EntityType>
+        <EntityType Name="sales_invoice_lines">
+          <Key>
+            <PropertyRef Name="sales_invoice_line_id" />
+          </Key>
+          <Property Name="sales_invoice_line_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sales_invoice_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="qty_sold" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="unit_price_list" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="unit_price_final" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="promotion_id" Type="Int32" />
+          <Property Name="discount_amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tax_id" Type="Int32" Nullable="false" />
+          <Property Name="tax_amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="line_subtotal" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="line_total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="products" Relationship="Self.FK_sales_invoice_lines_products" FromRole="sales_invoice_lines" ToRole="products" />
+          <NavigationProperty Name="promotions" Relationship="Self.FK_sales_invoice_lines_promotions" FromRole="sales_invoice_lines" ToRole="promotions" />
+          <NavigationProperty Name="taxes" Relationship="Self.FK_sales_invoice_lines_taxes" FromRole="sales_invoice_lines" ToRole="taxes" />
+          <NavigationProperty Name="sales_invoices" Relationship="Self.FK_sales_invoice_lines_sales_invoices" FromRole="sales_invoice_lines" ToRole="sales_invoices" />
+        </EntityType>
+        <EntityType Name="sales_invoices">
+          <Key>
+            <PropertyRef Name="sales_invoice_id" />
+          </Key>
+          <Property Name="sales_invoice_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sales_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sales_datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="payment_method" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="payment_reference" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="subtotal" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="discount_total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="tax_total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="notes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="Self.FK_sales_invoices_users" FromRole="sales_invoices" ToRole="users" />
+          <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_sales_invoices" FromRole="sales_invoices" ToRole="sales_invoice_lines" />
+        </EntityType>
+        <Association Name="FK_products_product_categories">
+          <End Role="product_categories" Type="Self.product_categories" Multiplicity="1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product_categories">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inventory_movements_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="inventory_movements" Type="Self.inventory_movements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="inventory_movements">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inventory_stock_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="inventory_stock" Type="Self.inventory_stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="inventory_stock">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_products_taxes">
+          <End Role="taxes" Type="Self.taxes" Multiplicity="1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taxes">
+              <PropertyRef Name="tax_id" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="tax_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchase_invoice_lines_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="purchase_invoice_lines" Type="Self.purchase_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="purchase_invoice_lines">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoice_lines_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="sales_invoice_lines" Type="Self.sales_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="sales_invoice_lines">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoice_lines_promotions">
+          <End Role="promotions" Type="Self.promotions" Multiplicity="0..1" />
+          <End Role="sales_invoice_lines" Type="Self.sales_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="promotions">
+              <PropertyRef Name="promotion_id" />
+            </Principal>
+            <Dependent Role="sales_invoice_lines">
+              <PropertyRef Name="promotion_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_users_roles">
+          <End Role="roles" Type="Self.roles" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="role_id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchase_invoice_lines_taxes">
+          <End Role="taxes" Type="Self.taxes" Multiplicity="1" />
+          <End Role="purchase_invoice_lines" Type="Self.purchase_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taxes">
+              <PropertyRef Name="tax_id" />
+            </Principal>
+            <Dependent Role="purchase_invoice_lines">
+              <PropertyRef Name="tax_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoice_lines_taxes">
+          <End Role="taxes" Type="Self.taxes" Multiplicity="1" />
+          <End Role="sales_invoice_lines" Type="Self.sales_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="taxes">
+              <PropertyRef Name="tax_id" />
+            </Principal>
+            <Dependent Role="sales_invoice_lines">
+              <PropertyRef Name="tax_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_addresses_districts">
+          <End Role="districts" Type="Self.districts" Multiplicity="1" />
+          <End Role="user_addresses" Type="Self.user_addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="districts">
+              <PropertyRef Name="district_id" />
+            </Principal>
+            <Dependent Role="user_addresses">
+              <PropertyRef Name="district_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_addresses_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="user_addresses" Type="Self.user_addresses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="user_addresses">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_phones_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="user_phones" Type="Self.user_phones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="user_phones">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoices_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="sales_invoices" Type="Self.sales_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="sales_invoices">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_cantons_provinces">
+          <End Role="provinces" Type="Self.provinces" Multiplicity="1" />
+          <End Role="cantons" Type="Self.cantons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="provinces">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="cantons">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_districts_cantons">
+          <End Role="cantons" Type="Self.cantons" Multiplicity="1" />
+          <End Role="districts" Type="Self.districts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cantons">
+              <PropertyRef Name="canton_id" />
+            </Principal>
+            <Dependent Role="districts">
+              <PropertyRef Name="canton_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchase_invoices_payment_terms">
+          <End Role="payment_terms" Type="Self.payment_terms" Multiplicity="1" />
+          <End Role="purchase_invoices" Type="Self.purchase_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="payment_terms">
+              <PropertyRef Name="term_id" />
+            </Principal>
+            <Dependent Role="purchase_invoices">
+              <PropertyRef Name="term_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchase_invoice_lines_purchase_invoices">
+          <End Role="purchase_invoices" Type="Self.purchase_invoices" Multiplicity="1" />
+          <End Role="purchase_invoice_lines" Type="Self.purchase_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchase_invoices">
+              <PropertyRef Name="purchase_invoice_id" />
+            </Principal>
+            <Dependent Role="purchase_invoice_lines">
+              <PropertyRef Name="purchase_invoice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_purchase_invoices_suppliers">
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="1" />
+          <End Role="purchase_invoices" Type="Self.purchase_invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplier_id" />
+            </Principal>
+            <Dependent Role="purchase_invoices">
+              <PropertyRef Name="supplier_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoice_lines_sales_invoices">
+          <End Role="sales_invoices" Type="Self.sales_invoices" Multiplicity="1" />
+          <End Role="sales_invoice_lines" Type="Self.sales_invoice_lines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales_invoices">
+              <PropertyRef Name="sales_invoice_id" />
+            </Principal>
+            <Dependent Role="sales_invoice_lines">
+              <PropertyRef Name="sales_invoice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Espiga_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="product_categories" EntityType="Self.product_categories" />
+          <EntitySet Name="products" EntityType="Self.products" />
+          <EntitySet Name="promotions" EntityType="Self.promotions" />
+          <EntitySet Name="roles" EntityType="Self.roles" />
+          <EntitySet Name="settings" EntityType="Self.settings" />
+          <EntitySet Name="taxes" EntityType="Self.taxes" />
+          <EntitySet Name="user_addresses" EntityType="Self.user_addresses" />
+          <EntitySet Name="user_phones" EntityType="Self.user_phones" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="cantons" EntityType="Self.cantons" />
+          <EntitySet Name="districts" EntityType="Self.districts" />
+          <EntitySet Name="provinces" EntityType="Self.provinces" />
+          <EntitySet Name="inventory_movements" EntityType="Self.inventory_movements" />
+          <EntitySet Name="inventory_stock" EntityType="Self.inventory_stock" />
+          <EntitySet Name="payment_terms" EntityType="Self.payment_terms" />
+          <EntitySet Name="purchase_invoice_lines" EntityType="Self.purchase_invoice_lines" />
+          <EntitySet Name="purchase_invoices" EntityType="Self.purchase_invoices" />
+          <EntitySet Name="suppliers" EntityType="Self.suppliers" />
+          <EntitySet Name="sales_invoice_lines" EntityType="Self.sales_invoice_lines" />
+          <EntitySet Name="sales_invoices" EntityType="Self.sales_invoices" />
+          <AssociationSet Name="FK_products_product_categories" Association="Self.FK_products_product_categories">
+            <End Role="product_categories" EntitySet="product_categories" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inventory_movements_products" Association="Self.FK_inventory_movements_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="inventory_movements" EntitySet="inventory_movements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inventory_stock_products" Association="Self.FK_inventory_stock_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="inventory_stock" EntitySet="inventory_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_products_taxes" Association="Self.FK_products_taxes">
+            <End Role="taxes" EntitySet="taxes" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchase_invoice_lines_products" Association="Self.FK_purchase_invoice_lines_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="purchase_invoice_lines" EntitySet="purchase_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoice_lines_products" Association="Self.FK_sales_invoice_lines_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoice_lines_promotions" Association="Self.FK_sales_invoice_lines_promotions">
+            <End Role="promotions" EntitySet="promotions" />
+            <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_users_roles" Association="Self.FK_users_roles">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchase_invoice_lines_taxes" Association="Self.FK_purchase_invoice_lines_taxes">
+            <End Role="taxes" EntitySet="taxes" />
+            <End Role="purchase_invoice_lines" EntitySet="purchase_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoice_lines_taxes" Association="Self.FK_sales_invoice_lines_taxes">
+            <End Role="taxes" EntitySet="taxes" />
+            <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_addresses_districts" Association="Self.FK_user_addresses_districts">
+            <End Role="districts" EntitySet="districts" />
+            <End Role="user_addresses" EntitySet="user_addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_addresses_users" Association="Self.FK_user_addresses_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="user_addresses" EntitySet="user_addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_phones_users" Association="Self.FK_user_phones_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="user_phones" EntitySet="user_phones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoices_users" Association="Self.FK_sales_invoices_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="sales_invoices" EntitySet="sales_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_cantons_provinces" Association="Self.FK_cantons_provinces">
+            <End Role="provinces" EntitySet="provinces" />
+            <End Role="cantons" EntitySet="cantons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_districts_cantons" Association="Self.FK_districts_cantons">
+            <End Role="cantons" EntitySet="cantons" />
+            <End Role="districts" EntitySet="districts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchase_invoices_payment_terms" Association="Self.FK_purchase_invoices_payment_terms">
+            <End Role="payment_terms" EntitySet="payment_terms" />
+            <End Role="purchase_invoices" EntitySet="purchase_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchase_invoice_lines_purchase_invoices" Association="Self.FK_purchase_invoice_lines_purchase_invoices">
+            <End Role="purchase_invoices" EntitySet="purchase_invoices" />
+            <End Role="purchase_invoice_lines" EntitySet="purchase_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_purchase_invoices_suppliers" Association="Self.FK_purchase_invoices_suppliers">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="purchase_invoices" EntitySet="purchase_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoice_lines_sales_invoices" Association="Self.FK_sales_invoice_lines_sales_invoices">
+            <End Role="sales_invoices" EntitySet="sales_invoices" />
+            <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
+          </AssociationSet>
+          <FunctionImport Name="RegisterUser">
+            <Parameter Name="Identification" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Espiga_DBModelStoreContainer" CdmEntityContainer="Espiga_DBEntities">
+          <EntitySetMapping Name="product_categories">
+            <EntityTypeMapping TypeName="Espiga_DBModel.product_categories">
+              <MappingFragment StoreEntitySet="product_categories">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="Espiga_DBModel.products">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="sku" ColumnName="sku" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="image_url" ColumnName="image_url" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="unit_of_measure" ColumnName="unit_of_measure" />
+                <ScalarProperty Name="min_stock" ColumnName="min_stock" />
+                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="promotions">
+            <EntityTypeMapping TypeName="Espiga_DBModel.promotions">
+              <MappingFragment StoreEntitySet="promotions">
+                <ScalarProperty Name="promotion_id" ColumnName="promotion_id" />
+                <ScalarProperty Name="promotion_name" ColumnName="promotion_name" />
+                <ScalarProperty Name="promotion_type" ColumnName="promotion_type" />
+                <ScalarProperty Name="promotion_value" ColumnName="promotion_value" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="Espiga_DBModel.roles">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="role_code" ColumnName="role_code" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="settings">
+            <EntityTypeMapping TypeName="Espiga_DBModel.settings">
+              <MappingFragment StoreEntitySet="settings">
+                <ScalarProperty Name="setting_id" ColumnName="setting_id" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="currency_symbol" ColumnName="currency_symbol" />
+                <ScalarProperty Name="support_email" ColumnName="support_email" />
+                <ScalarProperty Name="low_stock_threshold" ColumnName="low_stock_threshold" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="taxes">
+            <EntityTypeMapping TypeName="Espiga_DBModel.taxes">
+              <MappingFragment StoreEntitySet="taxes">
+                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+                <ScalarProperty Name="tax_name" ColumnName="tax_name" />
+                <ScalarProperty Name="tax_rate" ColumnName="tax_rate" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_addresses">
+            <EntityTypeMapping TypeName="Espiga_DBModel.user_addresses">
+              <MappingFragment StoreEntitySet="user_addresses">
+                <ScalarProperty Name="address_id" ColumnName="address_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="address_type" ColumnName="address_type" />
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="address_line_1" ColumnName="address_line_1" />
+                <ScalarProperty Name="address_line_2" ColumnName="address_line_2" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="is_primary" ColumnName="is_primary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_phones">
+            <EntityTypeMapping TypeName="Espiga_DBModel.user_phones">
+              <MappingFragment StoreEntitySet="user_phones">
+                <ScalarProperty Name="phone_id" ColumnName="phone_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="phone_type" ColumnName="phone_type" />
+                <ScalarProperty Name="country_code" ColumnName="country_code" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="is_primary" ColumnName="is_primary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="Espiga_DBModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="identification" ColumnName="identification" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cantons">
+            <EntityTypeMapping TypeName="Espiga_DBModel.cantons">
+              <MappingFragment StoreEntitySet="cantons">
+                <ScalarProperty Name="canton_id" ColumnName="canton_id" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="canton_name" ColumnName="canton_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="districts">
+            <EntityTypeMapping TypeName="Espiga_DBModel.districts">
+              <MappingFragment StoreEntitySet="districts">
+                <ScalarProperty Name="district_id" ColumnName="district_id" />
+                <ScalarProperty Name="canton_id" ColumnName="canton_id" />
+                <ScalarProperty Name="district_name" ColumnName="district_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="provinces">
+            <EntityTypeMapping TypeName="Espiga_DBModel.provinces">
+              <MappingFragment StoreEntitySet="provinces">
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="province_name" ColumnName="province_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inventory_movements">
+            <EntityTypeMapping TypeName="Espiga_DBModel.inventory_movements">
+              <MappingFragment StoreEntitySet="inventory_movements">
+                <ScalarProperty Name="movement_id" ColumnName="movement_id" />
+                <ScalarProperty Name="movement_datetime" ColumnName="movement_datetime" />
+                <ScalarProperty Name="movement_type" ColumnName="movement_type" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="qty_signed" ColumnName="qty_signed" />
+                <ScalarProperty Name="reference_table" ColumnName="reference_table" />
+                <ScalarProperty Name="reference_id" ColumnName="reference_id" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inventory_stock">
+            <EntityTypeMapping TypeName="Espiga_DBModel.inventory_stock">
+              <MappingFragment StoreEntitySet="inventory_stock">
+                <ScalarProperty Name="inventory_stock_id" ColumnName="inventory_stock_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="qty_available" ColumnName="qty_available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payment_terms">
+            <EntityTypeMapping TypeName="Espiga_DBModel.payment_terms">
+              <MappingFragment StoreEntitySet="payment_terms">
+                <ScalarProperty Name="term_id" ColumnName="term_id" />
+                <ScalarProperty Name="term_name" ColumnName="term_name" />
+                <ScalarProperty Name="days_due" ColumnName="days_due" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchase_invoice_lines">
+            <EntityTypeMapping TypeName="Espiga_DBModel.purchase_invoice_lines">
+              <MappingFragment StoreEntitySet="purchase_invoice_lines">
+                <ScalarProperty Name="purchase_invoice_line_id" ColumnName="purchase_invoice_line_id" />
+                <ScalarProperty Name="purchase_invoice_id" ColumnName="purchase_invoice_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="unit_cost" ColumnName="unit_cost" />
+                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+                <ScalarProperty Name="tax_amount" ColumnName="tax_amount" />
+                <ScalarProperty Name="line_total" ColumnName="line_total" />
+                <ScalarProperty Name="lot_reference" ColumnName="lot_reference" />
+                <ScalarProperty Name="expiration_date" ColumnName="expiration_date" />
+                <ScalarProperty Name="received_date" ColumnName="received_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchase_invoices">
+            <EntityTypeMapping TypeName="Espiga_DBModel.purchase_invoices">
+              <MappingFragment StoreEntitySet="purchase_invoices">
+                <ScalarProperty Name="purchase_invoice_id" ColumnName="purchase_invoice_id" />
+                <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+                <ScalarProperty Name="invoice_number" ColumnName="invoice_number" />
+                <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="term_id" ColumnName="term_id" />
+                <ScalarProperty Name="due_date" ColumnName="due_date" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="tax_total" ColumnName="tax_total" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="Espiga_DBModel.suppliers">
+              <MappingFragment StoreEntitySet="suppliers">
+                <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales_invoice_lines">
+            <EntityTypeMapping TypeName="Espiga_DBModel.sales_invoice_lines">
+              <MappingFragment StoreEntitySet="sales_invoice_lines">
+                <ScalarProperty Name="sales_invoice_line_id" ColumnName="sales_invoice_line_id" />
+                <ScalarProperty Name="sales_invoice_id" ColumnName="sales_invoice_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="qty_sold" ColumnName="qty_sold" />
+                <ScalarProperty Name="unit_price_list" ColumnName="unit_price_list" />
+                <ScalarProperty Name="unit_price_final" ColumnName="unit_price_final" />
+                <ScalarProperty Name="promotion_id" ColumnName="promotion_id" />
+                <ScalarProperty Name="discount_amount" ColumnName="discount_amount" />
+                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+                <ScalarProperty Name="tax_amount" ColumnName="tax_amount" />
+                <ScalarProperty Name="line_subtotal" ColumnName="line_subtotal" />
+                <ScalarProperty Name="line_total" ColumnName="line_total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales_invoices">
+            <EntityTypeMapping TypeName="Espiga_DBModel.sales_invoices">
+              <MappingFragment StoreEntitySet="sales_invoices">
+                <ScalarProperty Name="sales_invoice_id" ColumnName="sales_invoice_id" />
+                <ScalarProperty Name="sales_number" ColumnName="sales_number" />
+                <ScalarProperty Name="sales_datetime" ColumnName="sales_datetime" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="payment_method" ColumnName="payment_method" />
+                <ScalarProperty Name="payment_reference" ColumnName="payment_reference" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="discount_total" ColumnName="discount_total" />
+                <ScalarProperty Name="tax_total" ColumnName="tax_total" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RegisterUser" FunctionName="Espiga_DBModel.Store.RegisterUser" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

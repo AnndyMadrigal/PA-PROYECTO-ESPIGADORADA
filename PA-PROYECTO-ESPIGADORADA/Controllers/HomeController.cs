@@ -1,4 +1,7 @@
-﻿using System;
+﻿using PA_PROYECTO_ESPIGADORADA.EntityFramework;
+using PA_PROYECTO_ESPIGADORADA.Models;
+using System.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -37,24 +40,25 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            ViewBag.Message = "Register Page";
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(string username, string password, string confirmPassword)
+        public ActionResult Register(UserModel model)
         {
-            if (password != confirmPassword)
+            using (var context = new Espiga_DBEntities())
+            { 
+            var result = context.RegisterUser(model.Identification, model.Name, model.Email, model.Password);
+
+            if (result <= 0)
             {
-                ViewBag.Error = "Las contraseñas no coinciden";
+                ViewBag.Mensaje = "Su información no se registró correctamente.";
                 return View();
             }
 
-            // aquí iría guardar en BD, de momento solo flujo
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Login", "Home");
         }
-
+        }
         [HttpGet]
         public ActionResult RecoverPassword()
         {
