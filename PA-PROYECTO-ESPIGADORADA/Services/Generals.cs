@@ -10,7 +10,6 @@ namespace PA_PROYECTO_ESPIGADORADA.Services
     {
         public void SendEmail(string recipient, string subject, string body)
         {
-            // Asegúrate de cambiar también estas llaves en tu Web.config o App.config
             var emailAccount = ConfigurationManager.AppSettings["EmailAccount"];
             var emailPassword = ConfigurationManager.AppSettings["EmailPassword"];
 

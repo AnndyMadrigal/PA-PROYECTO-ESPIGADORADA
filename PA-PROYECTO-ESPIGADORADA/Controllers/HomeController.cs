@@ -1,6 +1,7 @@
 ﻿using PA_PROYECTO_ESPIGADORADA.EntityFramework;
 using PA_PROYECTO_ESPIGADORADA.Models;
 using PA_PROYECTO_ESPIGADORADA.Services;
+using PA_PROYECTO_ESPIGADORADA.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,13 +14,19 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
 {
     public class HomeController : Controller
     {
+
+
         readonly Generals generals = new Generals();
 
+        [ActiveSession]
+        #region Index
         [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
+        #endregion 
+
         #region login
         [HttpGet]
         public ActionResult Login()
@@ -121,6 +128,16 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                 generals.SendEmail(result.email, "Recuperar Acceso", finalHtml);
                 return RedirectToAction("Login", "Home");
             }
+        }
+        #endregion
+
+        #region Logout
+        [ActiveSession]
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Login", "Home");
         }
         #endregion
     }

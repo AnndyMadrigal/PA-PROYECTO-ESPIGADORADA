@@ -1,27 +1,28 @@
 USE [master]
 GO
-/****** Object:  Database [Espiga_DB]    Script Date: 10/3/2026 17:01:09 ******/
+
 CREATE DATABASE [Espiga_DB]
  
+GO
+
 USE [Espiga_DB]
 GO
-/****** Object:  Schema [core]    Script Date: 10/3/2026 17:01:10 ******/
+/****** Object:  Schema [core]    Script Date: 14/3/2026 14:33:35 ******/
 CREATE SCHEMA [core]
 GO
-/****** Object:  Schema [geo]    Script Date: 10/3/2026 17:01:10 ******/
+/****** Object:  Schema [geo]    Script Date: 14/3/2026 14:33:35 ******/
 CREATE SCHEMA [geo]
 GO
-/****** Object:  Schema [inventory]    Script Date: 10/3/2026 17:01:10 ******/
+/****** Object:  Schema [inventory]    Script Date: 14/3/2026 14:33:35 ******/
 CREATE SCHEMA [inventory]
 GO
-/****** Object:  Schema [purchasing]    Script Date: 10/3/2026 17:01:10 ******/
+/****** Object:  Schema [purchasing]    Script Date: 14/3/2026 14:33:35 ******/
 CREATE SCHEMA [purchasing]
 GO
-/****** Object:  Schema [sales]    Script Date: 10/3/2026 17:01:10 ******/
+/****** Object:  Schema [sales]    Script Date: 14/3/2026 14:33:35 ******/
 CREATE SCHEMA [sales]
 GO
-/****** Object:  Table [core].[product_categories]    Script Date: 10/3/2026 17:01:10 ******/
-
+/****** Object:  Table [core].[product_categories]    Script Date: 14/3/2026 14:33:35 ******/
 CREATE TABLE [core].[product_categories](
 	[category_id] [int] IDENTITY(1,1) NOT NULL,
 	[category_name] [nvarchar](120) NOT NULL,
@@ -135,12 +136,12 @@ GO
 CREATE TABLE [core].[users](
 	[user_id] [int] IDENTITY(1,1) NOT NULL,
 	[role_id] [int] NOT NULL,
-	[name] [nvarchar](255) NOT NULL,
+	[identification] [varchar](15) NOT NULL,
+	[name] [varchar](100) NOT NULL,
 	[email] [varchar](100) NOT NULL,
-	[username] [varchar](50) NOT NULL,
-	[password_hash] [varchar](255) NOT NULL,
+	[password] [varchar](255) NOT NULL,
 	[is_active] [tinyint] NOT NULL,
-PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED 
 (
 	[user_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
@@ -307,17 +308,27 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
-ALTER TABLE [core].[users] ADD UNIQUE NONCLUSTERED 
-(
-	[email] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+SET IDENTITY_INSERT [core].[roles] ON 
 GO
-
-ALTER TABLE [core].[users] ADD UNIQUE NONCLUSTERED 
-(
-	[username] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+INSERT [core].[roles] ([role_id], [role_code], [role_name]) VALUES (1, N'SYS_ADMIN', N'Administrador del Sistema')
+GO
+INSERT [core].[roles] ([role_id], [role_code], [role_name]) VALUES (2, N'APP_ADMIN', N'Administrador de la App')
+GO
+INSERT [core].[roles] ([role_id], [role_code], [role_name]) VALUES (3, N'APP_USER', N'Usuario Cliente')
+GO
+SET IDENTITY_INSERT [core].[roles] OFF
+GO
+SET IDENTITY_INSERT [core].[users] ON 
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active]) VALUES (1, 3, N'118290068', N'MADRIGAL DELGADO ANNDY JOSSUE', N'amadrigal90068@ufide.ac.cr', N'123', 1)
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active]) VALUES (2, 3, N'118290067', N'GUTIERREZ CERSOSIMO JORGE FABRICIO', N'jgutierrez90067@ufide.ac.cr', N'12345', 1)
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active]) VALUES (3, 3, N'118290066', N'SALAZAR AVALOS KEILYN JEANNETH', N'ksalazar90066@ufide.ac.cr', N'12345', 1)
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active]) VALUES (4, 3, N'208680839', N'ALFARO RIVERA CAMILA ALEXANDRA', N'calfaro80839@ufide.ac.cr', N'1234', 1)
+GO
+SET IDENTITY_INSERT [core].[users] OFF
 GO
 ALTER TABLE [core].[product_categories] ADD  DEFAULT ((1)) FOR [is_active]
 GO
@@ -330,8 +341,6 @@ GO
 ALTER TABLE [core].[user_addresses] ADD  DEFAULT ((0)) FOR [is_primary]
 GO
 ALTER TABLE [core].[user_phones] ADD  DEFAULT ((0)) FOR [is_primary]
-GO
-ALTER TABLE [core].[users] ADD  DEFAULT ((1)) FOR [is_active]
 GO
 ALTER TABLE [purchasing].[suppliers] ADD  DEFAULT ((1)) FOR [is_active]
 GO
@@ -434,6 +443,75 @@ ALTER TABLE [sales].[sales_invoices]  WITH CHECK ADD  CONSTRAINT [FK_sales_invoi
 REFERENCES [core].[users] ([user_id])
 GO
 ALTER TABLE [sales].[sales_invoices] CHECK CONSTRAINT [FK_sales_invoices_users]
+GO
+
+CREATE PROCEDURE [core].[LoginUser]
+	@Email varchar(100),
+	@Password varchar(255)
+AS
+BEGIN
+	
+	SELECT	U.user_id,
+			identification,
+			name,
+			email,
+			U.role_id,
+			R.role_name
+	FROM	users U
+	INNER	JOIN roles R ON U.role_id = R.role_id
+	WHERE	email = @Email
+		AND password = @Password
+		AND is_active = 1
+
+END
+GO
+
+CREATE PROCEDURE [core].[RegisterUser]
+	@Identification varchar(15),
+	@Name varchar(100),
+	@Email varchar(100),
+	@Password varchar(255)
+	
+	
+AS
+BEGIN
+
+	Declare @Role_id INT = 3,
+			@Is_Active INT = 1
+	
+    INSERT INTO core.users (role_id, identification, name, email, password, is_active)
+    VALUES (@Role_id, @Identification,@Name,@Email,@Password,@Is_Active)
+
+END
+GO
+
+CREATE PROCEDURE [core].[UpdatePassword]
+	@Password VARCHAR(15),
+	@User_id INT
+AS
+BEGIN
+	
+	UPDATE	core.users
+	SET		password = @Password
+	WHERE	user_id = @User_id
+
+END
+GO
+
+CREATE PROCEDURE [core].[ValidateEmail]
+	@Email varchar(100)
+AS
+BEGIN
+	
+	SELECT	user_id,
+			identification,
+			name,
+			email
+	FROM	users
+	WHERE	email = @Email
+		AND is_active = 1
+
+END
 GO
 USE [master]
 GO
