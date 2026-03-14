@@ -1,13 +1,13 @@
 ﻿$(function () {
-  $("#FormRecuperarContrasenna").validate({
+  $("#FormRecoverPassword").validate({
     rules: {
-      CorreoElectronico: {
+      Email: {
         required: true,
         email: true
       }
     },
     messages: {
-      CorreoElectronico: {
+      Email: {
         required: "Campo requerido",
         email: "Formato incorrecto"
       }

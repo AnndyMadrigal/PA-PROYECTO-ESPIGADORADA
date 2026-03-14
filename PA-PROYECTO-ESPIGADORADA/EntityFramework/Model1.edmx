@@ -481,6 +481,13 @@
           <Parameter Name="Email" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="UpdatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="User_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ValidateEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="Espiga_DBModelStoreContainer">
           <EntitySet Name="product_categories" EntityType="Self.product_categories" Schema="core" store:Type="Tables" />
           <EntitySet Name="products" EntityType="Self.products" Schema="core" store:Type="Tables" />
@@ -1204,6 +1211,13 @@
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="UpdatePassword">
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="User_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ValidateEmail" ReturnType="Collection(Espiga_DBModel.ValidateEmail_Result)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="LoginUser_Result">
           <Property Type="Int32" Name="user_id" Nullable="false" />
@@ -1212,6 +1226,12 @@
           <Property Type="String" Name="email" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="role_id" Nullable="false" />
           <Property Type="String" Name="role_name" Nullable="false" MaxLength="80" />
+        </ComplexType>
+        <ComplexType Name="ValidateEmail_Result">
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="identification" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="100" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1475,6 +1495,17 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="role_id" ColumnName="role_id" />
                 <ScalarProperty Name="role_name" ColumnName="role_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdatePassword" FunctionName="Espiga_DBModel.Store.UpdatePassword" />
+          <FunctionImportMapping FunctionImportName="ValidateEmail" FunctionName="Espiga_DBModel.Store.ValidateEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Espiga_DBModel.ValidateEmail_Result">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="identification" ColumnName="identification" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

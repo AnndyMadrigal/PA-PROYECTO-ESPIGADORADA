@@ -1,27 +1,30 @@
 ﻿using PA_PROYECTO_ESPIGADORADA.EntityFramework;
 using PA_PROYECTO_ESPIGADORADA.Models;
+using PA_PROYECTO_ESPIGADORADA.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
+
 
 namespace PA_PROYECTO_ESPIGADORADA.Controllers
 {
     public class HomeController : Controller
     {
+        readonly Generals generals = new Generals();
+
         [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
-
+        #region login
         [HttpGet]
         public ActionResult Login()
         {
-            ViewBag.Message = "Login Page";
+            ViewBag.Message = "Página de Inicio de Sesión";
 
             return View();
         }
@@ -45,28 +48,80 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        #endregion
+
+        #region User Registration
+        [HttpGet]
+        public ActionResult Register()
+        {
+            ViewBag.Message = "Página de Registro";
+
+            return View();
+        }
 
         [HttpPost]
         public ActionResult Register(UserModel model)
         {
             using (var context = new Espiga_DBEntities())
-            { 
-            var result = context.RegisterUser(model.Identification, model.Name, model.Email, model.Password);
-
-            if (result <= 0)
             {
-                ViewBag.Mensaje = "Su información no se registró correctamente.";
-                return View();
-            }
+                var result = context.RegisterUser(model.Identification, model.Name, model.Email, model.Password);
 
-            return RedirectToAction("Login", "Home");
+                if (result <= 0)
+                {
+                    ViewBag.Mensaje = "Su información no se registró correctamente.";
+                    return View();
+                }
+
+                return RedirectToAction("Login", "Home");
+            }
         }
-        }
+        #endregion
+
+        #region Recover Password
         [HttpGet]
         public ActionResult RecoverPassword()
         {
-            
+
             return View();
         }
+
+        [HttpPost]
+        public ActionResult RecoverPassword(UserModel model)
+        {
+            using (var context = new Espiga_DBEntities())
+            {
+                var result = context.ValidateEmail(model.Email).FirstOrDefault();
+
+                if (result == null)
+                {
+                    ViewBag.Mensaje = "Su información no se validó correctamente.";
+                    return View();
+                }
+
+                //Se genera la contraseña nueva
+                var newPassword = generals.GeneratePassword();
+
+                //Se actualiza la contraseña en la base de datos
+                var update = context.UpdatePassword(newPassword, result.user_id);
+
+                if (update <= 0)
+                {
+                    ViewBag.Mensaje = "Su información no se actualizó correctamente.";
+                    return View();
+                }
+
+                //Se envía un correo electrónico al usuario con la nueva contraseña
+                string rutaHtml = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "RecoverPassword.html");
+                string htmlContent = System.IO.File.ReadAllText(rutaHtml);
+
+                string finalHtml = htmlContent
+                    .Replace("{{USER_NAME}}", result.name)
+                    .Replace("{{NEW_PASSWORD}}", newPassword);
+
+                generals.SendEmail(result.email, "Recuperar Acceso", finalHtml);
+                return RedirectToAction("Login", "Home");
+            }
+        }
+        #endregion
     }
 }

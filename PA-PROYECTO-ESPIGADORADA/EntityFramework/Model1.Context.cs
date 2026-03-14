@@ -81,5 +81,27 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<LoginUser_Result>("LoginUser", emailParameter, passwordParameter);
         }
+    
+        public virtual int UpdatePassword(string password, Nullable<int> user_id)
+        {
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var user_idParameter = user_id.HasValue ?
+                new ObjectParameter("User_id", user_id) :
+                new ObjectParameter("User_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdatePassword", passwordParameter, user_idParameter);
+        }
+    
+        public virtual ObjectResult<ValidateEmail_Result> ValidateEmail(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ValidateEmail_Result>("ValidateEmail", emailParameter);
+        }
     }
 }
