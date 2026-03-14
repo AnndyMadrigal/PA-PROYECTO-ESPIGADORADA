@@ -1,20 +1,20 @@
 ﻿$(function () {
   $("#FormLogin").validate({
     rules: {
-      CorreoElectronico: {
+      Email: {
         required: true,
         email: true
       },
-      Contrasenna: {
+      Password: {
         required: true
       }
     },
     messages: {
-      CorreoElectronico: {
+      Email: {
         required: "Campo requerido",
         email: "Formato incorrecto"
       },
-      Contrasenna: {
+      Password: {
         required: "Campo requerido"
       }
     },

@@ -16,10 +16,10 @@
             <div class="w-100 mx-auto" style="max-width: 500px;">
                 <h2 class="text-primary fw-bold mb-4">Registro</h2>
 
-                @if (ViewBag.Error != null)
+                @if (ViewBag.Mensaje != null)
                 {
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        @ViewBag.Error
+                        @ViewBag.Mensaje
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 }

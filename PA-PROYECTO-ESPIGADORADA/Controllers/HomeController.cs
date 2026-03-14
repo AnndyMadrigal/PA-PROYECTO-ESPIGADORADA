@@ -1,9 +1,10 @@
 ﻿using PA_PROYECTO_ESPIGADORADA.EntityFramework;
 using PA_PROYECTO_ESPIGADORADA.Models;
-using System.IO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
@@ -26,21 +27,23 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(UserModel model)
         {
-            if (username == "admin" && password == "123")
+            using (var context = new Espiga_DBEntities())
             {
+                var result = context.LoginUser(model.Email, model.Password).FirstOrDefault();
+
+                if (result == null)
+                {
+                    ViewBag.Mensaje = "Su información no se autenticó correctamente.";
+                    return View();
+                }
+
+                Session["User_ID"] = result.user_id;
+                Session["Name"] = result.name;
+                Session["Email"] = result.email;
                 return RedirectToAction("Index", "Home");
             }
-
-            ViewBag.Error = "Usuario o contraseña incorrectos";
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult Register()
-        {
-            return View();
         }
 
         [HttpPost]
