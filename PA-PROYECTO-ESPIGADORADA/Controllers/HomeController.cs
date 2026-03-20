@@ -12,9 +12,8 @@ using System.Web.Mvc;
 
 namespace PA_PROYECTO_ESPIGADORADA.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-
 
         readonly Generals generals = new Generals();
 
@@ -27,7 +26,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
         }
         #endregion 
 
-        #region login
+        #region LOGIN
         [HttpGet]
         public ActionResult Login()
         {
@@ -50,6 +49,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                 }
 
                 Session["User_ID"] = result.user_id;
+                Session["Role_ID"] = result.role_id;
                 Session["Name"] = result.name;
                 Session["Email"] = result.email;
                 return RedirectToAction("Index", "Home");
@@ -67,11 +67,17 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Register(UserModel model)
         {
+            string currentUser = GetAuditUser();
+
+            int clientRole = 3;
+
             using (var context = new Espiga_DBEntities())
             {
-                var result = context.RegisterUser(model.Identification, model.Name, model.Email, model.Password);
+
+                var result = context.RegisterUser(clientRole, model.Identification, model.Name, model.Email, model.Password, currentUser);
 
                 if (result <= 0)
                 {
@@ -95,6 +101,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
         [HttpPost]
         public ActionResult RecoverPassword(UserModel model)
         {
+            string currentUser = GetAuditUser();
             using (var context = new Espiga_DBEntities())
             {
                 var result = context.ValidateEmail(model.Email).FirstOrDefault();
@@ -109,7 +116,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                 var newPassword = generals.GeneratePassword();
 
                 //Se actualiza la contraseña en la base de datos
-                var update = context.UpdatePassword(newPassword, result.user_id);
+                var update = context.UpdatePassword(newPassword, result.user_id, currentUser);
 
                 if (update <= 0)
                 {

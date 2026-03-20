@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace PA_PROYECTO_ESPIGADORADA.Controllers
 {
-    public class SecurityController : Controller
+    public class SecurityController : BaseController
     {
         readonly Generals generals = new Generals();
         [HttpGet]
