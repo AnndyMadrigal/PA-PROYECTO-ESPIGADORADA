@@ -3,30 +3,33 @@ GO
 
 CREATE DATABASE [Espiga_DB]
  
-GO
-
 USE [Espiga_DB]
 GO
-/****** Object:  Schema [core]    Script Date: 14/3/2026 14:33:35 ******/
+/****** Object:  Schema [core]    Script Date: 19/3/2026 19:56:36 ******/
 CREATE SCHEMA [core]
 GO
-/****** Object:  Schema [geo]    Script Date: 14/3/2026 14:33:35 ******/
+/****** Object:  Schema [geo]    Script Date: 19/3/2026 19:56:36 ******/
 CREATE SCHEMA [geo]
 GO
-/****** Object:  Schema [inventory]    Script Date: 14/3/2026 14:33:35 ******/
+/****** Object:  Schema [inventory]    Script Date: 19/3/2026 19:56:36 ******/
 CREATE SCHEMA [inventory]
 GO
-/****** Object:  Schema [purchasing]    Script Date: 14/3/2026 14:33:35 ******/
+/****** Object:  Schema [purchasing]    Script Date: 19/3/2026 19:56:36 ******/
 CREATE SCHEMA [purchasing]
 GO
-/****** Object:  Schema [sales]    Script Date: 14/3/2026 14:33:35 ******/
+/****** Object:  Schema [sales]    Script Date: 19/3/2026 19:56:36 ******/
 CREATE SCHEMA [sales]
 GO
-/****** Object:  Table [core].[product_categories]    Script Date: 14/3/2026 14:33:35 ******/
+
 CREATE TABLE [core].[product_categories](
 	[category_id] [int] IDENTITY(1,1) NOT NULL,
 	[category_name] [nvarchar](120) NOT NULL,
 	[is_active] [tinyint] NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[category_id] ASC
@@ -45,6 +48,11 @@ CREATE TABLE [core].[products](
 	[min_stock] [decimal](18, 3) NOT NULL,
 	[tax_id] [int] NOT NULL,
 	[is_active] [tinyint] NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[product_id] ASC
@@ -60,6 +68,11 @@ CREATE TABLE [core].[promotions](
 	[start_date] [datetime] NOT NULL,
 	[end_date] [datetime] NOT NULL,
 	[is_active] [tinyint] NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[promotion_id] ASC
@@ -71,6 +84,11 @@ CREATE TABLE [core].[roles](
 	[role_id] [int] IDENTITY(1,1) NOT NULL,
 	[role_code] [varchar](40) NOT NULL,
 	[role_name] [varchar](80) NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[role_id] ASC
@@ -84,6 +102,11 @@ CREATE TABLE [core].[settings](
 	[currency_symbol] [varchar](5) NOT NULL,
 	[support_email] [varchar](100) NOT NULL,
 	[low_stock_threshold] [int] NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[setting_id] ASC
@@ -96,6 +119,11 @@ CREATE TABLE [core].[taxes](
 	[tax_name] [varchar](40) NOT NULL,
 	[tax_rate] [decimal](4, 2) NOT NULL,
 	[is_active] [tinyint] NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[tax_id] ASC
@@ -112,6 +140,11 @@ CREATE TABLE [core].[user_addresses](
 	[address_line_2] [nvarchar](255) NULL,
 	[zip_code] [varchar](12) NULL,
 	[is_primary] [tinyint] NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[address_id] ASC
@@ -126,6 +159,11 @@ CREATE TABLE [core].[user_phones](
 	[country_code] [varchar](6) NOT NULL,
 	[phone_number] [varchar](30) NOT NULL,
 	[is_primary] [tinyint] NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[phone_id] ASC
@@ -141,6 +179,11 @@ CREATE TABLE [core].[users](
 	[email] [varchar](100) NOT NULL,
 	[password] [varchar](255) NOT NULL,
 	[is_active] [tinyint] NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
  CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED 
 (
 	[user_id] ASC
@@ -152,6 +195,11 @@ CREATE TABLE [geo].[cantons](
 	[canton_id] [int] IDENTITY(1,1) NOT NULL,
 	[province_id] [int] NOT NULL,
 	[canton_name] [nvarchar](80) NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[canton_id] ASC
@@ -163,6 +211,11 @@ CREATE TABLE [geo].[districts](
 	[district_id] [int] IDENTITY(1,1) NOT NULL,
 	[canton_id] [int] NOT NULL,
 	[district_name] [nvarchar](80) NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[district_id] ASC
@@ -173,6 +226,11 @@ GO
 CREATE TABLE [geo].[provinces](
 	[province_id] [int] IDENTITY(1,1) NOT NULL,
 	[province_name] [nvarchar](80) NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[province_id] ASC
@@ -189,6 +247,11 @@ CREATE TABLE [inventory].[inventory_movements](
 	[reference_table] [varchar](50) NULL,
 	[reference_id] [int] NULL,
 	[notes] [nvarchar](250) NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[movement_id] ASC
@@ -200,6 +263,11 @@ CREATE TABLE [inventory].[inventory_stock](
 	[inventory_stock_id] [int] IDENTITY(1,1) NOT NULL,
 	[product_id] [int] NOT NULL,
 	[qty_available] [decimal](18, 3) NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[inventory_stock_id] ASC
@@ -211,6 +279,11 @@ CREATE TABLE [purchasing].[payment_terms](
 	[term_id] [int] IDENTITY(1,1) NOT NULL,
 	[term_name] [varchar](60) NOT NULL,
 	[days_due] [int] NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[term_id] ASC
@@ -230,6 +303,11 @@ CREATE TABLE [purchasing].[purchase_invoice_lines](
 	[lot_reference] [nvarchar](80) NULL,
 	[expiration_date] [date] NULL,
 	[received_date] [date] NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[purchase_invoice_line_id] ASC
@@ -249,9 +327,33 @@ CREATE TABLE [purchasing].[purchase_invoices](
 	[total] [decimal](18, 2) NOT NULL,
 	[status] [varchar](20) NOT NULL,
 	[notes] [nvarchar](250) NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[purchase_invoice_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [purchasing].[supplier_payments](
+	[payment_id] [int] IDENTITY(1,1) NOT NULL,
+	[purchase_invoice_id] [int] NOT NULL,
+	[payment_date] [datetime] NOT NULL,
+	[amount_paid] [decimal](18, 2) NOT NULL,
+	[payment_method] [varchar](30) NOT NULL,
+	[reference_number] [nvarchar](80) NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[payment_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -262,6 +364,11 @@ CREATE TABLE [purchasing].[suppliers](
 	[email] [varchar](100) NULL,
 	[phone] [varchar](30) NULL,
 	[is_active] [tinyint] NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[supplier_id] ASC
@@ -282,6 +389,11 @@ CREATE TABLE [sales].[sales_invoice_lines](
 	[tax_amount] [decimal](18, 2) NOT NULL,
 	[line_subtotal] [decimal](18, 2) NOT NULL,
 	[line_total] [decimal](18, 2) NOT NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[sales_invoice_line_id] ASC
@@ -302,33 +414,16 @@ CREATE TABLE [sales].[sales_invoices](
 	[tax_total] [decimal](18, 2) NOT NULL,
 	[total] [decimal](18, 2) NOT NULL,
 	[notes] [nvarchar](250) NULL,
+	[created_by] [varchar](100) NULL,
+	[modified_by] [varchar](100) NULL,
+	[action] [varchar](100) NULL,
+	[created_at] [datetime] NULL,
+	[modified_at] [datetime] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[sales_invoice_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-SET IDENTITY_INSERT [core].[roles] ON 
-GO
-INSERT [core].[roles] ([role_id], [role_code], [role_name]) VALUES (1, N'SYS_ADMIN', N'Administrador del Sistema')
-GO
-INSERT [core].[roles] ([role_id], [role_code], [role_name]) VALUES (2, N'APP_ADMIN', N'Administrador de la App')
-GO
-INSERT [core].[roles] ([role_id], [role_code], [role_name]) VALUES (3, N'APP_USER', N'Usuario Cliente')
-GO
-SET IDENTITY_INSERT [core].[roles] OFF
-GO
-SET IDENTITY_INSERT [core].[users] ON 
-GO
-INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active]) VALUES (1, 3, N'118290068', N'MADRIGAL DELGADO ANNDY JOSSUE', N'amadrigal90068@ufide.ac.cr', N'123', 1)
-GO
-INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active]) VALUES (2, 3, N'118290067', N'GUTIERREZ CERSOSIMO JORGE FABRICIO', N'jgutierrez90067@ufide.ac.cr', N'12345', 1)
-GO
-INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active]) VALUES (3, 3, N'118290066', N'SALAZAR AVALOS KEILYN JEANNETH', N'ksalazar90066@ufide.ac.cr', N'12345', 1)
-GO
-INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active]) VALUES (4, 3, N'208680839', N'ALFARO RIVERA CAMILA ALEXANDRA', N'calfaro80839@ufide.ac.cr', N'1234', 1)
-GO
-SET IDENTITY_INSERT [core].[users] OFF
 GO
 ALTER TABLE [core].[product_categories] ADD  DEFAULT ((1)) FOR [is_active]
 GO
@@ -419,6 +514,11 @@ REFERENCES [purchasing].[suppliers] ([supplier_id])
 GO
 ALTER TABLE [purchasing].[purchase_invoices] CHECK CONSTRAINT [FK_purchase_invoices_suppliers]
 GO
+ALTER TABLE [purchasing].[supplier_payments]  WITH CHECK ADD  CONSTRAINT [FK_supplier_payments_purchase_invoices] FOREIGN KEY([purchase_invoice_id])
+REFERENCES [purchasing].[purchase_invoices] ([purchase_invoice_id])
+GO
+ALTER TABLE [purchasing].[supplier_payments] CHECK CONSTRAINT [FK_supplier_payments_purchase_invoices]
+GO
 ALTER TABLE [sales].[sales_invoice_lines]  WITH CHECK ADD  CONSTRAINT [FK_sales_invoice_lines_products] FOREIGN KEY([product_id])
 REFERENCES [core].[products] ([product_id])
 GO
@@ -445,6 +545,7 @@ GO
 ALTER TABLE [sales].[sales_invoices] CHECK CONSTRAINT [FK_sales_invoices_users]
 GO
 
+
 CREATE PROCEDURE [core].[LoginUser]
 	@Email varchar(100),
 	@Password varchar(255)
@@ -467,36 +568,36 @@ END
 GO
 
 CREATE PROCEDURE [core].[RegisterUser]
-	@Identification varchar(15),
-	@Name varchar(100),
-	@Email varchar(100),
-	@Password varchar(255)
-	
-	
+    @RoleId INT,
+    @Identification varchar(15),
+    @Name varchar(100),
+    @Email varchar(100),
+    @Password varchar(255),
+    @CreatedBy varchar(100)
 AS
 BEGIN
-
-	Declare @Role_id INT = 3,
-			@Is_Active INT = 1
-	
-    INSERT INTO core.users (role_id, identification, name, email, password, is_active)
-    VALUES (@Role_id, @Identification,@Name,@Email,@Password,@Is_Active)
-
+    Declare @Is_Active INT = 1
+    
+    INSERT INTO core.users (role_id, identification, name, email, password, is_active, created_by)
+    VALUES (@RoleId, @Identification, @Name, @Email, @Password, @Is_Active, @CreatedBy)
 END
 GO
 
 CREATE PROCEDURE [core].[UpdatePassword]
-	@Password VARCHAR(15),
-	@User_id INT
+	@Password VARCHAR(255),
+	@User_id INT,
+	@ModifiedBy varchar(100)
 AS
 BEGIN
 	
 	UPDATE	core.users
-	SET		password = @Password
+	SET		password = @Password,
+			modified_by = @ModifiedBy
 	WHERE	user_id = @User_id
 
 END
 GO
+
 
 CREATE PROCEDURE [core].[ValidateEmail]
 	@Email varchar(100)
