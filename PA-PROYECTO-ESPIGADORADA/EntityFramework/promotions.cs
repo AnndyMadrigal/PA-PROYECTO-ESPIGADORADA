@@ -27,6 +27,11 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public System.DateTime start_date { get; set; }
         public System.DateTime end_date { get; set; }
         public byte is_active { get; set; }
+        public string created_by { get; set; }
+        public string modified_by { get; set; }
+        public string action { get; set; }
+        public Nullable<System.DateTime> created_at { get; set; }
+        public Nullable<System.DateTime> modified_at { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sales_invoice_lines> sales_invoice_lines { get; set; }

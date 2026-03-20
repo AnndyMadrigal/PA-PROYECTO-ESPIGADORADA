@@ -23,6 +23,11 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public int district_id { get; set; }
         public int canton_id { get; set; }
         public string district_name { get; set; }
+        public string created_by { get; set; }
+        public string modified_by { get; set; }
+        public string action { get; set; }
+        public Nullable<System.DateTime> created_at { get; set; }
+        public Nullable<System.DateTime> modified_at { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<user_addresses> user_addresses { get; set; }

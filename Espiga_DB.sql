@@ -1,26 +1,107 @@
 USE [master]
 GO
-
+/****** Object:  Database [Espiga_DB]    Script Date: 19/3/2026 23:48:13 ******/
 CREATE DATABASE [Espiga_DB]
- 
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Espiga_DB', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\Espiga_DB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Espiga_DB_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\Espiga_DB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [Espiga_DB] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Espiga_DB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Espiga_DB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [Espiga_DB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Espiga_DB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Espiga_DB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [Espiga_DB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Espiga_DB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [Espiga_DB] SET  MULTI_USER 
+GO
+ALTER DATABASE [Espiga_DB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Espiga_DB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Espiga_DB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Espiga_DB] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Espiga_DB] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Espiga_DB] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [Espiga_DB] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [Espiga_DB] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
 USE [Espiga_DB]
 GO
-/****** Object:  Schema [core]    Script Date: 19/3/2026 19:56:36 ******/
+/****** Object:  Schema [core]    Script Date: 19/3/2026 23:48:14 ******/
 CREATE SCHEMA [core]
 GO
-/****** Object:  Schema [geo]    Script Date: 19/3/2026 19:56:36 ******/
+/****** Object:  Schema [geo]    Script Date: 19/3/2026 23:48:14 ******/
 CREATE SCHEMA [geo]
 GO
-/****** Object:  Schema [inventory]    Script Date: 19/3/2026 19:56:36 ******/
+/****** Object:  Schema [inventory]    Script Date: 19/3/2026 23:48:14 ******/
 CREATE SCHEMA [inventory]
 GO
-/****** Object:  Schema [purchasing]    Script Date: 19/3/2026 19:56:36 ******/
+/****** Object:  Schema [purchasing]    Script Date: 19/3/2026 23:48:14 ******/
 CREATE SCHEMA [purchasing]
 GO
-/****** Object:  Schema [sales]    Script Date: 19/3/2026 19:56:36 ******/
+/****** Object:  Schema [sales]    Script Date: 19/3/2026 23:48:14 ******/
 CREATE SCHEMA [sales]
 GO
-
+/****** Object:  Table [core].[product_categories]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [core].[product_categories](
 	[category_id] [int] IDENTITY(1,1) NOT NULL,
 	[category_name] [nvarchar](120) NOT NULL,
@@ -36,7 +117,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [core].[products]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [core].[products](
 	[product_id] [int] IDENTITY(1,1) NOT NULL,
 	[sku] [varchar](60) NULL,
@@ -59,7 +144,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [core].[promotions]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [core].[promotions](
 	[promotion_id] [int] IDENTITY(1,1) NOT NULL,
 	[promotion_name] [nvarchar](150) NOT NULL,
@@ -79,7 +168,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [core].[roles]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [core].[roles](
 	[role_id] [int] IDENTITY(1,1) NOT NULL,
 	[role_code] [varchar](40) NOT NULL,
@@ -95,7 +188,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [core].[settings]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [core].[settings](
 	[setting_id] [int] IDENTITY(1,1) NOT NULL,
 	[company_name] [nvarchar](150) NOT NULL,
@@ -113,7 +210,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [core].[taxes]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [core].[taxes](
 	[tax_id] [int] IDENTITY(1,1) NOT NULL,
 	[tax_name] [varchar](40) NOT NULL,
@@ -130,7 +231,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [core].[user_addresses]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [core].[user_addresses](
 	[address_id] [int] IDENTITY(1,1) NOT NULL,
 	[user_id] [int] NOT NULL,
@@ -151,7 +256,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [core].[user_phones]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [core].[user_phones](
 	[phone_id] [int] IDENTITY(1,1) NOT NULL,
 	[user_id] [int] NOT NULL,
@@ -170,7 +279,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [core].[users]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [core].[users](
 	[user_id] [int] IDENTITY(1,1) NOT NULL,
 	[role_id] [int] NOT NULL,
@@ -190,7 +303,11 @@ CREATE TABLE [core].[users](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [geo].[cantons]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [geo].[cantons](
 	[canton_id] [int] IDENTITY(1,1) NOT NULL,
 	[province_id] [int] NOT NULL,
@@ -206,7 +323,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [geo].[districts]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [geo].[districts](
 	[district_id] [int] IDENTITY(1,1) NOT NULL,
 	[canton_id] [int] NOT NULL,
@@ -222,7 +343,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [geo].[provinces]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [geo].[provinces](
 	[province_id] [int] IDENTITY(1,1) NOT NULL,
 	[province_name] [nvarchar](80) NOT NULL,
@@ -237,7 +362,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [inventory].[inventory_movements]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [inventory].[inventory_movements](
 	[movement_id] [int] IDENTITY(1,1) NOT NULL,
 	[movement_datetime] [datetime] NOT NULL,
@@ -258,7 +387,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [inventory].[inventory_stock]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [inventory].[inventory_stock](
 	[inventory_stock_id] [int] IDENTITY(1,1) NOT NULL,
 	[product_id] [int] NOT NULL,
@@ -274,7 +407,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [purchasing].[payment_terms]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [purchasing].[payment_terms](
 	[term_id] [int] IDENTITY(1,1) NOT NULL,
 	[term_name] [varchar](60) NOT NULL,
@@ -290,7 +427,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [purchasing].[purchase_invoice_lines]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [purchasing].[purchase_invoice_lines](
 	[purchase_invoice_line_id] [int] IDENTITY(1,1) NOT NULL,
 	[purchase_invoice_id] [int] NOT NULL,
@@ -314,7 +455,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [purchasing].[purchase_invoices]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [purchasing].[purchase_invoices](
 	[purchase_invoice_id] [int] IDENTITY(1,1) NOT NULL,
 	[supplier_id] [int] NOT NULL,
@@ -338,7 +483,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [purchasing].[supplier_payments]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [purchasing].[supplier_payments](
 	[payment_id] [int] IDENTITY(1,1) NOT NULL,
 	[purchase_invoice_id] [int] NOT NULL,
@@ -357,7 +506,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [purchasing].[suppliers]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [purchasing].[suppliers](
 	[supplier_id] [int] IDENTITY(1,1) NOT NULL,
 	[name] [nvarchar](255) NOT NULL,
@@ -375,7 +528,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [sales].[sales_invoice_lines]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [sales].[sales_invoice_lines](
 	[sales_invoice_line_id] [int] IDENTITY(1,1) NOT NULL,
 	[sales_invoice_id] [int] NOT NULL,
@@ -400,7 +557,11 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
+/****** Object:  Table [sales].[sales_invoices]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [sales].[sales_invoices](
 	[sales_invoice_id] [int] IDENTITY(1,1) NOT NULL,
 	[sales_number] [nvarchar](50) NULL,
@@ -424,6 +585,34 @@ PRIMARY KEY CLUSTERED
 	[sales_invoice_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [core].[roles] ON 
+GO
+INSERT [core].[roles] ([role_id], [role_code], [role_name], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (1, N'SYS_ADMIN', N'Administrador del Sistema', NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT [core].[roles] ([role_id], [role_code], [role_name], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (2, N'APP_ADMIN', N'Administrador de la App', NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT [core].[roles] ([role_id], [role_code], [role_name], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (3, N'APP_USER', N'Usuario Cliente', NULL, NULL, NULL, NULL, NULL)
+GO
+SET IDENTITY_INSERT [core].[roles] OFF
+GO
+SET IDENTITY_INSERT [core].[users] ON 
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (1, 3, N'118290068', N'MADRIGAL DELGADO ANNDY JOSSUE', N'amadrigal90068@ufide.ac.cr', N'1234', 1, NULL, N'DELGADO MORA ANA JULIA', N'UPDATE', NULL, CAST(N'2026-03-19T23:43:05.783' AS DateTime))
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (2, 3, N'118290067', N'GUTIERREZ CERSOSIMO JORGE FABRICIO', N'jgutierrez90067@ufide.ac.cr', N'12345', 1, NULL, N'DELGADO MORA ANA JULIA', N'UPDATE', NULL, CAST(N'2026-03-19T23:43:06.633' AS DateTime))
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (3, 3, N'118290066', N'SALAZAR AVALOS KEILYN JEANNETH', N'ksalazar90066@ufide.ac.cr', N'12', 0, NULL, N'DELGADO MORA ANA JULIA', N'UPDATE', NULL, CAST(N'2026-03-19T23:19:13.430' AS DateTime))
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (4, 3, N'208680839', N'ALFARO RIVERA CAMILA ALEXANDRA', N'calfaro80839@ufide.ac.cr', N'1234', 1, NULL, NULL, NULL, NULL, NULL)
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (5, 2, N'109320181', N'DELGADO MORA ANA JULIA', N'adelgado0181@ufide.ac.cr', N'123', 1, N'MADRIGAL DELGADO ANNDY JOSSUE', NULL, N'UPDATE', CAST(N'2026-03-19T20:49:28.973' AS DateTime), CAST(N'2026-03-19T20:49:28.977' AS DateTime))
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (6, 3, N'118290053', N'ALVARADO CASTILLO BIANCA LUNA', N'balvarado90053@ufide.ac.cr', N'123', 0, N'DELGADO MORA ANA JULIA', N'DELGADO MORA ANA JULIA', N'UPDATE', CAST(N'2026-03-19T23:21:46.690' AS DateTime), CAST(N'2026-03-19T23:44:10.790' AS DateTime))
+GO
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (7, 3, N'119290015', N'CAMPOS KOCHER MARIANA', N'mcampos90015@ufide.ac.cr', N'123', 1, N'DELGADO MORA ANA JULIA', NULL, N'UPDATE', CAST(N'2026-03-19T23:27:05.077' AS DateTime), CAST(N'2026-03-19T23:27:05.077' AS DateTime))
+GO
+SET IDENTITY_INSERT [core].[users] OFF
 GO
 ALTER TABLE [core].[product_categories] ADD  DEFAULT ((1)) FOR [is_active]
 GO
@@ -544,6 +733,31 @@ REFERENCES [core].[users] ([user_id])
 GO
 ALTER TABLE [sales].[sales_invoices] CHECK CONSTRAINT [FK_sales_invoices_users]
 GO
+/****** Object:  StoredProcedure [core].[GetUserById]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [core].[GetUserById]
+    @UserId INT
+AS
+BEGIN
+    SELECT  user_id, 
+            role_id, 
+            identification, 
+            name, 
+            email, 
+            is_active
+    FROM    core.users
+    WHERE   user_id = @UserId;
+END
+GO
+/****** Object:  StoredProcedure [core].[LoginUser]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 
 
 CREATE PROCEDURE [core].[LoginUser]
@@ -566,6 +780,11 @@ BEGIN
 
 END
 GO
+/****** Object:  StoredProcedure [core].[RegisterUser]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 
 CREATE PROCEDURE [core].[RegisterUser]
     @RoleId INT,
@@ -582,6 +801,11 @@ BEGIN
     VALUES (@RoleId, @Identification, @Name, @Email, @Password, @Is_Active, @CreatedBy)
 END
 GO
+/****** Object:  StoredProcedure [core].[UpdatePassword]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 
 CREATE PROCEDURE [core].[UpdatePassword]
 	@Password VARCHAR(255),
@@ -596,6 +820,33 @@ BEGIN
 	WHERE	user_id = @User_id
 
 END
+GO
+/****** Object:  StoredProcedure [core].[UpdateUser]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [core].[UpdateUser]
+    @UserId INT,
+    @Identification VARCHAR(15),
+    @Name VARCHAR(100),
+    @Email VARCHAR(100),
+    @ModifiedBy VARCHAR(100)
+AS
+BEGIN
+    UPDATE  core.users
+    SET     identification = @Identification,
+            name = @Name,
+            email = @Email,
+            modified_by = @ModifiedBy
+    WHERE   user_id = @UserId;
+END
+GO
+/****** Object:  StoredProcedure [core].[ValidateEmail]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
 GO
 
 
@@ -613,6 +864,967 @@ BEGIN
 		AND is_active = 1
 
 END
+GO
+/****** Object:  Trigger [core].[trg_product_categories_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 6. core.product_categories
+-- ==========================================
+CREATE TRIGGER [core].[trg_product_categories_insert]
+ON [core].[product_categories]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM core.product_categories t
+    INNER JOIN inserted i ON t.category_id = i.category_id;
+END;
+GO
+ALTER TABLE [core].[product_categories] ENABLE TRIGGER [trg_product_categories_insert]
+GO
+/****** Object:  Trigger [core].[trg_product_categories_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [core].[trg_product_categories_update]
+ON [core].[product_categories]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM core.product_categories t
+    INNER JOIN inserted i ON t.category_id = i.category_id;
+END;
+GO
+ALTER TABLE [core].[product_categories] ENABLE TRIGGER [trg_product_categories_update]
+GO
+/****** Object:  Trigger [core].[trg_products_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 8. core.products
+-- ==========================================
+CREATE TRIGGER [core].[trg_products_insert]
+ON [core].[products]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM core.products t
+    INNER JOIN inserted i ON t.product_id = i.product_id;
+END;
+GO
+ALTER TABLE [core].[products] ENABLE TRIGGER [trg_products_insert]
+GO
+/****** Object:  Trigger [core].[trg_products_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [core].[trg_products_update]
+ON [core].[products]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM core.products t
+    INNER JOIN inserted i ON t.product_id = i.product_id;
+END;
+GO
+ALTER TABLE [core].[products] ENABLE TRIGGER [trg_products_update]
+GO
+/****** Object:  Trigger [core].[trg_promotions_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 9. core.promotions
+-- ==========================================
+CREATE TRIGGER [core].[trg_promotions_insert]
+ON [core].[promotions]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM core.promotions t
+    INNER JOIN inserted i ON t.promotion_id = i.promotion_id;
+END;
+GO
+ALTER TABLE [core].[promotions] ENABLE TRIGGER [trg_promotions_insert]
+GO
+/****** Object:  Trigger [core].[trg_promotions_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [core].[trg_promotions_update]
+ON [core].[promotions]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM core.promotions t
+    INNER JOIN inserted i ON t.promotion_id = i.promotion_id;
+END;
+GO
+ALTER TABLE [core].[promotions] ENABLE TRIGGER [trg_promotions_update]
+GO
+/****** Object:  Trigger [core].[trg_roles_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 2. core.roles
+-- ==========================================
+CREATE TRIGGER [core].[trg_roles_insert]
+ON [core].[roles]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM core.roles t
+    INNER JOIN inserted i ON t.role_id = i.role_id;
+END;
+GO
+ALTER TABLE [core].[roles] ENABLE TRIGGER [trg_roles_insert]
+GO
+/****** Object:  Trigger [core].[trg_roles_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [core].[trg_roles_update]
+ON [core].[roles]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM core.roles t
+    INNER JOIN inserted i ON t.role_id = i.role_id;
+END;
+GO
+ALTER TABLE [core].[roles] ENABLE TRIGGER [trg_roles_update]
+GO
+/****** Object:  Trigger [core].[trg_settings_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 1. core.settings
+-- ==========================================
+CREATE TRIGGER [core].[trg_settings_insert]
+ON [core].[settings]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM core.settings t
+    INNER JOIN inserted i ON t.setting_id = i.setting_id;
+END;
+GO
+ALTER TABLE [core].[settings] ENABLE TRIGGER [trg_settings_insert]
+GO
+/****** Object:  Trigger [core].[trg_settings_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [core].[trg_settings_update]
+ON [core].[settings]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM core.settings t
+    INNER JOIN inserted i ON t.setting_id = i.setting_id;
+END;
+GO
+ALTER TABLE [core].[settings] ENABLE TRIGGER [trg_settings_update]
+GO
+/****** Object:  Trigger [core].[trg_taxes_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 7. core.taxes
+-- ==========================================
+CREATE TRIGGER [core].[trg_taxes_insert]
+ON [core].[taxes]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM core.taxes t
+    INNER JOIN inserted i ON t.tax_id = i.tax_id;
+END;
+GO
+ALTER TABLE [core].[taxes] ENABLE TRIGGER [trg_taxes_insert]
+GO
+/****** Object:  Trigger [core].[trg_taxes_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [core].[trg_taxes_update]
+ON [core].[taxes]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM core.taxes t
+    INNER JOIN inserted i ON t.tax_id = i.tax_id;
+END;
+GO
+ALTER TABLE [core].[taxes] ENABLE TRIGGER [trg_taxes_update]
+GO
+/****** Object:  Trigger [core].[trg_user_addresses_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 5. core.user_addresses
+-- ==========================================
+CREATE TRIGGER [core].[trg_user_addresses_insert]
+ON [core].[user_addresses]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM core.user_addresses t
+    INNER JOIN inserted i ON t.address_id = i.address_id;
+END;
+GO
+ALTER TABLE [core].[user_addresses] ENABLE TRIGGER [trg_user_addresses_insert]
+GO
+/****** Object:  Trigger [core].[trg_user_addresses_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [core].[trg_user_addresses_update]
+ON [core].[user_addresses]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM core.user_addresses t
+    INNER JOIN inserted i ON t.address_id = i.address_id;
+END;
+GO
+ALTER TABLE [core].[user_addresses] ENABLE TRIGGER [trg_user_addresses_update]
+GO
+/****** Object:  Trigger [core].[trg_user_phones_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 4. core.user_phones
+-- ==========================================
+CREATE TRIGGER [core].[trg_user_phones_insert]
+ON [core].[user_phones]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM core.user_phones t
+    INNER JOIN inserted i ON t.phone_id = i.phone_id;
+END;
+GO
+ALTER TABLE [core].[user_phones] ENABLE TRIGGER [trg_user_phones_insert]
+GO
+/****** Object:  Trigger [core].[trg_user_phones_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [core].[trg_user_phones_update]
+ON [core].[user_phones]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM core.user_phones t
+    INNER JOIN inserted i ON t.phone_id = i.phone_id;
+END;
+GO
+ALTER TABLE [core].[user_phones] ENABLE TRIGGER [trg_user_phones_update]
+GO
+/****** Object:  Trigger [core].[trg_users_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 3. core.users
+-- ==========================================
+CREATE TRIGGER [core].[trg_users_insert]
+ON [core].[users]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM core.users t
+    INNER JOIN inserted i ON t.user_id = i.user_id;
+END;
+GO
+ALTER TABLE [core].[users] ENABLE TRIGGER [trg_users_insert]
+GO
+/****** Object:  Trigger [core].[trg_users_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [core].[trg_users_update]
+ON [core].[users]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM core.users t
+    INNER JOIN inserted i ON t.user_id = i.user_id;
+END;
+GO
+ALTER TABLE [core].[users] ENABLE TRIGGER [trg_users_update]
+GO
+/****** Object:  Trigger [geo].[trg_cantons_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 2. geo.cantons
+-- ==========================================
+CREATE TRIGGER [geo].[trg_cantons_insert]
+ON [geo].[cantons]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM geo.cantons t
+    INNER JOIN inserted i ON t.canton_id = i.canton_id;
+END;
+GO
+ALTER TABLE [geo].[cantons] ENABLE TRIGGER [trg_cantons_insert]
+GO
+/****** Object:  Trigger [geo].[trg_cantons_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [geo].[trg_cantons_update]
+ON [geo].[cantons]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM geo.cantons t
+    INNER JOIN inserted i ON t.canton_id = i.canton_id;
+END;
+GO
+ALTER TABLE [geo].[cantons] ENABLE TRIGGER [trg_cantons_update]
+GO
+/****** Object:  Trigger [geo].[trg_districts_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 3. geo.districts
+-- ==========================================
+CREATE TRIGGER [geo].[trg_districts_insert]
+ON [geo].[districts]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM geo.districts t
+    INNER JOIN inserted i ON t.district_id = i.district_id;
+END;
+GO
+ALTER TABLE [geo].[districts] ENABLE TRIGGER [trg_districts_insert]
+GO
+/****** Object:  Trigger [geo].[trg_districts_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [geo].[trg_districts_update]
+ON [geo].[districts]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM geo.districts t
+    INNER JOIN inserted i ON t.district_id = i.district_id;
+END;
+GO
+ALTER TABLE [geo].[districts] ENABLE TRIGGER [trg_districts_update]
+GO
+/****** Object:  Trigger [geo].[trg_provinces_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 1. geo.provinces
+-- ==========================================
+CREATE TRIGGER [geo].[trg_provinces_insert]
+ON [geo].[provinces]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM geo.provinces t
+    INNER JOIN inserted i ON t.province_id = i.province_id;
+END;
+GO
+ALTER TABLE [geo].[provinces] ENABLE TRIGGER [trg_provinces_insert]
+GO
+/****** Object:  Trigger [geo].[trg_provinces_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [geo].[trg_provinces_update]
+ON [geo].[provinces]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM geo.provinces t
+    INNER JOIN inserted i ON t.province_id = i.province_id;
+END;
+GO
+ALTER TABLE [geo].[provinces] ENABLE TRIGGER [trg_provinces_update]
+GO
+/****** Object:  Trigger [inventory].[trg_inventory_movements_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 2. inventory.inventory_movements
+-- ==========================================
+CREATE TRIGGER [inventory].[trg_inventory_movements_insert]
+ON [inventory].[inventory_movements]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM inventory.inventory_movements t
+    INNER JOIN inserted i ON t.movement_id = i.movement_id;
+END;
+
+GO
+ALTER TABLE [inventory].[inventory_movements] ENABLE TRIGGER [trg_inventory_movements_insert]
+GO
+/****** Object:  Trigger [inventory].[trg_inventory_movements_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [inventory].[trg_inventory_movements_update]
+ON [inventory].[inventory_movements]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM inventory.inventory_movements t
+    INNER JOIN inserted i ON t.movement_id = i.movement_id;
+END;
+
+GO
+ALTER TABLE [inventory].[inventory_movements] ENABLE TRIGGER [trg_inventory_movements_update]
+GO
+/****** Object:  Trigger [inventory].[trg_inventory_stock_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+---END PURCHASING---
+-- ==========================================
+-- 1. inventory.inventory_stock
+-- ==========================================
+CREATE TRIGGER [inventory].[trg_inventory_stock_insert]
+ON [inventory].[inventory_stock]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM inventory.inventory_stock t
+    INNER JOIN inserted i ON t.inventory_stock_id = i.inventory_stock_id;
+END;
+
+GO
+ALTER TABLE [inventory].[inventory_stock] ENABLE TRIGGER [trg_inventory_stock_insert]
+GO
+/****** Object:  Trigger [inventory].[trg_inventory_stock_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [inventory].[trg_inventory_stock_update]
+ON [inventory].[inventory_stock]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM inventory.inventory_stock t
+    INNER JOIN inserted i ON t.inventory_stock_id = i.inventory_stock_id;
+END;
+
+GO
+ALTER TABLE [inventory].[inventory_stock] ENABLE TRIGGER [trg_inventory_stock_update]
+GO
+/****** Object:  Trigger [purchasing].[trg_payment_terms_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 2. purchasing.payment_terms
+-- ==========================================
+CREATE TRIGGER [purchasing].[trg_payment_terms_insert]
+ON [purchasing].[payment_terms]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM purchasing.payment_terms t
+    INNER JOIN inserted i ON t.term_id = i.term_id;
+END;
+GO
+ALTER TABLE [purchasing].[payment_terms] ENABLE TRIGGER [trg_payment_terms_insert]
+GO
+/****** Object:  Trigger [purchasing].[trg_payment_terms_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [purchasing].[trg_payment_terms_update]
+ON [purchasing].[payment_terms]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM purchasing.payment_terms t
+    INNER JOIN inserted i ON t.term_id = i.term_id;
+END;
+GO
+ALTER TABLE [purchasing].[payment_terms] ENABLE TRIGGER [trg_payment_terms_update]
+GO
+/****** Object:  Trigger [purchasing].[trg_purchase_invoice_lines_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 4. purchasing.purchase_invoice_lines
+-- ==========================================
+CREATE TRIGGER [purchasing].[trg_purchase_invoice_lines_insert]
+ON [purchasing].[purchase_invoice_lines]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM purchasing.purchase_invoice_lines t
+    INNER JOIN inserted i ON t.purchase_invoice_line_id = i.purchase_invoice_line_id;
+END;
+GO
+ALTER TABLE [purchasing].[purchase_invoice_lines] ENABLE TRIGGER [trg_purchase_invoice_lines_insert]
+GO
+/****** Object:  Trigger [purchasing].[trg_purchase_invoice_lines_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [purchasing].[trg_purchase_invoice_lines_update]
+ON [purchasing].[purchase_invoice_lines]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM purchasing.purchase_invoice_lines t
+    INNER JOIN inserted i ON t.purchase_invoice_line_id = i.purchase_invoice_line_id;
+END;
+GO
+ALTER TABLE [purchasing].[purchase_invoice_lines] ENABLE TRIGGER [trg_purchase_invoice_lines_update]
+GO
+/****** Object:  Trigger [purchasing].[trg_purchase_invoices_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 3. purchasing.purchase_invoices
+-- ==========================================
+CREATE TRIGGER [purchasing].[trg_purchase_invoices_insert]
+ON [purchasing].[purchase_invoices]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM purchasing.purchase_invoices t
+    INNER JOIN inserted i ON t.purchase_invoice_id = i.purchase_invoice_id;
+END;
+GO
+ALTER TABLE [purchasing].[purchase_invoices] ENABLE TRIGGER [trg_purchase_invoices_insert]
+GO
+/****** Object:  Trigger [purchasing].[trg_purchase_invoices_update]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [purchasing].[trg_purchase_invoices_update]
+ON [purchasing].[purchase_invoices]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM purchasing.purchase_invoices t
+    INNER JOIN inserted i ON t.purchase_invoice_id = i.purchase_invoice_id;
+END;
+GO
+ALTER TABLE [purchasing].[purchase_invoices] ENABLE TRIGGER [trg_purchase_invoices_update]
+GO
+/****** Object:  Trigger [purchasing].[trg_supplier_payments_insert]    Script Date: 19/3/2026 23:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 2. TRIGGER PARA INSERT
+-- ==========================================
+CREATE TRIGGER [purchasing].[trg_supplier_payments_insert]
+ON [purchasing].[supplier_payments]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM purchasing.supplier_payments t
+    INNER JOIN inserted i ON t.payment_id = i.payment_id;
+END;
+
+GO
+ALTER TABLE [purchasing].[supplier_payments] ENABLE TRIGGER [trg_supplier_payments_insert]
+GO
+/****** Object:  Trigger [purchasing].[trg_supplier_payments_update]    Script Date: 19/3/2026 23:48:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 5. TRIGGER PARA UPDATE
+-- ==========================================
+CREATE TRIGGER [purchasing].[trg_supplier_payments_update]
+ON [purchasing].[supplier_payments]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM purchasing.supplier_payments t
+    INNER JOIN inserted i ON t.payment_id = i.payment_id;
+END;
+
+GO
+ALTER TABLE [purchasing].[supplier_payments] ENABLE TRIGGER [trg_supplier_payments_update]
+GO
+/****** Object:  Trigger [purchasing].[trg_suppliers_insert]    Script Date: 19/3/2026 23:48:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 1. purchasing.suppliers
+-- ==========================================
+CREATE TRIGGER [purchasing].[trg_suppliers_insert]
+ON [purchasing].[suppliers]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM purchasing.suppliers t
+    INNER JOIN inserted i ON t.supplier_id = i.supplier_id;
+END;
+GO
+ALTER TABLE [purchasing].[suppliers] ENABLE TRIGGER [trg_suppliers_insert]
+GO
+/****** Object:  Trigger [purchasing].[trg_suppliers_update]    Script Date: 19/3/2026 23:48:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [purchasing].[trg_suppliers_update]
+ON [purchasing].[suppliers]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM purchasing.suppliers t
+    INNER JOIN inserted i ON t.supplier_id = i.supplier_id;
+END;
+GO
+ALTER TABLE [purchasing].[suppliers] ENABLE TRIGGER [trg_suppliers_update]
+GO
+/****** Object:  Trigger [sales].[trg_sales_invoice_lines_insert]    Script Date: 19/3/2026 23:48:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- ==========================================
+-- 2. sales.sales_invoice_lines
+-- ==========================================
+CREATE TRIGGER [sales].[trg_sales_invoice_lines_insert]
+ON [sales].[sales_invoice_lines]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    UPDATE t
+    SET t.created_at = GETDATE(),
+        t.action = 'INSERT'
+    FROM sales.sales_invoice_lines t
+    INNER JOIN inserted i ON t.sales_invoice_line_id = i.sales_invoice_line_id;
+END;
+GO
+ALTER TABLE [sales].[sales_invoice_lines] ENABLE TRIGGER [trg_sales_invoice_lines_insert]
+GO
+/****** Object:  Trigger [sales].[trg_sales_invoice_lines_update]    Script Date: 19/3/2026 23:48:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [sales].[trg_sales_invoice_lines_update]
+ON [sales].[sales_invoice_lines]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM sales.sales_invoice_lines t
+    INNER JOIN inserted i ON t.sales_invoice_line_id = i.sales_invoice_line_id;
+END;
+GO
+ALTER TABLE [sales].[sales_invoice_lines] ENABLE TRIGGER [trg_sales_invoice_lines_update]
+GO
+/****** Object:  Trigger [sales].[trg_sales_invoices_insert]    Script Date: 19/3/2026 23:48:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [sales].[trg_sales_invoices_insert]
+ON [sales].[sales_invoices]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; 
+    
+    UPDATE t
+    SET 
+        -- 1. Campos de Auditoría que ya teníamos
+        t.created_at = GETDATE(),
+        t.action = 'INSERT',
+        
+        -- 2. Generación automática del Número de Factura
+        -- FORMAT extrae el AñoMesDía de la fecha de la factura.
+        -- RIGHT con '00000' asegura que el ID siempre tenga al menos 5 dígitos de ancho.
+        t.sales_number = FORMAT(i.sales_datetime, 'yyyyMMdd') + RIGHT('00000' + CAST(i.sales_invoice_id AS VARCHAR(10)), 5)
+        
+    FROM sales.sales_invoices t
+    INNER JOIN inserted i ON t.sales_invoice_id = i.sales_invoice_id;
+END;
+
+GO
+ALTER TABLE [sales].[sales_invoices] ENABLE TRIGGER [trg_sales_invoices_insert]
+GO
+/****** Object:  Trigger [sales].[trg_sales_invoices_update]    Script Date: 19/3/2026 23:48:15 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER [sales].[trg_sales_invoices_update]
+ON [sales].[sales_invoices]
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE t
+    SET t.modified_at = GETDATE(),
+        t.action = 'UPDATE'
+    FROM sales.sales_invoices t
+    INNER JOIN inserted i ON t.sales_invoice_id = i.sales_invoice_id;
+END;
+GO
+ALTER TABLE [sales].[sales_invoices] ENABLE TRIGGER [trg_sales_invoices_update]
 GO
 USE [master]
 GO

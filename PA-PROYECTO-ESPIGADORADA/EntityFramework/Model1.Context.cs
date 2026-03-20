@@ -44,12 +44,30 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public virtual DbSet<payment_terms> payment_terms { get; set; }
         public virtual DbSet<purchase_invoice_lines> purchase_invoice_lines { get; set; }
         public virtual DbSet<purchase_invoices> purchase_invoices { get; set; }
+        public virtual DbSet<supplier_payments> supplier_payments { get; set; }
         public virtual DbSet<suppliers> suppliers { get; set; }
         public virtual DbSet<sales_invoice_lines> sales_invoice_lines { get; set; }
         public virtual DbSet<sales_invoices> sales_invoices { get; set; }
     
-        public virtual int RegisterUser(string identification, string name, string email, string password)
+        public virtual ObjectResult<LoginUser_Result> LoginUser(string email, string password)
         {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<LoginUser_Result>("LoginUser", emailParameter, passwordParameter);
+        }
+    
+        public virtual int RegisterUser(Nullable<int> roleId, string identification, string name, string email, string password, string createdBy)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("RoleId", roleId) :
+                new ObjectParameter("RoleId", typeof(int));
+    
             var identificationParameter = identification != null ?
                 new ObjectParameter("Identification", identification) :
                 new ObjectParameter("Identification", typeof(string));
@@ -66,23 +84,14 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
                 new ObjectParameter("Password", password) :
                 new ObjectParameter("Password", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterUser", identificationParameter, nameParameter, emailParameter, passwordParameter);
+            var createdByParameter = createdBy != null ?
+                new ObjectParameter("CreatedBy", createdBy) :
+                new ObjectParameter("CreatedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterUser", roleIdParameter, identificationParameter, nameParameter, emailParameter, passwordParameter, createdByParameter);
         }
     
-        public virtual ObjectResult<LoginUser_Result> LoginUser(string email, string password)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("Email", email) :
-                new ObjectParameter("Email", typeof(string));
-    
-            var passwordParameter = password != null ?
-                new ObjectParameter("Password", password) :
-                new ObjectParameter("Password", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<LoginUser_Result>("LoginUser", emailParameter, passwordParameter);
-        }
-    
-        public virtual int UpdatePassword(string password, Nullable<int> user_id)
+        public virtual int UpdatePassword(string password, Nullable<int> user_id, string modifiedBy)
         {
             var passwordParameter = password != null ?
                 new ObjectParameter("Password", password) :
@@ -92,7 +101,11 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
                 new ObjectParameter("User_id", user_id) :
                 new ObjectParameter("User_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdatePassword", passwordParameter, user_idParameter);
+            var modifiedByParameter = modifiedBy != null ?
+                new ObjectParameter("ModifiedBy", modifiedBy) :
+                new ObjectParameter("ModifiedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdatePassword", passwordParameter, user_idParameter, modifiedByParameter);
         }
     
         public virtual ObjectResult<ValidateEmail_Result> ValidateEmail(string email)
@@ -102,6 +115,40 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
                 new ObjectParameter("Email", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ValidateEmail_Result>("ValidateEmail", emailParameter);
+        }
+    
+        public virtual ObjectResult<GetUserById_Result> GetUserById(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUserById_Result>("GetUserById", userIdParameter);
+        }
+    
+        public virtual int UpdateUser(Nullable<int> userId, string identification, string name, string email, string modifiedBy)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            var identificationParameter = identification != null ?
+                new ObjectParameter("Identification", identification) :
+                new ObjectParameter("Identification", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var modifiedByParameter = modifiedBy != null ?
+                new ObjectParameter("ModifiedBy", modifiedBy) :
+                new ObjectParameter("ModifiedBy", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUser", userIdParameter, identificationParameter, nameParameter, emailParameter, modifiedByParameter);
         }
     }
 }

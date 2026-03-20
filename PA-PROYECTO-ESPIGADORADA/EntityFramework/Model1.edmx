@@ -12,6 +12,11 @@
           <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="category_name" Type="nvarchar" MaxLength="120" Nullable="false" />
           <Property Name="is_active" Type="tinyint" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="products">
           <Key>
@@ -27,6 +32,11 @@
           <Property Name="min_stock" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="tax_id" Type="int" Nullable="false" />
           <Property Name="is_active" Type="tinyint" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="promotions">
           <Key>
@@ -39,6 +49,11 @@
           <Property Name="start_date" Type="datetime" Nullable="false" />
           <Property Name="end_date" Type="datetime" Nullable="false" />
           <Property Name="is_active" Type="tinyint" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
@@ -47,6 +62,11 @@
           <Property Name="role_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="role_code" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="role_name" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="settings">
           <Key>
@@ -57,6 +77,11 @@
           <Property Name="currency_symbol" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="support_email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="low_stock_threshold" Type="int" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="taxes">
           <Key>
@@ -66,6 +91,11 @@
           <Property Name="tax_name" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="tax_rate" Type="decimal" Precision="4" Scale="2" Nullable="false" />
           <Property Name="is_active" Type="tinyint" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="user_addresses">
           <Key>
@@ -79,6 +109,11 @@
           <Property Name="address_line_2" Type="nvarchar" MaxLength="255" />
           <Property Name="zip_code" Type="varchar" MaxLength="12" />
           <Property Name="is_primary" Type="tinyint" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="user_phones">
           <Key>
@@ -90,6 +125,11 @@
           <Property Name="country_code" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="phone_number" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="is_primary" Type="tinyint" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -102,6 +142,11 @@
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="is_active" Type="tinyint" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="cantons">
           <Key>
@@ -110,6 +155,11 @@
           <Property Name="canton_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="province_id" Type="int" Nullable="false" />
           <Property Name="canton_name" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="districts">
           <Key>
@@ -118,6 +168,11 @@
           <Property Name="district_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="canton_id" Type="int" Nullable="false" />
           <Property Name="district_name" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="provinces">
           <Key>
@@ -125,6 +180,11 @@
           </Key>
           <Property Name="province_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="province_name" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="inventory_movements">
           <Key>
@@ -138,6 +198,11 @@
           <Property Name="reference_table" Type="varchar" MaxLength="50" />
           <Property Name="reference_id" Type="int" />
           <Property Name="notes" Type="nvarchar" MaxLength="250" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="inventory_stock">
           <Key>
@@ -146,6 +211,11 @@
           <Property Name="inventory_stock_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="product_id" Type="int" Nullable="false" />
           <Property Name="qty_available" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="payment_terms">
           <Key>
@@ -154,6 +224,11 @@
           <Property Name="term_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="term_name" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="days_due" Type="int" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="purchase_invoice_lines">
           <Key>
@@ -170,6 +245,11 @@
           <Property Name="lot_reference" Type="nvarchar" MaxLength="80" />
           <Property Name="expiration_date" Type="date" />
           <Property Name="received_date" Type="date" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="purchase_invoices">
           <Key>
@@ -186,6 +266,27 @@
           <Property Name="total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="status" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="notes" Type="nvarchar" MaxLength="250" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="supplier_payments">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="purchase_invoice_id" Type="int" Nullable="false" />
+          <Property Name="payment_date" Type="datetime" Nullable="false" />
+          <Property Name="amount_paid" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="payment_method" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="reference_number" Type="nvarchar" MaxLength="80" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="suppliers">
           <Key>
@@ -196,6 +297,11 @@
           <Property Name="email" Type="varchar" MaxLength="100" />
           <Property Name="phone" Type="varchar" MaxLength="30" />
           <Property Name="is_active" Type="tinyint" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="sales_invoice_lines">
           <Key>
@@ -213,6 +319,11 @@
           <Property Name="tax_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="line_subtotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="line_total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <EntityType Name="sales_invoices">
           <Key>
@@ -230,6 +341,11 @@
           <Property Name="tax_total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="notes" Type="nvarchar" MaxLength="250" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
         </EntityType>
         <Association Name="FK_cantons_provinces">
           <End Role="provinces" Type="Self.provinces" Multiplicity="1" />
@@ -423,6 +539,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_supplier_payments_purchase_invoices">
+          <End Role="purchase_invoices" Type="Self.purchase_invoices" Multiplicity="1" />
+          <End Role="supplier_payments" Type="Self.supplier_payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchase_invoices">
+              <PropertyRef Name="purchase_invoice_id" />
+            </Principal>
+            <Dependent Role="supplier_payments">
+              <PropertyRef Name="purchase_invoice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_user_addresses_districts">
           <End Role="districts" Type="Self.districts" Multiplicity="1" />
           <End Role="user_addresses" Type="Self.user_addresses" Multiplicity="*" />
@@ -471,19 +599,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetUserById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
         <Function Name="LoginUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
           <Parameter Name="Email" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
         <Function Name="RegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
+          <Parameter Name="RoleId" Type="int" Mode="In" />
           <Parameter Name="Identification" Type="varchar" Mode="In" />
           <Parameter Name="Name" Type="varchar" Mode="In" />
           <Parameter Name="Email" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
+          <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
         </Function>
         <Function Name="UpdatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
           <Parameter Name="Password" Type="varchar" Mode="In" />
           <Parameter Name="User_id" Type="int" Mode="In" />
+          <Parameter Name="ModifiedBy" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="Identification" Type="varchar" Mode="In" />
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+          <Parameter Name="ModifiedBy" Type="varchar" Mode="In" />
         </Function>
         <Function Name="ValidateEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
           <Parameter Name="Email" Type="varchar" Mode="In" />
@@ -506,6 +647,7 @@
           <EntitySet Name="payment_terms" EntityType="Self.payment_terms" Schema="purchasing" store:Type="Tables" />
           <EntitySet Name="purchase_invoice_lines" EntityType="Self.purchase_invoice_lines" Schema="purchasing" store:Type="Tables" />
           <EntitySet Name="purchase_invoices" EntityType="Self.purchase_invoices" Schema="purchasing" store:Type="Tables" />
+          <EntitySet Name="supplier_payments" EntityType="Self.supplier_payments" Schema="purchasing" store:Type="Tables" />
           <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="purchasing" store:Type="Tables" />
           <EntitySet Name="sales_invoice_lines" EntityType="Self.sales_invoice_lines" Schema="sales" store:Type="Tables" />
           <EntitySet Name="sales_invoices" EntityType="Self.sales_invoices" Schema="sales" store:Type="Tables" />
@@ -573,6 +715,10 @@
             <End Role="users" EntitySet="users" />
             <End Role="sales_invoices" EntitySet="sales_invoices" />
           </AssociationSet>
+          <AssociationSet Name="FK_supplier_payments_purchase_invoices" Association="Self.FK_supplier_payments_purchase_invoices">
+            <End Role="purchase_invoices" EntitySet="purchase_invoices" />
+            <End Role="supplier_payments" EntitySet="supplier_payments" />
+          </AssociationSet>
           <AssociationSet Name="FK_user_addresses_districts" Association="Self.FK_user_addresses_districts">
             <End Role="districts" EntitySet="districts" />
             <End Role="user_addresses" EntitySet="user_addresses" />
@@ -601,6 +747,11 @@
           <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="category_name" Type="String" MaxLength="120" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="is_active" Type="Byte" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="products" Relationship="Self.FK_products_product_categories" FromRole="product_categories" ToRole="products" />
         </EntityType>
         <EntityType Name="products">
@@ -617,6 +768,11 @@
           <Property Name="min_stock" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="tax_id" Type="Int32" Nullable="false" />
           <Property Name="is_active" Type="Byte" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="product_categories" Relationship="Self.FK_products_product_categories" FromRole="products" ToRole="product_categories" />
           <NavigationProperty Name="inventory_movements" Relationship="Self.FK_inventory_movements_products" FromRole="products" ToRole="inventory_movements" />
           <NavigationProperty Name="inventory_stock" Relationship="Self.FK_inventory_stock_products" FromRole="products" ToRole="inventory_stock" />
@@ -635,6 +791,11 @@
           <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="end_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="is_active" Type="Byte" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_promotions" FromRole="promotions" ToRole="sales_invoice_lines" />
         </EntityType>
         <EntityType Name="roles">
@@ -644,6 +805,11 @@
           <Property Name="role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="role_code" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="role_name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="users" Relationship="Self.FK_users_roles" FromRole="roles" ToRole="users" />
         </EntityType>
         <EntityType Name="settings">
@@ -655,6 +821,11 @@
           <Property Name="currency_symbol" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="support_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="low_stock_threshold" Type="Int32" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="taxes">
           <Key>
@@ -664,6 +835,11 @@
           <Property Name="tax_name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tax_rate" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
           <Property Name="is_active" Type="Byte" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="products" Relationship="Self.FK_products_taxes" FromRole="taxes" ToRole="products" />
           <NavigationProperty Name="purchase_invoice_lines" Relationship="Self.FK_purchase_invoice_lines_taxes" FromRole="taxes" ToRole="purchase_invoice_lines" />
           <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_taxes" FromRole="taxes" ToRole="sales_invoice_lines" />
@@ -680,6 +856,11 @@
           <Property Name="address_line_2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="zip_code" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="is_primary" Type="Byte" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="districts" Relationship="Self.FK_user_addresses_districts" FromRole="user_addresses" ToRole="districts" />
           <NavigationProperty Name="users" Relationship="Self.FK_user_addresses_users" FromRole="user_addresses" ToRole="users" />
         </EntityType>
@@ -693,6 +874,11 @@
           <Property Name="country_code" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="phone_number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="is_primary" Type="Byte" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="users" Relationship="Self.FK_user_phones_users" FromRole="user_phones" ToRole="users" />
         </EntityType>
         <EntityType Name="users">
@@ -706,6 +892,11 @@
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="is_active" Type="Byte" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="roles" Relationship="Self.FK_users_roles" FromRole="users" ToRole="roles" />
           <NavigationProperty Name="user_addresses" Relationship="Self.FK_user_addresses_users" FromRole="users" ToRole="user_addresses" />
           <NavigationProperty Name="user_phones" Relationship="Self.FK_user_phones_users" FromRole="users" ToRole="user_phones" />
@@ -718,6 +909,11 @@
           <Property Name="canton_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="province_id" Type="Int32" Nullable="false" />
           <Property Name="canton_name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="provinces" Relationship="Self.FK_cantons_provinces" FromRole="cantons" ToRole="provinces" />
           <NavigationProperty Name="districts" Relationship="Self.FK_districts_cantons" FromRole="cantons" ToRole="districts" />
         </EntityType>
@@ -728,6 +924,11 @@
           <Property Name="district_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="canton_id" Type="Int32" Nullable="false" />
           <Property Name="district_name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="user_addresses" Relationship="Self.FK_user_addresses_districts" FromRole="districts" ToRole="user_addresses" />
           <NavigationProperty Name="cantons" Relationship="Self.FK_districts_cantons" FromRole="districts" ToRole="cantons" />
         </EntityType>
@@ -737,6 +938,11 @@
           </Key>
           <Property Name="province_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="province_name" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="cantons" Relationship="Self.FK_cantons_provinces" FromRole="provinces" ToRole="cantons" />
         </EntityType>
         <EntityType Name="inventory_movements">
@@ -751,6 +957,11 @@
           <Property Name="reference_table" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="reference_id" Type="Int32" />
           <Property Name="notes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="products" Relationship="Self.FK_inventory_movements_products" FromRole="inventory_movements" ToRole="products" />
         </EntityType>
         <EntityType Name="inventory_stock">
@@ -760,6 +971,11 @@
           <Property Name="inventory_stock_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="product_id" Type="Int32" Nullable="false" />
           <Property Name="qty_available" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="products" Relationship="Self.FK_inventory_stock_products" FromRole="inventory_stock" ToRole="products" />
         </EntityType>
         <EntityType Name="payment_terms">
@@ -769,6 +985,11 @@
           <Property Name="term_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="term_name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="days_due" Type="Int32" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="purchase_invoices" Relationship="Self.FK_purchase_invoices_payment_terms" FromRole="payment_terms" ToRole="purchase_invoices" />
         </EntityType>
         <EntityType Name="purchase_invoice_lines">
@@ -786,6 +1007,11 @@
           <Property Name="lot_reference" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="expiration_date" Type="DateTime" Precision="0" />
           <Property Name="received_date" Type="DateTime" Precision="0" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="products" Relationship="Self.FK_purchase_invoice_lines_products" FromRole="purchase_invoice_lines" ToRole="products" />
           <NavigationProperty Name="taxes" Relationship="Self.FK_purchase_invoice_lines_taxes" FromRole="purchase_invoice_lines" ToRole="taxes" />
           <NavigationProperty Name="purchase_invoices" Relationship="Self.FK_purchase_invoice_lines_purchase_invoices" FromRole="purchase_invoice_lines" ToRole="purchase_invoices" />
@@ -805,9 +1031,32 @@
           <Property Name="total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="notes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="payment_terms" Relationship="Self.FK_purchase_invoices_payment_terms" FromRole="purchase_invoices" ToRole="payment_terms" />
           <NavigationProperty Name="purchase_invoice_lines" Relationship="Self.FK_purchase_invoice_lines_purchase_invoices" FromRole="purchase_invoices" ToRole="purchase_invoice_lines" />
           <NavigationProperty Name="suppliers" Relationship="Self.FK_purchase_invoices_suppliers" FromRole="purchase_invoices" ToRole="suppliers" />
+          <NavigationProperty Name="supplier_payments" Relationship="Self.FK_supplier_payments_purchase_invoices" FromRole="purchase_invoices" ToRole="supplier_payments" />
+        </EntityType>
+        <EntityType Name="supplier_payments">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="purchase_invoice_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="amount_paid" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="payment_method" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reference_number" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="purchase_invoices" Relationship="Self.FK_supplier_payments_purchase_invoices" FromRole="supplier_payments" ToRole="purchase_invoices" />
         </EntityType>
         <EntityType Name="suppliers">
           <Key>
@@ -818,6 +1067,11 @@
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="phone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="is_active" Type="Byte" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="purchase_invoices" Relationship="Self.FK_purchase_invoices_suppliers" FromRole="suppliers" ToRole="purchase_invoices" />
         </EntityType>
         <EntityType Name="sales_invoice_lines">
@@ -836,6 +1090,11 @@
           <Property Name="tax_amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="line_subtotal" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="line_total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="products" Relationship="Self.FK_sales_invoice_lines_products" FromRole="sales_invoice_lines" ToRole="products" />
           <NavigationProperty Name="promotions" Relationship="Self.FK_sales_invoice_lines_promotions" FromRole="sales_invoice_lines" ToRole="promotions" />
           <NavigationProperty Name="taxes" Relationship="Self.FK_sales_invoice_lines_taxes" FromRole="sales_invoice_lines" ToRole="taxes" />
@@ -857,6 +1116,11 @@
           <Property Name="tax_total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="notes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="users" Relationship="Self.FK_sales_invoices_users" FromRole="sales_invoices" ToRole="users" />
           <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_sales_invoices" FromRole="sales_invoices" ToRole="sales_invoice_lines" />
         </EntityType>
@@ -1088,6 +1352,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_supplier_payments_purchase_invoices">
+          <End Role="purchase_invoices" Type="Self.purchase_invoices" Multiplicity="1" />
+          <End Role="supplier_payments" Type="Self.supplier_payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchase_invoices">
+              <PropertyRef Name="purchase_invoice_id" />
+            </Principal>
+            <Dependent Role="supplier_payments">
+              <PropertyRef Name="purchase_invoice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_sales_invoice_lines_sales_invoices">
           <End Role="sales_invoices" Type="Self.sales_invoices" Multiplicity="1" />
           <End Role="sales_invoice_lines" Type="Self.sales_invoice_lines" Multiplicity="*" />
@@ -1118,6 +1394,7 @@
           <EntitySet Name="payment_terms" EntityType="Self.payment_terms" />
           <EntitySet Name="purchase_invoice_lines" EntityType="Self.purchase_invoice_lines" />
           <EntitySet Name="purchase_invoices" EntityType="Self.purchase_invoices" />
+          <EntitySet Name="supplier_payments" EntityType="Self.supplier_payments" />
           <EntitySet Name="suppliers" EntityType="Self.suppliers" />
           <EntitySet Name="sales_invoice_lines" EntityType="Self.sales_invoice_lines" />
           <EntitySet Name="sales_invoices" EntityType="Self.sales_invoices" />
@@ -1197,26 +1474,43 @@
             <End Role="suppliers" EntitySet="suppliers" />
             <End Role="purchase_invoices" EntitySet="purchase_invoices" />
           </AssociationSet>
+          <AssociationSet Name="FK_supplier_payments_purchase_invoices" Association="Self.FK_supplier_payments_purchase_invoices">
+            <End Role="purchase_invoices" EntitySet="purchase_invoices" />
+            <End Role="supplier_payments" EntitySet="supplier_payments" />
+          </AssociationSet>
           <AssociationSet Name="FK_sales_invoice_lines_sales_invoices" Association="Self.FK_sales_invoice_lines_sales_invoices">
             <End Role="sales_invoices" EntitySet="sales_invoices" />
             <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
           </AssociationSet>
-          <FunctionImport Name="RegisterUser">
-            <Parameter Name="Identification" Mode="In" Type="String" />
-            <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="LoginUser" ReturnType="Collection(Espiga_DBModel.LoginUser_Result)">
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="RegisterUser">
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+            <Parameter Name="Identification" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="CreatedBy" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="UpdatePassword">
             <Parameter Name="Password" Mode="In" Type="String" />
             <Parameter Name="User_id" Mode="In" Type="Int32" />
+            <Parameter Name="ModifiedBy" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ValidateEmail" ReturnType="Collection(Espiga_DBModel.ValidateEmail_Result)">
+          <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetUserById" ReturnType="Collection(Espiga_DBModel.GetUserById_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateUser">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="Identification" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
             <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="ModifiedBy" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="LoginUser_Result">
@@ -1233,6 +1527,14 @@
           <Property Type="String" Name="name" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="email" Nullable="false" MaxLength="100" />
         </ComplexType>
+        <ComplexType Name="GetUserById_Result">
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+          <Property Type="Int32" Name="role_id" Nullable="false" />
+          <Property Type="String" Name="identification" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="100" />
+          <Property Type="Byte" Name="is_active" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1245,6 +1547,11 @@
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
                 <ScalarProperty Name="category_name" ColumnName="category_name" />
                 <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1261,6 +1568,11 @@
                 <ScalarProperty Name="min_stock" ColumnName="min_stock" />
                 <ScalarProperty Name="tax_id" ColumnName="tax_id" />
                 <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1274,6 +1586,11 @@
                 <ScalarProperty Name="start_date" ColumnName="start_date" />
                 <ScalarProperty Name="end_date" ColumnName="end_date" />
                 <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1283,6 +1600,11 @@
                 <ScalarProperty Name="role_id" ColumnName="role_id" />
                 <ScalarProperty Name="role_code" ColumnName="role_code" />
                 <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1294,6 +1616,11 @@
                 <ScalarProperty Name="currency_symbol" ColumnName="currency_symbol" />
                 <ScalarProperty Name="support_email" ColumnName="support_email" />
                 <ScalarProperty Name="low_stock_threshold" ColumnName="low_stock_threshold" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1304,6 +1631,11 @@
                 <ScalarProperty Name="tax_name" ColumnName="tax_name" />
                 <ScalarProperty Name="tax_rate" ColumnName="tax_rate" />
                 <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1318,6 +1650,11 @@
                 <ScalarProperty Name="address_line_2" ColumnName="address_line_2" />
                 <ScalarProperty Name="zip_code" ColumnName="zip_code" />
                 <ScalarProperty Name="is_primary" ColumnName="is_primary" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1330,6 +1667,11 @@
                 <ScalarProperty Name="country_code" ColumnName="country_code" />
                 <ScalarProperty Name="phone_number" ColumnName="phone_number" />
                 <ScalarProperty Name="is_primary" ColumnName="is_primary" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1343,6 +1685,11 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1352,6 +1699,11 @@
                 <ScalarProperty Name="canton_id" ColumnName="canton_id" />
                 <ScalarProperty Name="province_id" ColumnName="province_id" />
                 <ScalarProperty Name="canton_name" ColumnName="canton_name" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1361,6 +1713,11 @@
                 <ScalarProperty Name="district_id" ColumnName="district_id" />
                 <ScalarProperty Name="canton_id" ColumnName="canton_id" />
                 <ScalarProperty Name="district_name" ColumnName="district_name" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1369,6 +1726,11 @@
               <MappingFragment StoreEntitySet="provinces">
                 <ScalarProperty Name="province_id" ColumnName="province_id" />
                 <ScalarProperty Name="province_name" ColumnName="province_name" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1383,6 +1745,11 @@
                 <ScalarProperty Name="reference_table" ColumnName="reference_table" />
                 <ScalarProperty Name="reference_id" ColumnName="reference_id" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1392,6 +1759,11 @@
                 <ScalarProperty Name="inventory_stock_id" ColumnName="inventory_stock_id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="qty_available" ColumnName="qty_available" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1401,6 +1773,11 @@
                 <ScalarProperty Name="term_id" ColumnName="term_id" />
                 <ScalarProperty Name="term_name" ColumnName="term_name" />
                 <ScalarProperty Name="days_due" ColumnName="days_due" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1418,6 +1795,11 @@
                 <ScalarProperty Name="lot_reference" ColumnName="lot_reference" />
                 <ScalarProperty Name="expiration_date" ColumnName="expiration_date" />
                 <ScalarProperty Name="received_date" ColumnName="received_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1435,6 +1817,28 @@
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="supplier_payments">
+            <EntityTypeMapping TypeName="Espiga_DBModel.supplier_payments">
+              <MappingFragment StoreEntitySet="supplier_payments">
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="purchase_invoice_id" ColumnName="purchase_invoice_id" />
+                <ScalarProperty Name="payment_date" ColumnName="payment_date" />
+                <ScalarProperty Name="amount_paid" ColumnName="amount_paid" />
+                <ScalarProperty Name="payment_method" ColumnName="payment_method" />
+                <ScalarProperty Name="reference_number" ColumnName="reference_number" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1446,6 +1850,11 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1464,6 +1873,11 @@
                 <ScalarProperty Name="tax_amount" ColumnName="tax_amount" />
                 <ScalarProperty Name="line_subtotal" ColumnName="line_subtotal" />
                 <ScalarProperty Name="line_total" ColumnName="line_total" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1482,10 +1896,14 @@
                 <ScalarProperty Name="tax_total" ColumnName="tax_total" />
                 <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="RegisterUser" FunctionName="Espiga_DBModel.Store.RegisterUser" />
           <FunctionImportMapping FunctionImportName="LoginUser" FunctionName="Espiga_DBModel.Store.LoginUser">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Espiga_DBModel.LoginUser_Result">
@@ -1498,6 +1916,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RegisterUser" FunctionName="Espiga_DBModel.Store.RegisterUser" />
           <FunctionImportMapping FunctionImportName="UpdatePassword" FunctionName="Espiga_DBModel.Store.UpdatePassword" />
           <FunctionImportMapping FunctionImportName="ValidateEmail" FunctionName="Espiga_DBModel.Store.ValidateEmail">
             <ResultMapping>
@@ -1509,6 +1928,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetUserById" FunctionName="Espiga_DBModel.Store.GetUserById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Espiga_DBModel.GetUserById_Result">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="identification" ColumnName="identification" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="Espiga_DBModel.Store.UpdateUser" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

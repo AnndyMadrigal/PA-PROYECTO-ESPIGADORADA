@@ -1,6 +1,7 @@
 ﻿using PA_PROYECTO_ESPIGADORADA.EntityFramework;
 using PA_PROYECTO_ESPIGADORADA.Models;
 using PA_PROYECTO_ESPIGADORADA.Services;
+using PA_PROYECTO_ESPIGADORADA.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace PA_PROYECTO_ESPIGADORADA.Controllers
 {
+    [ActiveSession]
     public class SecurityController : BaseController
     {
         readonly Generals generals = new Generals();
@@ -24,11 +26,11 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-
+            string currentUser = GetAuditUser();
             using (var context = new Espiga_DBEntities())
             {
                 var UserIdSession = int.Parse(Session["User_ID"].ToString());
-                var update = context.UpdatePassword(model.NewPassword, UserIdSession);
+                var update = context.UpdatePassword(model.NewPassword, UserIdSession, currentUser);
 
                 if (update <= 0)
                 {

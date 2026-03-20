@@ -33,6 +33,11 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public decimal min_stock { get; set; }
         public int tax_id { get; set; }
         public byte is_active { get; set; }
+        public string created_by { get; set; }
+        public string modified_by { get; set; }
+        public string action { get; set; }
+        public Nullable<System.DateTime> created_at { get; set; }
+        public Nullable<System.DateTime> modified_at { get; set; }
     
         public virtual product_categories product_categories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

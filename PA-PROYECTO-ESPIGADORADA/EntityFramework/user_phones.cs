@@ -20,6 +20,11 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public string country_code { get; set; }
         public string phone_number { get; set; }
         public byte is_primary { get; set; }
+        public string created_by { get; set; }
+        public string modified_by { get; set; }
+        public string action { get; set; }
+        public Nullable<System.DateTime> created_at { get; set; }
+        public Nullable<System.DateTime> modified_at { get; set; }
     
         public virtual users users { get; set; }
     }

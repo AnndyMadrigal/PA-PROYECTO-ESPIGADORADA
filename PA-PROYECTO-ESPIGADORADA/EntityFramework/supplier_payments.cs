@@ -12,24 +12,20 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class product_categories
+    public partial class supplier_payments
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public product_categories()
-        {
-            this.products = new HashSet<products>();
-        }
-    
-        public int category_id { get; set; }
-        public string category_name { get; set; }
-        public byte is_active { get; set; }
+        public int payment_id { get; set; }
+        public int purchase_invoice_id { get; set; }
+        public System.DateTime payment_date { get; set; }
+        public decimal amount_paid { get; set; }
+        public string payment_method { get; set; }
+        public string reference_number { get; set; }
         public string created_by { get; set; }
         public string modified_by { get; set; }
         public string action { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }
         public Nullable<System.DateTime> modified_at { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<products> products { get; set; }
+        public virtual purchase_invoices purchase_invoices { get; set; }
     }
 }

@@ -26,6 +26,11 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public decimal tax_amount { get; set; }
         public decimal line_subtotal { get; set; }
         public decimal line_total { get; set; }
+        public string created_by { get; set; }
+        public string modified_by { get; set; }
+        public string action { get; set; }
+        public Nullable<System.DateTime> created_at { get; set; }
+        public Nullable<System.DateTime> modified_at { get; set; }
     
         public virtual products products { get; set; }
         public virtual promotions promotions { get; set; }

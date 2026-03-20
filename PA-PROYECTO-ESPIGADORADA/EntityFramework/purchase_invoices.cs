@@ -18,6 +18,7 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public purchase_invoices()
         {
             this.purchase_invoice_lines = new HashSet<purchase_invoice_lines>();
+            this.supplier_payments = new HashSet<supplier_payments>();
         }
     
         public int purchase_invoice_id { get; set; }
@@ -31,10 +32,17 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public decimal total { get; set; }
         public string status { get; set; }
         public string notes { get; set; }
+        public string created_by { get; set; }
+        public string modified_by { get; set; }
+        public string action { get; set; }
+        public Nullable<System.DateTime> created_at { get; set; }
+        public Nullable<System.DateTime> modified_at { get; set; }
     
         public virtual payment_terms payment_terms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<purchase_invoice_lines> purchase_invoice_lines { get; set; }
         public virtual suppliers suppliers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<supplier_payments> supplier_payments { get; set; }
     }
 }

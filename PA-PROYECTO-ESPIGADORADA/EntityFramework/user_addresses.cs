@@ -22,6 +22,11 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public string address_line_2 { get; set; }
         public string zip_code { get; set; }
         public byte is_primary { get; set; }
+        public string created_by { get; set; }
+        public string modified_by { get; set; }
+        public string action { get; set; }
+        public Nullable<System.DateTime> created_at { get; set; }
+        public Nullable<System.DateTime> modified_at { get; set; }
     
         public virtual districts districts { get; set; }
         public virtual users users { get; set; }

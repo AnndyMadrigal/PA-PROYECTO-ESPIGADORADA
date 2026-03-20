@@ -1,0 +1,60 @@
+﻿@model PA_PROYECTO_ESPIGADORADA.Models.UserModel
+@{
+    ViewBag.Title = "Crear Usuario";
+}
+
+<div class="container my-5">
+    <div class="row bg-white rounded-4 shadow-lg overflow-hidden align-items-stretch mx-auto" style="min-height: 550px; max-width: 1000px;">
+        <div class="col-lg-12 d-flex flex-column justify-content-center p-4 p-md-5">
+            <div class="w-100 mx-auto" style="max-width: 500px;">
+                <h2 class="text-primary fw-bold mb-4">Crear Nuevo Usuario</h2>
+
+                @if (ViewBag.Mensaje != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @ViewBag.Mensaje
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                @using (Html.BeginForm("Create", "Users", FormMethod.Post, new { @id = "FormRegister" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-floating mb-2">
+                        @Html.TextBoxFor(m => m.Identification, new { @class = "form-control bg-light", @placeholder = "Identificación", @onkeyup = "CheckName()" })
+                        <label for="Identification">Identificación</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control bg-light SoloLectura", @placeholder = "Nombre", @readOnly = "true" })
+                        <label for="Name">Nombre</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control bg-light", @placeholder = "Correo Electrónico", @type = "email" })
+                        <label for="Email">Correo Electrónico</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control bg-light", @type = "password", @placeholder = "Contraseña" })
+                        <label for="Password">Contraseña</label>
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold">Registrar</button>
+                    </div>
+
+                    <div class="text-center">
+                        <a href="@Url.Action("ConsultUsers", "Users")" class="text-secondary fw-bold text-decoration-none">Regresar a la Lista</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="~/Template/js/functions/register.js"></script>
+}

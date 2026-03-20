@@ -22,6 +22,11 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public string reference_table { get; set; }
         public Nullable<int> reference_id { get; set; }
         public string notes { get; set; }
+        public string created_by { get; set; }
+        public string modified_by { get; set; }
+        public string action { get; set; }
+        public Nullable<System.DateTime> created_at { get; set; }
+        public Nullable<System.DateTime> modified_at { get; set; }
     
         public virtual products products { get; set; }
     }
