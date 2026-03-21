@@ -1503,7 +1503,7 @@
           <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GetUserById" ReturnType="Collection(Espiga_DBModel.GetUserById_Result)">
-            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UpdateUser">
             <Parameter Name="UserId" Mode="In" Type="Int32" />

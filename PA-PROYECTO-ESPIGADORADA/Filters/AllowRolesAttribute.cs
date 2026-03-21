@@ -20,7 +20,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Filters
             if (session["Role_ID"] == null || !_roles.Contains((int)session["Role_ID"]))
             {
                 filterContext.Result = new RedirectToRouteResult(
-                    new RouteValueDictionary(new
+                    new System.Web.Routing.RouteValueDictionary(new
                     {
                         controller = "Home",
                         action = "Index"

@@ -67,7 +67,6 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Register(UserModel model)
         {
             string currentUser = GetAuditUser();
