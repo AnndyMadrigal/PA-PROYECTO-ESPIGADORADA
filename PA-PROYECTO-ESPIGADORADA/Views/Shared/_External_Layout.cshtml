@@ -38,15 +38,14 @@
 
 <body class="d-flex flex-column bg-light" style="min-height: 100vh;">
 
-    <div class="container-fluid top-bar bg-dark text-light px-0 flex-shrink-0 wow">
-        <div class="row gx-0 align-items-center d-none d-lg-flex">
-            <div class="col-lg-6 px-5 pb-1 pt-1 text-start">
-                <h2 class="text-white mb-1">
-                    <i class="bi bi-flower1"></i> Espiga Dorada
-                </h2>
-            </div>
-        </div>
-    </div>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 px-4 px-lg-5 sticky-top justify-content-center justify-content-lg-start">
+        <a href="@Url.Action("Index", "Home")" class="navbar-brand m-0">
+            <h1 class="text-primary m-0"><i class="bi bi-flower1 me-2"></i>Espiga Dorada</h1>
+        </a>
+    </nav>
+    <!-- Navbar End -->
+
     <main class="flex-grow-1 d-flex align-items-center py-4">
         @RenderBody()
     </main>
