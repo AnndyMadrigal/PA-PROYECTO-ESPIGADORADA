@@ -1,0 +1,130 @@
+﻿@model PA_PROYECTO_ESPIGADORADA.Models.DashboardModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="container py-5">
+    <div class="text-center mx-auto mb-5" style="max-width: 700px;">
+        <p class="text-primary text-uppercase mb-2">Panel de control</p>
+        <h1 class="display-6 mb-3">Resumen general del sistema</h1>
+        <p class="text-muted mb-0">
+            Visualiza rápidamente los indicadores más importantes de ventas, inventario y compras.
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="bg-success bg-opacity-10 rounded-circle p-3">
+                            <i class="bi bi-cash-stack text-success fs-4"></i>
+                        </div>
+                        <span class="badge bg-success-subtle text-success">Hoy</span>
+                    </div>
+                    <h6 class="text-muted mb-2">Ventas de hoy</h6>
+                    <h2 class="fw-bold mb-0">@Model.CurrencySymbol @Model.VentasHoy.ToString("N2")</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="bg-warning bg-opacity-10 rounded-circle p-3">
+                            <i class="bi bi-exclamation-triangle text-warning fs-4"></i>
+                        </div>
+                        <span class="badge bg-warning text-dark">Umbral: @Model.LowStockThreshold</span>
+                    </div>
+                    <h6 class="text-muted mb-2">Productos con stock bajo</h6>
+                    <h2 class="fw-bold mb-0">@Model.ProductosStockBajo</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="bg-danger bg-opacity-10 rounded-circle p-3">
+                            <i class="bi bi-receipt text-danger fs-4"></i>
+                        </div>
+                        <span class="badge bg-danger-subtle text-danger">Compras</span>
+                    </div>
+                    <h6 class="text-muted mb-2">Facturas por pagar</h6>
+                    <h2 class="fw-bold mb-0">@Model.FacturasPorPagar</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-3">
+                            <i class="bi bi-box-seam text-primary fs-4"></i>
+                        </div>
+                        <span class="badge bg-primary-subtle text-primary">Inventario</span>
+                    </div>
+                    <h6 class="text-muted mb-2">Total de productos</h6>
+                    <h2 class="fw-bold mb-0">@Model.TotalProductos</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-2">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-3">Resumen operativo</h4>
+                    <p class="text-muted mb-4">
+                        El sistema está utilizando un umbral de stock bajo de
+                        <strong>@Model.LowStockThreshold</strong> unidades, definido desde la configuración general.
+                    </p>
+
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="bg-light rounded-4 p-3 h-100">
+                                <small class="text-muted d-block mb-1">Ventas de hoy</small>
+                                <strong class="fs-5">@Model.CurrencySymbol @Model.VentasHoy.ToString("N2")</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-light rounded-4 p-3 h-100">
+                                <small class="text-muted d-block mb-1">Stock bajo</small>
+                                <strong class="fs-5">@Model.ProductosStockBajo productos</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-light rounded-4 p-3 h-100">
+                                <small class="text-muted d-block mb-1">Facturas pendientes</small>
+                                <strong class="fs-5">@Model.FacturasPorPagar registros</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-3">Acciones rápidas</h4>
+
+                    <div class="d-grid gap-3">
+                        <a href="@Url.Action("Index", "Settings")" class="btn btn-outline-primary rounded-pill">
+                            <i class="bi bi-gear me-2"></i>Ir a Configuración
+                        </a>
+
+                        <a href="@Url.Action("ConsultUsers", "Users")" class="btn btn-outline-dark rounded-pill">
+                            <i class="bi bi-people me-2"></i>Gestionar usuarios
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
