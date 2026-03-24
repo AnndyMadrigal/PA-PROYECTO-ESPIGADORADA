@@ -37,6 +37,7 @@
           <Property Name="action" Type="varchar" MaxLength="100" />
           <Property Name="created_at" Type="datetime" />
           <Property Name="modified_at" Type="datetime" />
+          <Property Name="unit_price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="promotions">
           <Key>
@@ -606,6 +607,18 @@
           <Parameter Name="Email" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="RegisterProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
+          <Parameter Name="Sku" Type="varchar" Mode="In" />
+          <Parameter Name="ProductName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
+          <Parameter Name="ImageUrl" Type="varchar" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="UnitOfMeasure" Type="varchar" Mode="In" />
+          <Parameter Name="MinStock" Type="decimal" Mode="In" />
+          <Parameter Name="TaxId" Type="int" Mode="In" />
+          <Parameter Name="UnitPrice" Type="decimal" Mode="In" />
+          <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="RegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
           <Parameter Name="RoleId" Type="int" Mode="In" />
           <Parameter Name="Identification" Type="varchar" Mode="In" />
@@ -779,6 +792,7 @@
           <NavigationProperty Name="taxes" Relationship="Self.FK_products_taxes" FromRole="products" ToRole="taxes" />
           <NavigationProperty Name="purchase_invoice_lines" Relationship="Self.FK_purchase_invoice_lines_products" FromRole="products" ToRole="purchase_invoice_lines" />
           <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_products" FromRole="products" ToRole="sales_invoice_lines" />
+          <Property Name="unit_price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="promotions">
           <Key>
@@ -1512,6 +1526,18 @@
             <Parameter Name="Email" Mode="In" Type="String" />
             <Parameter Name="ModifiedBy" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="RegisterProduct">
+            <Parameter Name="Sku" Mode="In" Type="String" />
+            <Parameter Name="ProductName" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="ImageUrl" Mode="In" Type="String" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="UnitOfMeasure" Mode="In" Type="String" />
+            <Parameter Name="MinStock" Mode="In" Type="Decimal" />
+            <Parameter Name="TaxId" Mode="In" Type="Int32" />
+            <Parameter Name="UnitPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="CreatedBy" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="LoginUser_Result">
           <Property Type="Int32" Name="user_id" Nullable="false" />
@@ -1558,6 +1584,7 @@
           <EntitySetMapping Name="products">
             <EntityTypeMapping TypeName="Espiga_DBModel.products">
               <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="sku" ColumnName="sku" />
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
@@ -1941,6 +1968,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="Espiga_DBModel.Store.UpdateUser" />
+          <FunctionImportMapping FunctionImportName="RegisterProduct" FunctionName="Espiga_DBModel.Store.RegisterProduct" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

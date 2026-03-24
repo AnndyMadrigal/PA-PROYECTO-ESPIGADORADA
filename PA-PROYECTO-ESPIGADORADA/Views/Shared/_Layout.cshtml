@@ -58,6 +58,7 @@
                 @if (Session["Role_ID"] != null && ((int)Session["Role_ID"] == 1 || (int)Session["Role_ID"] == 2))
                 {
                     <a class="nav-item nav-link" href="@Url.Action("ConsultUsers", "Users")">Gestión de Usuarios</a>
+                    <a class="nav-item nav-link" href="@Url.Action("Index", "Settings")">Configuración</a>
                 }
                 else
                 {

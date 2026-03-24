@@ -1,0 +1,59 @@
+﻿@model PA_PROYECTO_ESPIGADORADA.Models.SettingsModel
+
+@{
+    ViewBag.Title = "Configuración general";
+}
+
+<div class="container my-5">
+    <div class="row bg-white rounded-4 shadow-lg overflow-hidden align-items-stretch mx-auto" style="min-height: 550px; max-width: 1000px;">
+        <div class="col-12 d-flex flex-column justify-content-center p-4 p-md-5">
+            <div class="w-100 mx-auto" style="max-width: 700px;">
+                <h2 class="text-primary fw-bold mb-4">Configuración general del sistema</h2>
+
+                @if (TempData["Mensaje"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        @TempData["Mensaje"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                @using (Html.BeginForm("Index", "Settings", FormMethod.Post, new { @id = "FormSettings" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.SettingId)
+
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control bg-light", @placeholder = "Nombre de la empresa" })
+                        <label for="CompanyName">Nombre de la empresa</label>
+                        @Html.ValidationMessageFor(m => m.CompanyName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(m => m.CurrencySymbol, new { @class = "form-control bg-light", @placeholder = "Símbolo de moneda" })
+                        <label for="CurrencySymbol">Símbolo de moneda</label>
+                        @Html.ValidationMessageFor(m => m.CurrencySymbol, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(m => m.SupportEmail, new { @class = "form-control bg-light", @placeholder = "Correo de soporte", @type = "email" })
+                        <label for="SupportEmail">Correo de soporte</label>
+                        @Html.ValidationMessageFor(m => m.SupportEmail, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        @Html.TextBoxFor(m => m.LowStockThreshold, new { @class = "form-control bg-light", @placeholder = "Umbral de stock bajo", @type = "number", @min = "0" })
+                        <label for="LowStockThreshold">Umbral de stock bajo</label>
+                        @Html.ValidationMessageFor(m => m.LowStockThreshold, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold">
+                            Guardar configuración
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
