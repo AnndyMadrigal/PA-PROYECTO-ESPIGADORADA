@@ -1,0 +1,96 @@
+@model List<PA_PROYECTO_ESPIGADORADA.EntityFramework.SP_AdministrarPaymentTerms_Result>
+
+
+@{
+    ViewBag.Title = "Consulta de Términos de Pago";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var mensaje = TempData["Mensaje"] != null ? TempData["Mensaje"].ToString() : "";
+    var tipo = TempData["Tipo"] != null ? TempData["Tipo"].ToString() : "info";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Términos de Pago</h4>
+            <a href="@Url.Action("Registro", "PaymentTerms")" class="btn btn-light btn-sm">
+                Nuevo
+            </a>
+        </div>
+
+        <div class="card-body">
+            @if (!string.IsNullOrEmpty(mensaje))
+            {
+                <div class="alert alert-@tipo">
+                    @mensaje
+                </div>
+            }
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Días</th>
+                            <th>Estado</th>
+                            <th style="width:180px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr class="@(item.ActionValue == "D" ? "table-secondary" : "")">
+                                    <td>@item.TermId</td>
+                                    <td>@item.TermName</td>
+                                    <td>@item.DaysDue</td>
+                                    <td>
+                                        @if (item.ActionValue == "D")
+                                        {
+                                            <span class="badge badge-danger">Inactivo</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-success">Activo</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.ActionValue != "D")
+                                        {
+                                            <a href="@Url.Action("Registro", "PaymentTerms", new { id = item.TermId })"
+                                               class="btn btn-warning btn-sm">
+                                                Editar
+                                            </a>
+
+                                            using (Html.BeginForm("Eliminar", "PaymentTerms", FormMethod.Post, new { style = "display:inline;" }))
+                                            {
+                                                @Html.Hidden("id", item.TermId)
+                                                <button type="submit"
+                                                        class="btn btn-danger btn-sm"
+                                                        onclick="return confirm('¿Desea eliminar este término de pago?');">
+                                                    Eliminar
+                                                </button>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Sin acciones</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center">No hay registros</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+@model PA_PROYECTO_ESPIGADORADA.Models.PaymentTermsModel
+
+
+@{
+    ViewBag.Title = "Registro de Términos de Pago";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">
+                        @(Model.TermId > 0 ? "Editar Término de Pago" : "Registrar Término de Pago")
+                    </h4>
+                </div>
+
+                <div class="card-body">
+                    @if (ViewBag.Mensaje != null)
+                    {
+                        <div class="alert alert-@(ViewBag.Tipo ?? "danger")">
+                            @ViewBag.Mensaje
+                        </div>
+                    }
+
+                    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+                    @using (Html.BeginForm("Registro", "PaymentTerms", FormMethod.Post))
+                    {
+                        <div class="form-group">
+                            @Html.HiddenFor(m => m.TermId)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.TermName)
+                            @Html.TextBoxFor(m => m.TermName, new
+                            {
+                                @class = "form-control",
+                                placeholder = "Ej. Crédito 30 días"
+                            })
+                            @Html.ValidationMessageFor(m => m.TermName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DaysDue)
+                            @Html.TextBoxFor(m => m.DaysDue, new
+                            {
+                                @class = "form-control",
+                                type = "number",
+                                min = "0",
+                                placeholder = "0"
+                            })
+                            @Html.ValidationMessageFor(m => m.DaysDue, "", new { @class = "text-danger" })
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mr-2">
+                            @(Model.TermId > 0 ? "Actualizar" : "Registrar")
+                        </button>
+
+                        <a href="@Url.Action("Consulta", "PaymentTerms")" class="btn btn-secondary">
+                            Volver
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
