@@ -38,7 +38,7 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public string action { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }
         public Nullable<System.DateTime> modified_at { get; set; }
-        public decimal unit_price { get; set; }
+        public Nullable<decimal> unit_price { get; set; }
     
         public virtual product_categories product_categories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
