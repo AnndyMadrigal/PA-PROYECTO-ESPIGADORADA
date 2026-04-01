@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Espiga_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Espiga_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="product_categories">
           <Key>
             <PropertyRef Name="category_id" />
@@ -603,6 +603,18 @@
         <Function Name="GetUserById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
+        <Function Name="InsertProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
+          <Parameter Name="product_name" Type="nvarchar" Mode="In" />
+          <Parameter Name="sku" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="image_url" Type="nvarchar" Mode="In" />
+          <Parameter Name="category_id" Type="int" Mode="In" />
+          <Parameter Name="unit_of_measure" Type="nvarchar" Mode="In" />
+          <Parameter Name="min_stock" Type="decimal" Mode="In" />
+          <Parameter Name="tax_id" Type="int" Mode="In" />
+          <Parameter Name="is_active" Type="bit" Mode="In" />
+          <Parameter Name="user" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="LoginUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
           <Parameter Name="Email" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
@@ -627,10 +639,27 @@
           <Parameter Name="Password" Type="varchar" Mode="In" />
           <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="ToggleProductStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
+          <Parameter Name="product_id" Type="int" Mode="In" />
+          <Parameter Name="user" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="UpdatePassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
           <Parameter Name="Password" Type="varchar" Mode="In" />
           <Parameter Name="User_id" Type="int" Mode="In" />
           <Parameter Name="ModifiedBy" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
+          <Parameter Name="product_id" Type="int" Mode="In" />
+          <Parameter Name="product_name" Type="nvarchar" Mode="In" />
+          <Parameter Name="sku" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="image_url" Type="nvarchar" Mode="In" />
+          <Parameter Name="category_id" Type="int" Mode="In" />
+          <Parameter Name="unit_of_measure" Type="nvarchar" Mode="In" />
+          <Parameter Name="min_stock" Type="decimal" Mode="In" />
+          <Parameter Name="tax_id" Type="int" Mode="In" />
+          <Parameter Name="is_active" Type="bit" Mode="In" />
+          <Parameter Name="user" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="core">
           <Parameter Name="UserId" Type="int" Mode="In" />
@@ -760,8 +789,7 @@
             <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Espiga_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1509,7 +1537,7 @@
             <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
           </AssociationSet>
           <FunctionImport Name="GetUserById" ReturnType="Collection(Espiga_DBModel.GetUserById_Result)">
-            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="LoginUser" ReturnType="Collection(Espiga_DBModel.LoginUser_Result)">
             <Parameter Name="Email" Mode="In" Type="String" />
@@ -1548,7 +1576,7 @@
             <Parameter Name="ModifiedBy" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ValidateEmail" ReturnType="Collection(Espiga_DBModel.ValidateEmail_Result)">
-            <Parameter Name="Email" Mode="In" Type="String" />
+          <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AdministerPaymentTerms" ReturnType="Collection(Espiga_DBModel.AdministerPaymentTerms_Result)">
             <Parameter Name="Accion" Mode="In" Type="String" />
@@ -1560,6 +1588,35 @@
             <Parameter Name="ActionValue" Mode="In" Type="String" />
             <Parameter Name="CreatedAt" Mode="In" Type="DateTime" />
             <Parameter Name="ModifiedAt" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="InsertProduct">
+            <Parameter Name="product_name" Mode="In" Type="String" />
+            <Parameter Name="sku" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="image_url" Mode="In" Type="String" />
+            <Parameter Name="category_id" Mode="In" Type="Int32" />
+            <Parameter Name="unit_of_measure" Mode="In" Type="String" />
+            <Parameter Name="min_stock" Mode="In" Type="Decimal" />
+            <Parameter Name="tax_id" Mode="In" Type="Int32" />
+            <Parameter Name="is_active" Mode="In" Type="Boolean" />
+            <Parameter Name="user" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ToggleProductStatus">
+            <Parameter Name="product_id" Mode="In" Type="Int32" />
+            <Parameter Name="user" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProduct">
+            <Parameter Name="product_id" Mode="In" Type="Int32" />
+            <Parameter Name="product_name" Mode="In" Type="String" />
+            <Parameter Name="sku" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="image_url" Mode="In" Type="String" />
+            <Parameter Name="category_id" Mode="In" Type="Int32" />
+            <Parameter Name="unit_of_measure" Mode="In" Type="String" />
+            <Parameter Name="min_stock" Mode="In" Type="Decimal" />
+            <Parameter Name="tax_id" Mode="In" Type="Int32" />
+            <Parameter Name="is_active" Mode="In" Type="Boolean" />
+            <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetUserById_Result">
@@ -2022,6 +2079,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertProduct" FunctionName="Espiga_DBModel.Store.InsertProduct" />
+          <FunctionImportMapping FunctionImportName="ToggleProductStatus" FunctionName="Espiga_DBModel.Store.ToggleProductStatus" />
+          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="Espiga_DBModel.Store.UpdateProduct" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
