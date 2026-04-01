@@ -1,4 +1,3 @@
-/*
 using PA_PROYECTO_ESPIGADORADA.EntityFramework;
 using PA_PROYECTO_ESPIGADORADA.Models;
 using PA_PROYECTO_ESPIGADORADA.Filters;
@@ -32,7 +31,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
             return View(new UserModel());
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(UserModel model)
@@ -54,7 +53,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
             return View(model);
         }
 
-        
+
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -81,7 +80,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
             }
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserModel model)
@@ -91,7 +90,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                 string currentUser = GetAuditUser();
                 using (var context = new Espiga_DBEntities())
                 {
-                    
+
                     context.UpdateUser(model.User_id, model.Identification, model.Name, model.Email, currentUser);
 
                     //si el usuario digitó una contraseña nueva, ejecutamos el SP
@@ -125,52 +124,5 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
             }
             return RedirectToAction("ConsultUsers");
         }
-
-
-
-
-
-        [HttpGet]
-        public ActionResult ConsultUsers()
-        {
-            using (var context = new Espiga_DBEntities())
-            {
-                var users = context.GetSystemUsers()
-                    .Select(u => new UserListViewModel
-                    {
-                        user_id = u.user_id,
-                        role_id = u.role_id,
-                        identification = u.identification,
-                        name = u.name,
-                        email = u.email,
-                        is_active = u.is_active,
-                        action = u.action
-                    })
-                    .ToList();
-
-                return View(users);
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
-        {
-            string currentUser = GetAuditUser();
-
-            using (var context = new Espiga_DBEntities())
-            {
-                var result = context.DeleteUserLogical(id, currentUser).FirstOrDefault();
-
-                if (result == null || result.Code == 0)
-                {
-                    TempData["Mensaje"] = result != null ? result.Message : "Ocurrió un error al eliminar el usuario.";
-                }
-            }
-
-            return RedirectToAction("ConsultUsers");
-        }
-
     }
 }
-*/

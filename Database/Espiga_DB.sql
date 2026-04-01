@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [Espiga_DB]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Database [Espiga_DB]    Script Date: 31/3/2026 18:56:56 ******/
 CREATE DATABASE [Espiga_DB]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -82,22 +82,22 @@ ALTER DATABASE [Espiga_DB] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP
 GO
 USE [Espiga_DB]
 GO
-/****** Object:  Schema [core]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Schema [core]    Script Date: 31/3/2026 18:56:56 ******/
 CREATE SCHEMA [core]
 GO
-/****** Object:  Schema [geo]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Schema [geo]    Script Date: 31/3/2026 18:56:56 ******/
 CREATE SCHEMA [geo]
 GO
-/****** Object:  Schema [inventory]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Schema [inventory]    Script Date: 31/3/2026 18:56:56 ******/
 CREATE SCHEMA [inventory]
 GO
-/****** Object:  Schema [purchasing]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Schema [purchasing]    Script Date: 31/3/2026 18:56:56 ******/
 CREATE SCHEMA [purchasing]
 GO
-/****** Object:  Schema [sales]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Schema [sales]    Script Date: 31/3/2026 18:56:56 ******/
 CREATE SCHEMA [sales]
 GO
-/****** Object:  Table [core].[product_categories]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [core].[product_categories]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -117,7 +117,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [core].[products]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [core].[products]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -138,13 +138,14 @@ CREATE TABLE [core].[products](
 	[action] [varchar](100) NULL,
 	[created_at] [datetime] NULL,
 	[modified_at] [datetime] NULL,
+	[unit_price] [decimal](18, 2) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[product_id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [core].[promotions]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [core].[promotions]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -168,7 +169,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [core].[roles]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [core].[roles]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -188,7 +189,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [core].[settings]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [core].[settings]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -210,7 +211,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [core].[taxes]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [core].[taxes]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -231,7 +232,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [core].[user_addresses]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [core].[user_addresses]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -256,7 +257,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [core].[user_phones]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [core].[user_phones]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -279,7 +280,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [core].[users]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [core].[users]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -303,7 +304,7 @@ CREATE TABLE [core].[users](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [geo].[cantons]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [geo].[cantons]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -323,7 +324,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [geo].[districts]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [geo].[districts]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -343,7 +344,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [geo].[provinces]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [geo].[provinces]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -362,7 +363,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [inventory].[inventory_movements]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [inventory].[inventory_movements]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -387,7 +388,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [inventory].[inventory_stock]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [inventory].[inventory_stock]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -407,7 +408,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [purchasing].[payment_terms]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [purchasing].[payment_terms]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -427,7 +428,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [purchasing].[purchase_invoice_lines]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [purchasing].[purchase_invoice_lines]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -455,7 +456,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [purchasing].[purchase_invoices]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [purchasing].[purchase_invoices]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -483,7 +484,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [purchasing].[supplier_payments]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [purchasing].[supplier_payments]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -506,7 +507,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [purchasing].[suppliers]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [purchasing].[suppliers]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -528,7 +529,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [sales].[sales_invoice_lines]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [sales].[sales_invoice_lines]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -557,7 +558,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [sales].[sales_invoices]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Table [sales].[sales_invoices]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -586,6 +587,16 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+SET IDENTITY_INSERT [core].[product_categories] ON 
+GO
+INSERT [core].[product_categories] ([category_id], [category_name], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (1, N'Panadería', 1, N'seed_sql', NULL, N'INSERT', CAST(N'2026-03-24T16:22:11.790' AS DateTime), NULL)
+GO
+INSERT [core].[product_categories] ([category_id], [category_name], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (2, N'Repostería', 1, N'seed_sql', NULL, N'INSERT', CAST(N'2026-03-24T16:22:11.790' AS DateTime), NULL)
+GO
+INSERT [core].[product_categories] ([category_id], [category_name], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (3, N'Bebidas', 1, N'seed_sql', NULL, N'INSERT', CAST(N'2026-03-24T16:22:11.790' AS DateTime), NULL)
+GO
+SET IDENTITY_INSERT [core].[product_categories] OFF
+GO
 SET IDENTITY_INSERT [core].[roles] ON 
 GO
 INSERT [core].[roles] ([role_id], [role_code], [role_name], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (1, N'SYS_ADMIN', N'Administrador del Sistema', NULL, NULL, NULL, NULL, NULL)
@@ -595,6 +606,20 @@ GO
 INSERT [core].[roles] ([role_id], [role_code], [role_name], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (3, N'APP_USER', N'Usuario Cliente', NULL, NULL, NULL, NULL, NULL)
 GO
 SET IDENTITY_INSERT [core].[roles] OFF
+GO
+SET IDENTITY_INSERT [core].[settings] ON 
+GO
+INSERT [core].[settings] ([setting_id], [company_name], [currency_symbol], [support_email], [low_stock_threshold], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (1, N'Espiga Dorada', N'?', N'soporte@espigadorada.com', 5, N'seed_sql', NULL, N'INSERT', CAST(N'2026-03-24T16:22:11.810' AS DateTime), NULL)
+GO
+SET IDENTITY_INSERT [core].[settings] OFF
+GO
+SET IDENTITY_INSERT [core].[taxes] ON 
+GO
+INSERT [core].[taxes] ([tax_id], [tax_name], [tax_rate], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (1, N'IVA 13%', CAST(13.00 AS Decimal(4, 2)), 1, N'seed_sql', NULL, N'INSERT', CAST(N'2026-03-24T16:22:11.800' AS DateTime), NULL)
+GO
+INSERT [core].[taxes] ([tax_id], [tax_name], [tax_rate], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (2, N'Exento', CAST(0.00 AS Decimal(4, 2)), 1, N'seed_sql', NULL, N'INSERT', CAST(N'2026-03-24T16:22:11.800' AS DateTime), NULL)
+GO
+SET IDENTITY_INSERT [core].[taxes] OFF
 GO
 SET IDENTITY_INSERT [core].[users] ON 
 GO
@@ -616,13 +641,15 @@ INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], 
 GO
 INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (9, 3, N'118290018', N'ARAYA GOMEZ CKRISTIAN', N'caraya90018@ufide.ac.cr', N'123', 0, N'Usuario_Desconocido', N'DELGADO MORA ANA JULIA', N'UPDATE', CAST(N'2026-03-21T12:00:37.557' AS DateTime), CAST(N'2026-03-21T12:01:45.567' AS DateTime))
 GO
-INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (10, 3, N'118290019', N'MORALES SILES ARTURO JOSUE', N'amorales90019@ufide.ac.cr', N'123', 1, N'DELGADO MORA ANA JULIA', NULL, N'INSERT', CAST(N'2026-03-21T12:01:33.097' AS DateTime), NULL)
+INSERT [core].[users] ([user_id], [role_id], [identification], [name], [email], [password], [is_active], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (10, 3, N'118290019', N'MORALES SILES ARTURO JOSUE', N'amorales90019@ufide.ac.cr', N'123', 0, N'DELGADO MORA ANA JULIA', N'DELGADO MORA ANA JULIA', N'UPDATE', CAST(N'2026-03-21T12:01:33.097' AS DateTime), CAST(N'2026-03-31T15:12:35.243' AS DateTime))
 GO
 SET IDENTITY_INSERT [core].[users] OFF
 GO
 ALTER TABLE [core].[product_categories] ADD  DEFAULT ((1)) FOR [is_active]
 GO
 ALTER TABLE [core].[products] ADD  DEFAULT ((1)) FOR [is_active]
+GO
+ALTER TABLE [core].[products] ADD  CONSTRAINT [DF_products_unit_price]  DEFAULT ((0)) FOR [unit_price]
 GO
 ALTER TABLE [core].[promotions] ADD  DEFAULT ((1)) FOR [is_active]
 GO
@@ -739,7 +766,7 @@ REFERENCES [core].[users] ([user_id])
 GO
 ALTER TABLE [sales].[sales_invoices] CHECK CONSTRAINT [FK_sales_invoices_users]
 GO
-/****** Object:  StoredProcedure [core].[GetUserById]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  StoredProcedure [core].[GetUserById]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -759,7 +786,53 @@ BEGIN
     WHERE   user_id = @UserId;
 END
 GO
-/****** Object:  StoredProcedure [core].[LoginUser]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  StoredProcedure [core].[InsertProduct]    Script Date: 31/3/2026 18:56:56 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [core].[InsertProduct]
+    @product_name NVARCHAR(150),
+    @sku NVARCHAR(60),
+    @description NVARCHAR(500),
+    @image_url NVARCHAR(500),
+    @category_id INT,
+    @unit_of_measure NVARCHAR(10),
+    @min_stock DECIMAL(18,3),
+    @tax_id INT,
+    @is_active BIT,
+    @user NVARCHAR(100)
+AS
+BEGIN
+    INSERT INTO core.products (
+        product_name,
+        sku,
+        description,
+        image_url,
+        category_id,
+        unit_of_measure,
+        min_stock,
+        tax_id,
+        is_active,
+        created_by,
+        created_at
+    )
+    VALUES (
+        @product_name,
+        @sku,
+        @description,
+        @image_url,
+        @category_id,
+        @unit_of_measure,
+        @min_stock,
+        @tax_id,
+        @is_active,
+        @user,
+        GETDATE()
+    )
+END;
+GO
+/****** Object:  StoredProcedure [core].[LoginUser]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -786,7 +859,59 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [core].[RegisterUser]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  StoredProcedure [core].[RegisterProduct]    Script Date: 31/3/2026 18:56:56 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+/* 2. Crear o actualizar SP para registrar productos */
+CREATE   PROCEDURE [core].[RegisterProduct]
+    @Sku VARCHAR(60),
+    @ProductName NVARCHAR(150),
+    @Description NVARCHAR(500),
+    @ImageUrl VARCHAR(500),
+    @CategoryId INT,
+    @UnitOfMeasure VARCHAR(10),
+    @MinStock DECIMAL(18,3),
+    @TaxId INT,
+    @UnitPrice DECIMAL(18,2),
+    @CreatedBy VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO core.products
+    (
+        sku,
+        product_name,
+        description,
+        image_url,
+        category_id,
+        unit_of_measure,
+        min_stock,
+        tax_id,
+        unit_price,
+        is_active,
+        created_by
+    )
+    VALUES
+    (
+        @Sku,
+        @ProductName,
+        @Description,
+        @ImageUrl,
+        @CategoryId,
+        @UnitOfMeasure,
+        @MinStock,
+        @TaxId,
+        @UnitPrice,
+        1,
+        @CreatedBy
+    );
+END
+GO
+/****** Object:  StoredProcedure [core].[RegisterUser]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -807,7 +932,27 @@ BEGIN
     VALUES (@RoleId, @Identification, @Name, @Email, @Password, @Is_Active, @CreatedBy)
 END
 GO
-/****** Object:  StoredProcedure [core].[UpdatePassword]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  StoredProcedure [core].[ToggleProductStatus]    Script Date: 31/3/2026 18:56:56 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+---SP DELETE lógico
+CREATE PROCEDURE [core].[ToggleProductStatus]
+    @product_id INT,
+    @user NVARCHAR(100)
+AS
+BEGIN
+    UPDATE core.products
+    SET 
+        is_active = CASE WHEN is_active = 1 THEN 0 ELSE 1 END,
+        modified_by = @user,
+        modified_at = GETDATE()
+    WHERE product_id = @product_id
+END;
+GO
+/****** Object:  StoredProcedure [core].[UpdatePassword]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -827,7 +972,44 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [core].[UpdateUser]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  StoredProcedure [core].[UpdateProduct]    Script Date: 31/3/2026 18:56:56 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+---SP Update
+CREATE PROCEDURE [core].[UpdateProduct]
+    @product_id INT,
+    @product_name NVARCHAR(150),
+    @sku NVARCHAR(60),
+    @description NVARCHAR(500),
+    @image_url NVARCHAR(500),
+    @category_id INT,
+    @unit_of_measure NVARCHAR(10),
+    @min_stock DECIMAL(18,3),
+    @tax_id INT,
+    @is_active BIT,
+    @user NVARCHAR(100)
+AS
+BEGIN
+    UPDATE core.products
+    SET 
+        product_name = @product_name,
+        sku = @sku,
+        description = @description,
+        image_url = @image_url,
+        category_id = @category_id,
+        unit_of_measure = @unit_of_measure,
+        min_stock = @min_stock,
+        tax_id = @tax_id,
+        is_active = @is_active,
+        modified_by = @user,
+        modified_at = GETDATE()
+    WHERE product_id = @product_id
+END;
+GO
+/****** Object:  StoredProcedure [core].[UpdateUser]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -849,7 +1031,7 @@ BEGIN
     WHERE   user_id = @UserId;
 END
 GO
-/****** Object:  StoredProcedure [core].[ValidateEmail]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  StoredProcedure [core].[ValidateEmail]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -871,7 +1053,167 @@ BEGIN
 
 END
 GO
-/****** Object:  Trigger [core].[trg_product_categories_insert]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  StoredProcedure [purchasing].[AdministerPaymentTerms]    Script Date: 31/3/2026 18:56:56 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE   PROCEDURE [purchasing].[AdministerPaymentTerms]
+    @Accion       VARCHAR(10),
+    @TermId       INT = NULL,
+    @TermName     VARCHAR(100) = NULL,
+    @DaysDue      INT = NULL,
+    @CreatedBy    VARCHAR(100) = NULL,
+    @ModifiedBy   VARCHAR(100) = NULL,
+    @ActionValue  VARCHAR(1) = NULL,
+    @CreatedAt    DATETIME = NULL,
+    @ModifiedAt   DATETIME = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @Codigo INT = 0,
+            @Mensaje VARCHAR(200) = '',
+            @Ahora DATETIME = GETDATE();
+
+    SET @Accion = UPPER(ISNULL(@Accion, ''));
+    SET @TermName = LTRIM(RTRIM(ISNULL(@TermName, '')));
+
+    BEGIN TRY
+
+        IF @Accion = 'READ'
+        BEGIN
+            SELECT
+                1 AS Codigo,
+                'OK' AS Tag,
+                'Consulta exitosa' AS Mensaje,
+                term_id AS TermId,
+                term_name AS TermName,
+                days_due AS DaysDue,
+                created_by AS CreatedBy,
+                modified_by AS ModifiedBy,
+                [action] AS ActionValue,
+                created_at AS CreatedAt,
+                modified_at AS ModifiedAt
+            FROM [Espiga_DB].[purchasing].[payment_terms]
+            ORDER BY term_id DESC;
+
+            RETURN;
+        END
+
+        IF @Accion NOT IN ('INSERT', 'UPDATE', 'DELETE')
+            SET @Mensaje = 'La acción enviada no es válida.';
+
+        IF @Mensaje = ''
+           AND @Accion IN ('UPDATE', 'DELETE')
+           AND (
+                ISNULL(@TermId, 0) = 0
+                OR NOT EXISTS (
+                    SELECT 1
+                    FROM [Espiga_DB].[purchasing].[payment_terms]
+                    WHERE term_id = @TermId
+                )
+           )
+        BEGIN
+            SET @Mensaje = 'El término de pago no existe.';
+        END
+
+        IF @Mensaje = ''
+           AND @Accion IN ('INSERT', 'UPDATE')
+        BEGIN
+            IF @TermName = ''
+                SET @Mensaje = 'El nombre del término es requerido.';
+            ELSE IF @DaysDue IS NULL OR @DaysDue < 0
+                SET @Mensaje = 'Los días de vencimiento son requeridos.';
+            ELSE IF EXISTS (
+                SELECT 1
+                FROM [Espiga_DB].[purchasing].[payment_terms]
+                WHERE term_name = @TermName
+                  AND ISNULL([action], 'I') <> 'D'
+                  AND (@Accion = 'INSERT' OR term_id <> @TermId)
+            )
+                SET @Mensaje = 'Ya existe un término de pago con ese nombre.';
+        END
+
+        IF @Mensaje = ''
+        BEGIN
+            IF @Accion = 'INSERT'
+            BEGIN
+                INSERT INTO [Espiga_DB].[purchasing].[payment_terms]
+                (
+                    term_name,
+                    days_due,
+                    created_by,
+                    modified_by,
+                    [action],
+                    created_at,
+                    modified_at
+                )
+                VALUES
+                (
+                    @TermName,
+                    @DaysDue,
+                    ISNULL(@CreatedBy, 'system'),
+                    ISNULL(@ModifiedBy, ISNULL(@CreatedBy, 'system')),
+                    ISNULL(@ActionValue, 'I'),
+                    ISNULL(@CreatedAt, @Ahora),
+                    ISNULL(@ModifiedAt, @Ahora)
+                );
+
+                SET @Codigo = 1;
+                SET @Mensaje = 'Término de pago registrado correctamente.';
+            END
+
+            IF @Accion = 'UPDATE'
+            BEGIN
+                UPDATE [Espiga_DB].[purchasing].[payment_terms]
+                SET
+                    term_name = @TermName,
+                    days_due = @DaysDue,
+                    modified_by = ISNULL(@ModifiedBy, 'system'),
+                    [action] = ISNULL(@ActionValue, 'U'),
+                    modified_at = ISNULL(@ModifiedAt, @Ahora)
+                WHERE term_id = @TermId;
+
+                SET @Codigo = 1;
+                SET @Mensaje = 'Término de pago actualizado correctamente.';
+            END
+
+            IF @Accion = 'DELETE'
+            BEGIN
+                UPDATE [Espiga_DB].[purchasing].[payment_terms]
+                SET
+                    [action] = ISNULL(@ActionValue, 'D'),
+                    modified_by = ISNULL(@ModifiedBy, 'system'),
+                    modified_at = ISNULL(@ModifiedAt, @Ahora)
+                WHERE term_id = @TermId;
+
+                SET @Codigo = 1;
+                SET @Mensaje = 'Término de pago eliminado correctamente.';
+            END
+        END
+
+    END TRY
+    BEGIN CATCH
+        SET @Codigo = 0;
+        SET @Mensaje = ERROR_MESSAGE();
+    END CATCH
+
+    SELECT
+        @Codigo AS Codigo,
+        CASE WHEN @Codigo = 1 THEN 'OK' ELSE 'ERROR' END AS Tag,
+        @Mensaje AS Mensaje,
+        CAST(NULL AS INT) AS TermId,
+        CAST(NULL AS VARCHAR(100)) AS TermName,
+        CAST(NULL AS INT) AS DaysDue,
+        CAST(NULL AS VARCHAR(100)) AS CreatedBy,
+        CAST(NULL AS VARCHAR(100)) AS ModifiedBy,
+        CAST(NULL AS VARCHAR(1)) AS ActionValue,
+        CAST(NULL AS DATETIME) AS CreatedAt,
+        CAST(NULL AS DATETIME) AS ModifiedAt;
+END
+GO
+/****** Object:  Trigger [core].[trg_product_categories_insert]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -895,7 +1237,7 @@ END;
 GO
 ALTER TABLE [core].[product_categories] ENABLE TRIGGER [trg_product_categories_insert]
 GO
-/****** Object:  Trigger [core].[trg_product_categories_update]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_product_categories_update]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -921,7 +1263,7 @@ END;
 GO
 ALTER TABLE [core].[product_categories] ENABLE TRIGGER [trg_product_categories_update]
 GO
-/****** Object:  Trigger [core].[trg_products_insert]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_products_insert]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -945,7 +1287,7 @@ END;
 GO
 ALTER TABLE [core].[products] ENABLE TRIGGER [trg_products_insert]
 GO
-/****** Object:  Trigger [core].[trg_products_update]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_products_update]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -971,7 +1313,7 @@ END;
 GO
 ALTER TABLE [core].[products] ENABLE TRIGGER [trg_products_update]
 GO
-/****** Object:  Trigger [core].[trg_promotions_insert]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_promotions_insert]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -995,7 +1337,7 @@ END;
 GO
 ALTER TABLE [core].[promotions] ENABLE TRIGGER [trg_promotions_insert]
 GO
-/****** Object:  Trigger [core].[trg_promotions_update]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_promotions_update]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1021,7 +1363,7 @@ END;
 GO
 ALTER TABLE [core].[promotions] ENABLE TRIGGER [trg_promotions_update]
 GO
-/****** Object:  Trigger [core].[trg_roles_insert]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_roles_insert]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1045,7 +1387,7 @@ END;
 GO
 ALTER TABLE [core].[roles] ENABLE TRIGGER [trg_roles_insert]
 GO
-/****** Object:  Trigger [core].[trg_roles_update]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_roles_update]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1071,7 +1413,7 @@ END;
 GO
 ALTER TABLE [core].[roles] ENABLE TRIGGER [trg_roles_update]
 GO
-/****** Object:  Trigger [core].[trg_settings_insert]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_settings_insert]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1095,7 +1437,7 @@ END;
 GO
 ALTER TABLE [core].[settings] ENABLE TRIGGER [trg_settings_insert]
 GO
-/****** Object:  Trigger [core].[trg_settings_update]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_settings_update]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1117,7 +1459,7 @@ END;
 GO
 ALTER TABLE [core].[settings] ENABLE TRIGGER [trg_settings_update]
 GO
-/****** Object:  Trigger [core].[trg_taxes_insert]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_taxes_insert]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1141,7 +1483,7 @@ END;
 GO
 ALTER TABLE [core].[taxes] ENABLE TRIGGER [trg_taxes_insert]
 GO
-/****** Object:  Trigger [core].[trg_taxes_update]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_taxes_update]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1167,7 +1509,7 @@ END;
 GO
 ALTER TABLE [core].[taxes] ENABLE TRIGGER [trg_taxes_update]
 GO
-/****** Object:  Trigger [core].[trg_user_addresses_insert]    Script Date: 21/3/2026 12:08:44 ******/
+/****** Object:  Trigger [core].[trg_user_addresses_insert]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1191,7 +1533,7 @@ END;
 GO
 ALTER TABLE [core].[user_addresses] ENABLE TRIGGER [trg_user_addresses_insert]
 GO
-/****** Object:  Trigger [core].[trg_user_addresses_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [core].[trg_user_addresses_update]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1217,7 +1559,7 @@ END;
 GO
 ALTER TABLE [core].[user_addresses] ENABLE TRIGGER [trg_user_addresses_update]
 GO
-/****** Object:  Trigger [core].[trg_user_phones_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [core].[trg_user_phones_insert]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1241,7 +1583,7 @@ END;
 GO
 ALTER TABLE [core].[user_phones] ENABLE TRIGGER [trg_user_phones_insert]
 GO
-/****** Object:  Trigger [core].[trg_user_phones_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [core].[trg_user_phones_update]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1267,7 +1609,7 @@ END;
 GO
 ALTER TABLE [core].[user_phones] ENABLE TRIGGER [trg_user_phones_update]
 GO
-/****** Object:  Trigger [core].[trg_users_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [core].[trg_users_insert]    Script Date: 31/3/2026 18:56:56 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1291,7 +1633,7 @@ END;
 GO
 ALTER TABLE [core].[users] ENABLE TRIGGER [trg_users_insert]
 GO
-/****** Object:  Trigger [core].[trg_users_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [core].[trg_users_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1319,7 +1661,7 @@ END;
 GO
 ALTER TABLE [core].[users] ENABLE TRIGGER [trg_users_update]
 GO
-/****** Object:  Trigger [geo].[trg_cantons_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [geo].[trg_cantons_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1343,7 +1685,7 @@ END;
 GO
 ALTER TABLE [geo].[cantons] ENABLE TRIGGER [trg_cantons_insert]
 GO
-/****** Object:  Trigger [geo].[trg_cantons_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [geo].[trg_cantons_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1366,7 +1708,7 @@ END;
 GO
 ALTER TABLE [geo].[cantons] ENABLE TRIGGER [trg_cantons_update]
 GO
-/****** Object:  Trigger [geo].[trg_districts_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [geo].[trg_districts_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1390,7 +1732,7 @@ END;
 GO
 ALTER TABLE [geo].[districts] ENABLE TRIGGER [trg_districts_insert]
 GO
-/****** Object:  Trigger [geo].[trg_districts_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [geo].[trg_districts_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1413,7 +1755,7 @@ END;
 GO
 ALTER TABLE [geo].[districts] ENABLE TRIGGER [trg_districts_update]
 GO
-/****** Object:  Trigger [geo].[trg_provinces_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [geo].[trg_provinces_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1437,7 +1779,7 @@ END;
 GO
 ALTER TABLE [geo].[provinces] ENABLE TRIGGER [trg_provinces_insert]
 GO
-/****** Object:  Trigger [geo].[trg_provinces_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [geo].[trg_provinces_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1459,7 +1801,7 @@ END;
 GO
 ALTER TABLE [geo].[provinces] ENABLE TRIGGER [trg_provinces_update]
 GO
-/****** Object:  Trigger [inventory].[trg_inventory_movements_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [inventory].[trg_inventory_movements_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1484,7 +1826,7 @@ END;
 GO
 ALTER TABLE [inventory].[inventory_movements] ENABLE TRIGGER [trg_inventory_movements_insert]
 GO
-/****** Object:  Trigger [inventory].[trg_inventory_movements_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [inventory].[trg_inventory_movements_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1511,7 +1853,7 @@ END;
 GO
 ALTER TABLE [inventory].[inventory_movements] ENABLE TRIGGER [trg_inventory_movements_update]
 GO
-/****** Object:  Trigger [inventory].[trg_inventory_stock_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [inventory].[trg_inventory_stock_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1536,7 +1878,7 @@ END;
 GO
 ALTER TABLE [inventory].[inventory_stock] ENABLE TRIGGER [trg_inventory_stock_insert]
 GO
-/****** Object:  Trigger [inventory].[trg_inventory_stock_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [inventory].[trg_inventory_stock_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1559,7 +1901,7 @@ END;
 GO
 ALTER TABLE [inventory].[inventory_stock] ENABLE TRIGGER [trg_inventory_stock_update]
 GO
-/****** Object:  Trigger [purchasing].[trg_payment_terms_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [purchasing].[trg_payment_terms_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1583,7 +1925,7 @@ END;
 GO
 ALTER TABLE [purchasing].[payment_terms] ENABLE TRIGGER [trg_payment_terms_insert]
 GO
-/****** Object:  Trigger [purchasing].[trg_payment_terms_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [purchasing].[trg_payment_terms_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1610,7 +1952,7 @@ END;
 GO
 ALTER TABLE [purchasing].[payment_terms] ENABLE TRIGGER [trg_payment_terms_update]
 GO
-/****** Object:  Trigger [purchasing].[trg_purchase_invoice_lines_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [purchasing].[trg_purchase_invoice_lines_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1634,7 +1976,7 @@ END;
 GO
 ALTER TABLE [purchasing].[purchase_invoice_lines] ENABLE TRIGGER [trg_purchase_invoice_lines_insert]
 GO
-/****** Object:  Trigger [purchasing].[trg_purchase_invoice_lines_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [purchasing].[trg_purchase_invoice_lines_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1657,7 +1999,7 @@ END;
 GO
 ALTER TABLE [purchasing].[purchase_invoice_lines] ENABLE TRIGGER [trg_purchase_invoice_lines_update]
 GO
-/****** Object:  Trigger [purchasing].[trg_purchase_invoices_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [purchasing].[trg_purchase_invoices_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1681,7 +2023,7 @@ END;
 GO
 ALTER TABLE [purchasing].[purchase_invoices] ENABLE TRIGGER [trg_purchase_invoices_insert]
 GO
-/****** Object:  Trigger [purchasing].[trg_purchase_invoices_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [purchasing].[trg_purchase_invoices_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1704,7 +2046,7 @@ END;
 GO
 ALTER TABLE [purchasing].[purchase_invoices] ENABLE TRIGGER [trg_purchase_invoices_update]
 GO
-/****** Object:  Trigger [purchasing].[trg_supplier_payments_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [purchasing].[trg_supplier_payments_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1729,7 +2071,7 @@ END;
 GO
 ALTER TABLE [purchasing].[supplier_payments] ENABLE TRIGGER [trg_supplier_payments_insert]
 GO
-/****** Object:  Trigger [purchasing].[trg_supplier_payments_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [purchasing].[trg_supplier_payments_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1755,7 +2097,7 @@ END;
 GO
 ALTER TABLE [purchasing].[supplier_payments] ENABLE TRIGGER [trg_supplier_payments_update]
 GO
-/****** Object:  Trigger [purchasing].[trg_suppliers_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [purchasing].[trg_suppliers_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1779,7 +2121,7 @@ END;
 GO
 ALTER TABLE [purchasing].[suppliers] ENABLE TRIGGER [trg_suppliers_insert]
 GO
-/****** Object:  Trigger [purchasing].[trg_suppliers_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [purchasing].[trg_suppliers_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1802,7 +2144,7 @@ END;
 GO
 ALTER TABLE [purchasing].[suppliers] ENABLE TRIGGER [trg_suppliers_update]
 GO
-/****** Object:  Trigger [sales].[trg_sales_invoice_lines_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [sales].[trg_sales_invoice_lines_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1826,7 +2168,7 @@ END;
 GO
 ALTER TABLE [sales].[sales_invoice_lines] ENABLE TRIGGER [trg_sales_invoice_lines_insert]
 GO
-/****** Object:  Trigger [sales].[trg_sales_invoice_lines_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [sales].[trg_sales_invoice_lines_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1849,7 +2191,7 @@ END;
 GO
 ALTER TABLE [sales].[sales_invoice_lines] ENABLE TRIGGER [trg_sales_invoice_lines_update]
 GO
-/****** Object:  Trigger [sales].[trg_sales_invoices_insert]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [sales].[trg_sales_invoices_insert]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1880,7 +2222,7 @@ END;
 GO
 ALTER TABLE [sales].[sales_invoices] ENABLE TRIGGER [trg_sales_invoices_insert]
 GO
-/****** Object:  Trigger [sales].[trg_sales_invoices_update]    Script Date: 21/3/2026 12:08:45 ******/
+/****** Object:  Trigger [sales].[trg_sales_invoices_update]    Script Date: 31/3/2026 18:56:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

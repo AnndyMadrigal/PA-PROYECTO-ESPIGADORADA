@@ -25,7 +25,7 @@
 
             <div class="col-md-6 mb-3">
                 <label>Descripción</label>
-                @Html.TextBoxFor(m => m.description, new { @class = "form-control" })
+                @Html.TextAreaFor(m => m.description, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
             </div>
 

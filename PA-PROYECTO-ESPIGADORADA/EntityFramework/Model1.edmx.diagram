@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="85d4e16c50284dd2acb55761d6e64298" Name="Diagram1">
+      <Diagram DiagramId="b315a43949a3449c8affee6b2a074ff3" Name="Diagram1">
         <EntityTypeShape EntityType="Espiga_DBModel.product_categories" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.products" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.products" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Espiga_DBModel.promotions" Width="1.5" PointX="6" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Espiga_DBModel.roles" Width="1.5" PointX="1.5" PointY="16.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Espiga_DBModel.settings" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
