@@ -1,0 +1,124 @@
+@model PA_PROYECTO_ESPIGADORADA.Models.ProductViewModel
+
+@{
+    ViewBag.Title = "Editar Producto";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-primary text-white text-center py-4">
+                    <h3 class="mb-0 text-white"><i class="fa fa-edit me-2"></i>Editar Producto</h3>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data", id = "editProductForm" }))
+                    {
+                        @Html.HiddenFor(m => m.product_id)
+
+                        <div class="row g-4">
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-secondary">Nombre del producto <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.product_name, new { @class = "form-control form-control-lg bg-light", data_val = "false" })
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-secondary">SKU <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.sku, new { @class = "form-control form-control-lg bg-light", data_val = "false" })
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold text-secondary">Precio Unitario (₡) <span class="text-danger">*</span></label>
+                                <input type="number" name="unit_price" id="unit_price" value="@Model.unit_price.ToString(System.Globalization.CultureInfo.InvariantCulture)" class="form-control form-control-lg bg-light" step="0.01" data-val="false" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold text-secondary">Stock Mínimo <span class="text-danger">*</span></label>
+                                <input type="number" name="min_stock" id="min_stock" value="@Model.min_stock.ToString(System.Globalization.CultureInfo.InvariantCulture)" class="form-control form-control-lg bg-light" step="0.001" data-val="false" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold text-secondary">Unidad <span class="text-danger">*</span></label>
+                                @Html.TextBoxFor(m => m.unit_of_measure, new { @class = "form-control form-control-lg bg-light" })
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold text-secondary">Categoría <span class="text-danger">*</span></label>
+                                @Html.DropDownListFor(m => m.category_id, ViewBag.Categories as SelectList, "Seleccione", new { @class = "form-select form-select-lg bg-light", data_val = "false" })
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold text-secondary">Impuesto <span class="text-danger">*</span></label>
+                                @Html.DropDownListFor(m => m.tax_id, ViewBag.Taxes as SelectList, "Seleccione", new { @class = "form-select form-select-lg bg-light", data_val = "false" })
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold text-secondary">Estado <span class="text-danger">*</span></label>
+                                @Html.DropDownListFor(m => m.is_active,
+                                    new SelectList(new[] {
+                                        new { Value = 1, Text = "Activo" },
+                                        new { Value = 0, Text = "Inactivo" }
+                                    }, "Value", "Text"),
+                                    "Seleccione",
+                                    new { @class = "form-select form-select-lg bg-light", data_val = "false" })
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <div class="card bg-light border-light">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-3 text-center mb-3 mb-md-0">
+                                                <label class="form-label fw-bold text-secondary d-block">Imagen Actual</label>
+                                                @if (!string.IsNullOrEmpty(Model.image_url))
+                                                {
+                                                    <img src="@Url.Content(Model.image_url)" alt="Imagen de @Model.product_name" class="img-thumbnail rounded shadow-sm" style="max-height: 120px; object-fit: cover;">
+                                                }
+                                                else
+                                                {
+                                                    <div class="text-muted d-flex flex-column align-items-center justify-content-center p-3 border rounded bg-white" style="height: 120px;">
+                                                        <i class="fa fa-image fa-2x mb-2"></i>
+                                                        <span>Sin imagen</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="col-md-9 border-start">
+                                                <label class="form-label fw-bold text-secondary">Nueva Imagen</label>
+                                                <span class="text-muted d-block mb-2 smaller">Dejar vacío para no cambiar la imagen actual</span>
+                                                <input type="file" id="imageFile" name="imageFile" class="form-control form-control-lg bg-white" accept="image/*" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <label class="form-label fw-bold text-secondary">Descripción</label>
+                                @Html.TextAreaFor(m => m.description, new { @class = "form-control form-control-lg bg-light", rows = "4" })
+                            </div>
+                        </div>
+
+                        <hr class="my-5">
+
+                        <div class="d-flex justify-content-end gap-3">
+                            <a href="@Url.Action("Index","Products")" class="btn btn-secondary btn-lg px-4">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="fa fa-save me-2"></i>Actualizar
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Template/js/functions/productValidation.js"></script>
+    <style>
+        .smaller { font-size: 0.85rem; }
+    </style>
+}

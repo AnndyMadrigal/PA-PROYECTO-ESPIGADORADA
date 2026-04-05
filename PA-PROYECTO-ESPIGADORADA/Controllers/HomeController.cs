@@ -52,6 +52,12 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                 Session["Role_ID"] = result.role_id;
                 Session["Name"] = result.name;
                 Session["Email"] = result.email;
+
+                if (result.role_id == 1 || result.role_id == 2)
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+
                 return RedirectToAction("Index", "Home");
             }
         }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using PA_PROYECTO_ESPIGADORADA.EntityFramework;
 using PA_PROYECTO_ESPIGADORADA.Models;
@@ -31,6 +33,32 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
             }
         }
 
+        // CATÁLOGO DE PRODUCTOS (VISTA DE CARTAS)
+        public ActionResult Catalog()
+        {
+            using (var db = new Espiga_DBEntities())
+            {
+                var lista = db.products
+                    .Where(p => p.is_active == 1)
+                    .Select(p => new ProductViewModel
+                    {
+                        product_id = p.product_id,
+                        product_name = p.product_name,
+                        sku = p.sku,
+                        description = p.description,
+                        image_url = p.image_url,
+                        category_id = p.category_id,
+                        unit_of_measure = p.unit_of_measure,
+                        min_stock = p.min_stock,
+                        unit_price = p.unit_price,
+                        tax_id = p.tax_id,
+                        is_active = p.is_active
+                    }).ToList();
+
+                return View(lista);
+            }
+        }
+
         // LISTA
         public ActionResult Index()
         {
@@ -46,6 +74,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                     category_id = p.category_id,
                     unit_of_measure = p.unit_of_measure,
                     min_stock = p.min_stock,
+                    unit_price = p.unit_price,
                     tax_id = p.tax_id,
                     is_active = p.is_active
                 }).ToList();
@@ -63,37 +92,57 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
 
         // CREATE (POST)
         [HttpPost]
-        public ActionResult Create(ProductViewModel model)
+        public ActionResult Create(ProductViewModel model, HttpPostedFileBase imageFile)
         {
-            if (ModelState.IsValid)
+            string user = GetAuditUser();
+
+            // Manejo de la imagen: guardarla en una carpeta del proyecto
+            if (imageFile != null && imageFile.ContentLength > 0)
             {
-                string user = GetAuditUser();
+                string fileName = Path.GetFileName(imageFile.FileName);
+                string uploadsFolder = Server.MapPath("~/Template/img/products/");
 
-                using (var db = new Espiga_DBEntities())
+                if (!Directory.Exists(uploadsFolder))
                 {
-                    db.Database.ExecuteSqlCommand(
-                        @"EXEC core.InsertProduct 
-                          @p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9",
-
-                        model.product_name,
-                        model.sku,
-                        model.description ?? "",
-                        model.image_url ?? "",
-                        model.category_id,
-                        model.unit_of_measure ?? "Unidad",
-                        model.min_stock,
-                        model.tax_id,
-                        model.is_active,
-                        user
-                    );
+                    Directory.CreateDirectory(uploadsFolder);
                 }
 
-                TempData["Success"] = "Producto ingresado correctamente";
-                return RedirectToAction("Index");
+                // Usar un nombre único para evitar sobreescribir imágenes
+                string uniqueFileName = System.Guid.NewGuid().ToString() + "_" + fileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                imageFile.SaveAs(filePath);
+                model.image_url = "/Template/img/products/" + uniqueFileName;
             }
 
-            LoadDropdowns();
-            return View(model);
+            using (var db = new Espiga_DBEntities())
+            {
+                db.Database.ExecuteSqlCommand(
+                    @"EXEC core.InsertProduct 
+                      @p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9",
+
+                    model.product_name,
+                    model.sku,
+                    model.description ?? "",
+                    model.image_url ?? "",
+                    model.category_id,
+                    model.unit_of_measure ?? "Unidad",
+                    model.min_stock,
+                    model.tax_id,
+                    model.is_active,
+                    user
+                );
+
+                // Actualizar el precio de unidad recien insertado mediante el SKU (asumiendo que SKU es unico)
+                db.Database.ExecuteSqlCommand(
+                    @"UPDATE core.products SET unit_price = @p0 WHERE sku = @p1", 
+                    model.unit_price, 
+                    model.sku
+                );
+            }
+
+            TempData["Success"] = "Producto ingresado correctamente";
+            return RedirectToAction("Index");
         }
 
         // EDIT (GET)
@@ -116,6 +165,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                     category_id = p.category_id,
                     unit_of_measure = p.unit_of_measure,
                     min_stock = p.min_stock,
+                    unit_price = p.unit_price,
                     tax_id = p.tax_id,
                     is_active = p.is_active
                 };
@@ -127,38 +177,70 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
 
         // EDIT (POST)
         [HttpPost]
-        public ActionResult Edit(ProductViewModel model)
+        public ActionResult Edit(ProductViewModel model, HttpPostedFileBase imageFile)
         {
-            if (ModelState.IsValid)
+            string user = GetAuditUser();
+
+            // Manejo de la imagen: guardarla en una carpeta del proyecto
+            if (imageFile != null && imageFile.ContentLength > 0)
             {
-                string user = GetAuditUser();
+                string fileName = Path.GetFileName(imageFile.FileName);
+                string uploadsFolder = Server.MapPath("~/Template/img/products/");
 
-                using (var db = new Espiga_DBEntities())
+                if (!Directory.Exists(uploadsFolder))
                 {
-                    db.Database.ExecuteSqlCommand(
-                        @"EXEC core.UpdateProduct 
-                          @p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10",
-
-                        model.product_id,
-                        model.product_name,
-                        model.sku,
-                        model.description ?? "",
-                        model.image_url ?? "",
-                        model.category_id,
-                        model.unit_of_measure ?? "Unidad",
-                        model.min_stock,
-                        model.tax_id,
-                        model.is_active,
-                        user
-                    );
+                    Directory.CreateDirectory(uploadsFolder);
                 }
 
-                TempData["Success"] = "Producto actualizado correctamente ✏️";
-                return RedirectToAction("Index");
+                // Usar un nombre único para evitar sobreescribir imágenes
+                string uniqueFileName = System.Guid.NewGuid().ToString() + "_" + fileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                imageFile.SaveAs(filePath);
+                model.image_url = "/Template/img/products/" + uniqueFileName;
+            }
+            else
+            {
+                // Mantener la imagen actual si no se subió una nueva
+                using (var dbTemp = new Espiga_DBEntities())
+                {
+                    var prod = dbTemp.products.AsNoTracking().FirstOrDefault(pr => pr.product_id == model.product_id);
+                    if (prod != null)
+                    {
+                        model.image_url = prod.image_url;
+                    }
+                }
             }
 
-            LoadDropdowns();
-            return View(model);
+            using (var db = new Espiga_DBEntities())
+            {
+                db.Database.ExecuteSqlCommand(
+                    @"EXEC core.UpdateProduct 
+                      @p0,@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9,@p10",
+
+                    model.product_id,
+                    model.product_name,
+                    model.sku,
+                    model.description ?? "",
+                    model.image_url ?? "",
+                    model.category_id,
+                    model.unit_of_measure ?? "Unidad",
+                    model.min_stock,
+                    model.tax_id,
+                    model.is_active,
+                    user
+                );
+
+                // Actualizar el precio de unidad
+                db.Database.ExecuteSqlCommand(
+                    @"UPDATE core.products SET unit_price = @p0 WHERE product_id = @p1", 
+                    model.unit_price, 
+                    model.product_id
+                );
+            }
+
+            TempData["Success"] = "Producto actualizado correctamente ✏️";
+            return RedirectToAction("Index");
         }
 
         // DELETE LÓGIC0

@@ -308,6 +308,7 @@
     <Content Include="Template\img\product-1.jpg" />
     <Content Include="Template\img\product-2.jpg" />
     <Content Include="Template\img\product-3.jpg" />
+    <Content Include="Template\img\products\0d17ba78-5746-4bb5-bf36-8ce178758943_cupcake.png" />
     <Content Include="Template\img\service-1.jpg" />
     <Content Include="Template\img\service-2.jpg" />
     <Content Include="Template\img\spighe.png" />
@@ -321,10 +322,12 @@
     <Content Include="Template\img\testimonial-4.jpg" />
     <Content Include="Template\js\counterup.min.js" />
     <Content Include="Template\js\easing.min.js" />
+    <Content Include="Template\js\functions\activeView.js" />
     <Content Include="Template\js\functions\consultUser.js" />
     <Content Include="Template\js\functions\editUser.js" />
     <Content Include="Template\js\functions\login.js" />
     <Content Include="Template\js\functions\changePassword.js" />
+    <Content Include="Template\js\functions\productValidation.js" />
     <Content Include="Template\js\functions\recoverPassword.js" />
     <Content Include="Template\js\functions\register.js" />
     <Content Include="Template\js\main.js" />
@@ -359,6 +362,8 @@
     <Content Include="connections.Release.config">
       <DependentUpon>connections.config</DependentUpon>
     </Content>
+    <Content Include="Views\Products\Catalog.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
