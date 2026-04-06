@@ -19,7 +19,6 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
 
                 // Obtener configuración general
                 var setting = context.settings.FirstOrDefault();
-                int lowStockThreshold = setting != null ? setting.low_stock_threshold : 5;
                 string currencySymbol = setting != null && !string.IsNullOrEmpty(setting.currency_symbol)
                     ? setting.currency_symbol
                     : "₡";
@@ -32,15 +31,14 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                         .Sum(x => (decimal?)x.total) ?? 0,
 
                     ProductosStockBajo = context.inventory_stock
-                        .Count(x => x.qty_available <= lowStockThreshold),
+                        .Count(x => x.qty_available <= x.products.min_stock),
 
                     FacturasPorPagar = context.purchase_invoices
                         .Count(x => x.status == "PENDIENTE"),
 
                     TotalProductos = context.products.Count(),
 
-                    CurrencySymbol = currencySymbol,
-                    LowStockThreshold = lowStockThreshold
+                    CurrencySymbol = currencySymbol
                 };
 
                 return View(model);

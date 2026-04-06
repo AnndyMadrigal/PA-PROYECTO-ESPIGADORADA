@@ -37,6 +37,11 @@ $(document).ready(function () {
             number: true,
             min: 0
         },
+        qty_available: {
+            required: true,
+            number: true,
+            min: 0
+        },
         tax_id: {
             required: true
         },
@@ -73,6 +78,11 @@ $(document).ready(function () {
             required: "El stock mínimo es obligatorio.",
             number: "Ingrese un valor numérico válido.",
             min: "El stock no puede ser negativo."
+        },
+        qty_available: {
+            required: "La cantidad disponible es obligatoria.",
+            number: "Ingrese un valor numérico válido.",
+            min: "La cantidad no puede ser negativa."
         },
         tax_id: {
             required: "Debe seleccionar un impuesto."

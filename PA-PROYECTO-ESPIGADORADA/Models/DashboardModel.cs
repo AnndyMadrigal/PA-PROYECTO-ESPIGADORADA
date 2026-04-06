@@ -8,6 +8,5 @@
         public int TotalProductos { get; set; }
 
         public string CurrencySymbol { get; set; }
-        public int LowStockThreshold { get; set; }
     }
 }

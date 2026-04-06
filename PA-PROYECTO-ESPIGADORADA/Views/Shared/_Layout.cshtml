@@ -1,5 +1,12 @@
-﻿@{
+﻿@using PA_PROYECTO_ESPIGADORADA.Models
+@using System.Linq
+@using System.Collections.Generic
+@{
     var name = Session["Name"] ?? String.Empty;
+
+    // Contar items en sesión
+    var cartItems = Session["Cart"] as List<ShoppingCartItem>;
+    int cartCount = cartItems != null ? cartItems.Sum(i => i.Quantity) : 0;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -61,18 +68,15 @@
                 <a href="@Url.Action("Index", "Home")" class="nav-item nav-link">Inicio</a>
                 @if (Session["Role_ID"] != null && ((int)Session["Role_ID"] == 1 || (int)Session["Role_ID"] == 2))
                 {
+                    <a class="nav-item nav-link" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
                     <a class="nav-item nav-link" href="@Url.Action("ConsultUsers", "Users")">Gestión de Usuarios</a>
                     <a class="nav-item nav-link" href="@Url.Action("Index", "Products")">Gestión de Prod.</a>
                     <a class="nav-item nav-link" href="@Url.Action("Index", "Settings")">Configuración</a>
-                    <a class="nav-item nav-link" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
                 }
                 else
                 {
                     <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>
-                }
-                <a class="nav-item nav-link" href="service.html">Servicios</a>
-                <a class="nav-item nav-link" href="@Url.Action("Catalog", "Products")">Catálogo</a>
-                <div class="nav-item dropdown">
+                    <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Información</a>
                     <div class="dropdown-menu m-0">
                         <a href="team.html" class="dropdown-item">Nuestro Equipo</a>
@@ -80,8 +84,20 @@
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                }
+                <a class="nav-item nav-link" href="service.html">Servicios</a>
+                <a class="nav-item nav-link" href="@Url.Action("Catalog", "Products")">Catálogo</a>
+                
             </div>
             <div class=" d-none d-lg-flex align-items-center">
+                <!-- Ícono de Carrito de Compras -->
+                <a href="@Url.Action("Index", "ShoppingCart")" class="d-flex align-items-center text-light text-decoration-none me-4 position-relative">
+                    <i class="fa fa-shopping-cart fa-2x"></i>
+                    <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-2 border-dark" style="font-size: 0.70rem;">
+                        @cartCount
+                    </span>
+                </a>
+
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-user-circle fa-2x me-2"></i>

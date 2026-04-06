@@ -12,24 +12,20 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class product_categories
+    public partial class shopping_cart
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public product_categories()
-        {
-            this.products = new HashSet<products>();
-        }
-    
-        public int category_id { get; set; }
-        public string category_name { get; set; }
-        public byte is_active { get; set; }
+        public int cart_item_id { get; set; }
+        public int user_id { get; set; }
+        public int product_id { get; set; }
+        public int quantity { get; set; }
+        public System.DateTime added_at { get; set; }
         public string created_by { get; set; }
         public string modified_by { get; set; }
         public string action { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }
         public Nullable<System.DateTime> modified_at { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<products> products { get; set; }
+        public virtual products products { get; set; }
+        public virtual users users { get; set; }
     }
 }

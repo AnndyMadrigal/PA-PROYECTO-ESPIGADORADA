@@ -39,7 +39,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
             using (var db = new Espiga_DBEntities())
             {
                 var lista = db.products
-                    .Where(p => p.is_active == 1)
+                    .Where(p => p.is_active == 1 && p.inventory_stock.Any(inv => inv.qty_available > 0))
                     .Select(p => new ProductViewModel
                     {
                         product_id = p.product_id,
@@ -51,6 +51,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                         unit_of_measure = p.unit_of_measure,
                         min_stock = p.min_stock,
                         unit_price = p.unit_price,
+                        qty_available = p.inventory_stock.Select(inv => inv.qty_available).FirstOrDefault(),
                         tax_id = p.tax_id,
                         is_active = p.is_active
                     }).ToList();
@@ -75,6 +76,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                     unit_of_measure = p.unit_of_measure,
                     min_stock = p.min_stock,
                     unit_price = p.unit_price,
+                    qty_available = p.inventory_stock.Select(inv => inv.qty_available).FirstOrDefault(),
                     tax_id = p.tax_id,
                     is_active = p.is_active
                 }).ToList();
@@ -139,6 +141,21 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                     model.unit_price, 
                     model.sku
                 );
+
+                // Insertar el stock inicial
+                var newProduct = db.products.FirstOrDefault(p => p.sku == model.sku);
+                if (newProduct != null)
+                {
+                    db.inventory_stock.Add(new inventory_stock
+                    {
+                        product_id = newProduct.product_id,
+                        qty_available = model.qty_available,
+                        created_by = user,
+                        created_at = System.DateTime.Now,
+                        action = "Initial Stock"
+                    });
+                    db.SaveChanges();
+                }
             }
 
             TempData["Success"] = "Producto ingresado correctamente";
@@ -155,6 +172,9 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                 if (p == null)
                     return RedirectToAction("Index");
 
+                // Buscar el stock explícitamente para evitar problemas si lazy loading está apagado
+                var stock = db.inventory_stock.FirstOrDefault(i => i.product_id == p.product_id);
+
                 var model = new ProductViewModel
                 {
                     product_id = p.product_id,
@@ -166,6 +186,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                     unit_of_measure = p.unit_of_measure,
                     min_stock = p.min_stock,
                     unit_price = p.unit_price,
+                    qty_available = stock != null ? stock.qty_available : 0,
                     tax_id = p.tax_id,
                     is_active = p.is_active
                 };
@@ -237,6 +258,28 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                     model.unit_price, 
                     model.product_id
                 );
+
+                // Actualizar el stock
+                var stock = db.inventory_stock.FirstOrDefault(s => s.product_id == model.product_id);
+                if (stock != null)
+                {
+                    stock.qty_available = model.qty_available;
+                    stock.modified_by = user;
+                    stock.modified_at = System.DateTime.Now;
+                    stock.action = "Update Stock";
+                }
+                else
+                {
+                    db.inventory_stock.Add(new inventory_stock
+                    {
+                        product_id = model.product_id,
+                        qty_available = model.qty_available,
+                        created_by = user,
+                        created_at = System.DateTime.Now,
+                        action = "Initial Stock"
+                    });
+                }
+                db.SaveChanges();
             }
 
             TempData["Success"] = "Producto actualizado correctamente ✏️";

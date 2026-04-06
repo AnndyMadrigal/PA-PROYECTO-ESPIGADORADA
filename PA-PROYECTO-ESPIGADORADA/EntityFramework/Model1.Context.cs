@@ -48,6 +48,7 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public virtual DbSet<suppliers> suppliers { get; set; }
         public virtual DbSet<sales_invoice_lines> sales_invoice_lines { get; set; }
         public virtual DbSet<sales_invoices> sales_invoices { get; set; }
+        public virtual DbSet<shopping_cart> shopping_cart { get; set; }
     
         public virtual ObjectResult<GetUserById_Result> GetUserById(Nullable<int> userId)
         {

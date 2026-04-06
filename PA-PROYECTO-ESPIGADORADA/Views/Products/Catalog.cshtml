@@ -41,9 +41,22 @@
                             <!-- Precio desde la BD -->
                             <h4 class="text-primary mb-3 fw-bold">₡@product.unit_price.ToString("N2")</h4>
 
-                            <button class="btn btn-outline-primary w-100 rounded-pill mt-auto" onclick="addToCart(@product.product_id)">
-                                <i class="fa fa-shopping-cart me-2"></i>Añadir al carrito
-                            </button>
+                            <p class="text-success mb-3 fw-bold smaller">
+                                <i class="fa fa-boxes me-1"></i> Disponible: @product.qty_available.ToString("0")
+                            </p>
+
+                            <div class="d-flex align-items-center justify-content-between mt-auto w-100">
+                                <div class="input-group input-group-sm me-2" style="width: 110px;">
+                                    <button class="btn btn-outline-secondary js-qty-minus" type="button"><i class="fa fa-minus"></i></button>
+                                    <input type="number" class="form-control text-center px-1" id="qty_@product.product_id" value="1" min="1" max="@product.qty_available.ToString("0")" readonly />
+                                    <button class="btn btn-outline-secondary js-qty-plus" type="button"><i class="fa fa-plus"></i></button>
+                                </div>
+                                <button class="btn btn-primary flex-grow-1 rounded-pill px-3 js-add-cart shadow-sm" 
+                                        data-product-id="@product.product_id" 
+                                        data-stock="@product.qty_available.ToString("0", System.Globalization.CultureInfo.InvariantCulture)">
+                                    <i class="fa fa-shopping-cart"></i> Añadir
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -52,8 +65,8 @@
         else
         {
             <div class="col-12 text-center text-muted py-5">
-                <i class="fa fa-box-open fa-3x mb-3"></i>
-                <p>No hay productos disponibles en este momento.</p>
+                <i class="fa fa-box-open fa-3x mb-3 opacity-50"></i>
+                <p class="fs-5">No hay productos disponibles en este momento.</p>
             </div>
         }
     </div>
@@ -61,10 +74,65 @@
 
 @section Scripts {
     <script>
-        function addToCart(productId) {
-            // Lógica para añadir al carrito a implementar posteriormente
-            alert("Producto " + productId + " añadido al carrito (Funcionalidad en desarrollo).");
-        }
+        $(document).ready(function () {
+
+            // Lógica para botones de cantidad
+            $(".js-qty-minus").click(function(){
+                var input = $(this).siblings("input[type='number']");
+                var val = parseInt(input.val());
+                if(val > 1) input.val(val - 1);
+            });
+
+            $(".js-qty-plus").click(function(){
+                var input = $(this).siblings("input[type='number']");
+                var val = parseInt(input.val());
+                var max = parseInt(input.attr("max"));
+                if(val < max) input.val(val + 1);
+            });
+
+            // Lógica para añadir al carrito
+            $(".js-add-cart").on("click", function () {
+                var btn = $(this);
+                var productId = btn.data("product-id");
+                var availableStock = parseInt(btn.data("stock"));
+                var qty = parseInt($("#qty_" + productId).val());
+
+                if (availableStock <= 0 || qty > availableStock) {
+                    alert("Stock insuficiente.");
+                    return;
+                }
+
+                // Deshabilitar momentáneamente el botón para evitar doble clic
+                var originalHtml = btn.html();
+                btn.html('<i class="fa fa-spinner fa-spin"></i>');
+                btn.prop('disabled', true);
+
+                $.post('@Url.Action("AddToCart", "ShoppingCart")', { productId: productId, quantity: qty })
+                    .done(function(res) {
+                        btn.html(originalHtml);
+                        btn.prop('disabled', false);
+
+                        if(res.success) {
+                            // Actualizar el numerito del carrito en el navbar
+                            $('#cart-badge').text(res.totalItems)
+                                            .addClass('animate__animated animate__rubberBand')
+                                            .one('animationend', function() {
+                                                $(this).removeClass('animate__animated animate__rubberBand');
+                                            });
+
+                            // Volver la cantidad al input a 1 por comodidad
+                            $("#qty_" + productId).val(1);
+                        } else {
+                            alert(res.message);
+                        }
+                    })
+                    .fail(function() {
+                        btn.html(originalHtml);
+                        btn.prop('disabled', false);
+                        alert("Ocurrió un error al intentar agregar el producto al carrito.");
+                    });
+            });
+        });
     </script>
     <style>
         .product-card {

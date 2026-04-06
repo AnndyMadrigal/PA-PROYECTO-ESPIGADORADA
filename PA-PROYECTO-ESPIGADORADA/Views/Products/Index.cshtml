@@ -21,23 +21,25 @@
 
                         @if (Model != null && Model.Count > 0)
                         {
-                            <table class="table table-striped table-hover align-middle">
-                                <thead class="table-dark">
+                            <table id="productsTable" class="table table-hover table-borderless align-middle shadow-sm rounded overflow-hidden">
+                                <thead class="table-primary text-secondary">
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Imagen</th>
-                                        <th>Nombre</th>
-                                        <th>SKU</th>
-                                        <th>Precio</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
+                                        <th class="py-3 px-4">ID</th>
+                                        <th class="py-3">Imagen</th>
+                                        <th class="py-3">Nombre</th>
+                                        <th class="py-3">SKU</th>
+                                        <th class="py-3">Precio</th>
+                                        <th class="py-3">Stock Min.</th>
+                                        <th class="py-3">Stock</th>
+                                        <th class="py-3">Estado</th>
+                                        <th class="py-3 px-4">Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="bg-white">
                                     @foreach (var product in Model)
                                     {
-                                        <tr>
-                                            <td>@product.product_id</td>
+                                        <tr class="border-bottom">
+                                            <td class="px-4 fw-bold text-muted">@product.product_id</td>
                                             <td>
                                                 @if (!string.IsNullOrEmpty(product.image_url))
                                                 {
@@ -51,15 +53,19 @@
                                             <td>@product.product_name</td>
                                             <td>@product.sku</td>
                                             <td>@product.unit_price</td>
+                                            <td>@product.min_stock.ToString("0.##")</td>
+                                            <td>
+                                                <span class="badge bg-secondary">@product.qty_available.ToString("0.##")</span>
+                                            </td>
                                             <td>
                                                 <span class="badge @(product.is_active == 1 ? "bg-success" : "bg-danger")">
                                                     @(product.is_active == 1 ? "Activo" : "Inactivo")
                                                 </span>
                                             </td>
 
-                                            <td>
+                                            <td class="px-4">
                                                 <a href="@Url.Action("Edit", "Products", new { id = product.product_id })"
-                                                   class="btn btn-sm btn-primary" title="Editar">
+                                                   class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Editar">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
 
@@ -68,7 +74,7 @@
                                                       class="d-inline">
                                                     <input type="hidden" name="id" value="@product.product_id" />
                                                     <button type="submit"
-                                                            class="btn btn-sm @(product.is_active == 1 ? "btn-danger" : "btn-success")"
+                                                            class="btn btn-sm @(product.is_active == 1 ? "btn-outline-danger" : "btn-outline-success") rounded-pill"
                                                             title="@(product.is_active == 1 ? "Desactivar" : "Activar")">
                                                         <i class="fa @(product.is_active == 1 ? "fa-ban" : "fa-check")"></i>
                                                     </button>
@@ -81,8 +87,9 @@
                         }
                         else
                         {
-                            <div class="alert alert-warning text-center">
-                                No hay productos registrados.
+                            <div class="alert alert-warning text-center rounded-3 shadow-sm border-0 my-4">
+                                <i class="fa fa-box-open fa-2x mb-3 text-warning opacity-50 d-block"></i>
+                                <span class="fw-bold">No hay productos registrados.</span>
                             </div>
                         }
 
@@ -92,4 +99,41 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <style>
+        /* Small fixes to make DataTables look better integrated */
+        .dataTables_wrapper .row {
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+        .dataTables_info {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .page-link {
+            border-radius: 5px !important;
+            margin: 0 3px;
+            border: none;
+            color: #555;
+        }
+        .page-item.active .page-link {
+            background-color: var(--bs-primary);
+            color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        table.dataTable>thead>tr>th {
+            border-bottom: 2px solid rgba(0,0,0,0.1) !important;
+        }
+        .dt-search input {
+            border-radius: 20px;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .dt-length select {
+            border-radius: 10px;
+        }
+    </style>
+   <script src="~/Template/js/functions/consultProducts.js"></script>
+}
 

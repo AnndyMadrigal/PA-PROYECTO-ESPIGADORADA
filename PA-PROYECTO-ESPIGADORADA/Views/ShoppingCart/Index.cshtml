@@ -1,0 +1,109 @@
+@model List<PA_PROYECTO_ESPIGADORADA.Models.ShoppingCartItem>
+@{
+    ViewBag.Title = "Mi Carrito";
+}
+
+<div class="container py-5 my-4">
+    <h2 class="text-primary fw-bold mb-4"><i class="fa fa-shopping-cart me-2"></i> Mi Carrito de Compras</h2>
+    
+    @if(Model != null && Model.Count > 0)
+    {
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table align-middle table-hover mb-0">
+                                <thead class="table-light text-secondary">
+                                    <tr>
+                                        <th class="py-3 px-4">Producto</th>
+                                        <th class="py-3">Precio</th>
+                                        <th class="py-3">Cantidad</th>
+                                        <th class="py-3">Subtotal</th>
+                                        <th class="py-3">IVA (13%)</th>
+                                        <th class="py-3 text-end px-4">Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var item in Model) {
+                                        <tr class="border-bottom">
+                                            <td class="px-4">
+                                                <div class="d-flex align-items-center py-2">
+                                                    @if(!string.IsNullOrEmpty(item.ImageUrl)) {
+                                                        <img src="@Url.Content(item.ImageUrl)" class="img-thumbnail rounded shadow-sm me-3" style="width: 60px; height: 60px; object-fit: cover;" />
+                                                    } else {
+                                                        <div class="bg-light rounded d-flex align-items-center justify-content-center me-3 shadow-sm" style="width: 60px; height: 60px;">
+                                                            <i class="fa fa-box-open text-muted"></i>
+                                                        </div>
+                                                    }
+                                                    <span class="fw-bold text-dark">@item.ProductName</span>
+                                                </div>
+                                            </td>
+                                            <td class="text-muted">₡@item.UnitPrice.ToString("N2")</td>
+                                            <td>
+                                                <form action="@Url.Action("UpdateQuantity", "ShoppingCart")" method="post" class="d-flex align-items-center m-0">
+                                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                                    <input type="number" name="quantity" value="@item.Quantity" min="1" max="@item.AvailableStock.ToString("0")" class="form-control text-center bg-light border-0 shadow-none text-dark fw-bold" style="width: 70px; border-radius: 10px;" onchange="this.form.submit()" />
+                                                </form>
+                                            </td>
+                                            <td class="text-muted">₡@item.Subtotal.ToString("N2")</td>
+                                            <td class="text-muted">₡@item.Tax.ToString("N2")</td>
+                                            <td class="fw-bold text-primary text-end px-4">₡@item.Total.ToString("N2")</td>
+                                            <td class="text-center">
+                                                <form action="@Url.Action("Remove", "ShoppingCart")" method="post" class="m-0">
+                                                    <input type="hidden" name="productId" value="@item.ProductId" />
+                                                    <button class="btn btn-sm btn-outline-danger border-0 rounded-circle" title="Eliminar"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-lg rounded-4 bg-primary text-white sticky-top" style="top: 100px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h4 class="text-white mb-4 fw-bold"><i class="fa fa-receipt me-2"></i> Resumen de Orden</h4>
+                        
+                        <div class="d-flex justify-content-between mb-3 fs-6 opacity-75">
+                            <span>Subtotal</span>
+                            <span>₡@Model.Sum(i => i.Subtotal).ToString("N2")</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 fs-6 opacity-75">
+                            <span>Impuestos (13%)</span>
+                            <span>₡@Model.Sum(i => i.Tax).ToString("N2")</span>
+                        </div>
+                        
+                        <hr class="border-light opacity-50 my-4" />
+                        
+                        <div class="d-flex justify-content-between mb-5">
+                            <h5 class="text-white fw-bolder mb-0">Total</h5>
+                            <h4 class="text-white fw-bolder mb-0">₡@Model.Sum(i => i.Total).ToString("N2")</h4>
+                        </div>
+                        
+                        <button class="btn btn-light btn-lg w-100 fw-bold rounded-pill text-primary shadow-sm" onclick="alert('Funcionalidad de pago en desarrollo')">
+                            <i class="fa fa-credit-card me-2"></i> Procesar Pago
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5 my-5">
+            <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 120px; height: 120px;">
+                <i class="fa fa-shopping-basket fa-4x text-muted opacity-50"></i>
+            </div>
+            <h3 class="text-dark fw-bold">Opps! Tu carrito está vacío</h3>
+            <p class="text-muted mb-4 fs-5">Agrega productos maravillosos de nuestro catálogo.</p>
+            <a href="@Url.Action("Catalog", "Products")" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm">
+                <i class="fa fa-store me-2"></i>Explorar Catálogo
+            </a>
+        </div>
+    }
+</div>

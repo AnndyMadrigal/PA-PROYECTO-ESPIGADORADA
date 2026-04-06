@@ -11,6 +11,7 @@
         public string unit_of_measure { get; set; }
         public decimal min_stock { get; set; }
         public decimal unit_price { get; set; }
+        public decimal qty_available { get; set; }
         public int tax_id { get; set; }
         public int is_active { get; set; }
     }

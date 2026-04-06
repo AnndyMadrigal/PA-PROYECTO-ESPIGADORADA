@@ -41,12 +41,6 @@
                         @Html.ValidationMessageFor(m => m.SupportEmail, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="form-floating mb-4">
-                        @Html.TextBoxFor(m => m.LowStockThreshold, new { @class = "form-control bg-light", @placeholder = "Umbral de stock bajo", @type = "number", @min = "0" })
-                        <label for="LowStockThreshold">Umbral de stock bajo</label>
-                        @Html.ValidationMessageFor(m => m.LowStockThreshold, "", new { @class = "text-danger" })
-                    </div>
-
                     <div class="d-grid mb-3">
                         <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold">
                             Guardar configuración

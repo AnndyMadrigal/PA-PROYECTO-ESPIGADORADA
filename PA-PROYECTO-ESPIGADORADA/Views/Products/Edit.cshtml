@@ -29,19 +29,24 @@
                                 @Html.TextBoxFor(m => m.sku, new { @class = "form-control form-control-lg bg-light", data_val = "false" })
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold text-secondary">Precio Unitario (₡) <span class="text-danger">*</span></label>
                                 <input type="number" name="unit_price" id="unit_price" value="@Model.unit_price.ToString(System.Globalization.CultureInfo.InvariantCulture)" class="form-control form-control-lg bg-light" step="0.01" data-val="false" />
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold text-secondary">Stock Mínimo <span class="text-danger">*</span></label>
-                                <input type="number" name="min_stock" id="min_stock" value="@Model.min_stock.ToString(System.Globalization.CultureInfo.InvariantCulture)" class="form-control form-control-lg bg-light" step="0.001" data-val="false" />
+                                <input type="number" name="min_stock" id="min_stock" value="@Model.min_stock.ToString("0", System.Globalization.CultureInfo.InvariantCulture)" class="form-control form-control-lg bg-light" step="1" data-val="false" />
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold text-secondary">Cantidad Disponible <span class="text-danger">*</span></label>
+                                <input type="number" name="qty_available" id="qty_available" value="@Model.qty_available.ToString("0", System.Globalization.CultureInfo.InvariantCulture)" class="form-control form-control-lg bg-light" step="1" data-val="false" />
+                            </div>
+
+                            <div class="col-md-3">
                                 <label class="form-label fw-bold text-secondary">Unidad <span class="text-danger">*</span></label>
-                                @Html.TextBoxFor(m => m.unit_of_measure, new { @class = "form-control form-control-lg bg-light" })
+                                @Html.TextBoxFor(m => m.unit_of_measure, new { @class = "form-control form-control-lg bg-light", data_val = "false" })
                             </div>
 
                             <div class="col-md-4">

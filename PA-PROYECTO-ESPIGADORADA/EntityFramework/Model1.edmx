@@ -348,6 +348,21 @@
           <Property Name="created_at" Type="datetime" />
           <Property Name="modified_at" Type="datetime" />
         </EntityType>
+        <EntityType Name="shopping_cart">
+          <Key>
+            <PropertyRef Name="cart_item_id" />
+          </Key>
+          <Property Name="cart_item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="product_id" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="added_at" Type="datetime" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
+        </EntityType>
         <Association Name="FK_cantons_provinces">
           <End Role="provinces" Type="Self.provinces" Multiplicity="1" />
           <End Role="cantons" Type="Self.cantons" Multiplicity="*" />
@@ -540,6 +555,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_shopping_cart_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="shopping_cart" Type="Self.shopping_cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="shopping_cart">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_shopping_cart_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="shopping_cart" Type="Self.shopping_cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="shopping_cart">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_supplier_payments_purchase_invoices">
           <End Role="purchase_invoices" Type="Self.purchase_invoices" Multiplicity="1" />
           <End Role="supplier_payments" Type="Self.supplier_payments" Multiplicity="*" />
@@ -704,6 +743,7 @@
           <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="purchasing" store:Type="Tables" />
           <EntitySet Name="sales_invoice_lines" EntityType="Self.sales_invoice_lines" Schema="sales" store:Type="Tables" />
           <EntitySet Name="sales_invoices" EntityType="Self.sales_invoices" Schema="sales" store:Type="Tables" />
+          <EntitySet Name="shopping_cart" EntityType="Self.shopping_cart" Schema="sales" store:Type="Tables" />
           <AssociationSet Name="FK_cantons_provinces" Association="Self.FK_cantons_provinces">
             <End Role="provinces" EntitySet="provinces" />
             <End Role="cantons" EntitySet="cantons" />
@@ -767,6 +807,14 @@
           <AssociationSet Name="FK_sales_invoices_users" Association="Self.FK_sales_invoices_users">
             <End Role="users" EntitySet="users" />
             <End Role="sales_invoices" EntitySet="sales_invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_shopping_cart_products" Association="Self.FK_shopping_cart_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="shopping_cart" EntitySet="shopping_cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_shopping_cart_users" Association="Self.FK_shopping_cart_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="shopping_cart" EntitySet="shopping_cart" />
           </AssociationSet>
           <AssociationSet Name="FK_supplier_payments_purchase_invoices" Association="Self.FK_supplier_payments_purchase_invoices">
             <End Role="purchase_invoices" EntitySet="purchase_invoices" />
@@ -833,6 +881,7 @@
           <NavigationProperty Name="taxes" Relationship="Self.FK_products_taxes" FromRole="products" ToRole="taxes" />
           <NavigationProperty Name="purchase_invoice_lines" Relationship="Self.FK_purchase_invoice_lines_products" FromRole="products" ToRole="purchase_invoice_lines" />
           <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_products" FromRole="products" ToRole="sales_invoice_lines" />
+          <NavigationProperty Name="shopping_cart" Relationship="Espiga_DBModel.FK_shopping_cart_products" FromRole="products" ToRole="shopping_cart" />
         </EntityType>
         <EntityType Name="promotions">
           <Key>
@@ -955,6 +1004,7 @@
           <NavigationProperty Name="user_addresses" Relationship="Self.FK_user_addresses_users" FromRole="users" ToRole="user_addresses" />
           <NavigationProperty Name="user_phones" Relationship="Self.FK_user_phones_users" FromRole="users" ToRole="user_phones" />
           <NavigationProperty Name="sales_invoices" Relationship="Self.FK_sales_invoices_users" FromRole="users" ToRole="sales_invoices" />
+          <NavigationProperty Name="shopping_cart" Relationship="Espiga_DBModel.FK_shopping_cart_users" FromRole="users" ToRole="shopping_cart" />
         </EntityType>
         <EntityType Name="cantons">
           <Key>
@@ -1618,6 +1668,15 @@
             <Parameter Name="is_active" Mode="In" Type="Boolean" />
             <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="shopping_cart" EntityType="Espiga_DBModel.shopping_cart" />
+          <AssociationSet Name="FK_shopping_cart_products" Association="Espiga_DBModel.FK_shopping_cart_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="shopping_cart" EntitySet="shopping_cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_shopping_cart_users" Association="Espiga_DBModel.FK_shopping_cart_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="shopping_cart" EntitySet="shopping_cart" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetUserById_Result">
           <Property Type="Int32" Name="user_id" Nullable="false" />
@@ -1654,6 +1713,47 @@
           <Property Type="DateTime" Name="CreatedAt" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="ModifiedAt" Nullable="true" Precision="23" />
         </ComplexType>
+        <EntityType Name="shopping_cart">
+          <Key>
+            <PropertyRef Name="cart_item_id" />
+          </Key>
+          <Property Name="cart_item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="added_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="products" Relationship="Espiga_DBModel.FK_shopping_cart_products" FromRole="shopping_cart" ToRole="products" />
+          <NavigationProperty Name="users" Relationship="Espiga_DBModel.FK_shopping_cart_users" FromRole="shopping_cart" ToRole="users" />
+        </EntityType>
+        <Association Name="FK_shopping_cart_products">
+          <End Type="Espiga_DBModel.products" Role="products" Multiplicity="1" />
+          <End Type="Espiga_DBModel.shopping_cart" Role="shopping_cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="shopping_cart">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_shopping_cart_users">
+          <End Type="Espiga_DBModel.users" Role="users" Multiplicity="1" />
+          <End Type="Espiga_DBModel.shopping_cart" Role="shopping_cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="shopping_cart">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2082,6 +2182,22 @@
           <FunctionImportMapping FunctionImportName="InsertProduct" FunctionName="Espiga_DBModel.Store.InsertProduct" />
           <FunctionImportMapping FunctionImportName="ToggleProductStatus" FunctionName="Espiga_DBModel.Store.ToggleProductStatus" />
           <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="Espiga_DBModel.Store.UpdateProduct" />
+          <EntitySetMapping Name="shopping_cart">
+            <EntityTypeMapping TypeName="Espiga_DBModel.shopping_cart">
+              <MappingFragment StoreEntitySet="shopping_cart">
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="added_at" ColumnName="added_at" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="cart_item_id" ColumnName="cart_item_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
