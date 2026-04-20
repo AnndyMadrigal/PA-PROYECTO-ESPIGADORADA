@@ -136,6 +136,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProvidersController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -240,6 +241,7 @@
     </Compile>
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\ProvidersModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\SecurityModel.cs" />
     <Compile Include="Models\ShoppingCartItem.cs" />
@@ -336,6 +338,8 @@
     <Content Include="Template\js\functions\productValidation.js" />
     <Content Include="Template\js\functions\recoverPassword.js" />
     <Content Include="Template\js\functions\register.js" />
+    <Content Include="Template\js\functions\editProvider.js" />
+    <Content Include="Template\js\functions\registerProvider.js" />
     <Content Include="Template\js\main.js" />
     <Content Include="Template\js\owl.carousel.min.js" />
     <Content Include="Template\js\waypoints.min.js" />
@@ -371,6 +375,9 @@
     <Content Include="Views\Products\Catalog.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Providers\ConsultProviders.cshtml" />
+    <Content Include="Views\Providers\RegisterProvider.cshtml" />
+    <Content Include="Views\Providers\EditProvider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

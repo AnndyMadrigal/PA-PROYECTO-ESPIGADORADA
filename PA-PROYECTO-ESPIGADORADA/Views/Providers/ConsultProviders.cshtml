@@ -1,0 +1,107 @@
+﻿@model List<PA_PROYECTO_ESPIGADORADA.Models.ProvidersModel>
+@{
+    ViewBag.Title = "ConsultProviders";
+}
+
+<div class="container py-4 my-4">
+    <div class="row">
+        <div class="col-12 mt-4">
+            <h2 class="text-primary fw-bold mb-4">Gestión de Usuarios</h2>
+
+            <div class="mb-3">
+                <a href="@Url.Action("RegisterProvider")" class="btn btn-success"><i class="fa fa-plus me-2"></i>Registrar Nuevo Proveedor</a>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="usersTable" class="table table-hover table-borderless align-middle shadow-sm rounded overflow-hidden">
+                            <thead class="table-primary text-secondary">
+                                <tr>
+                                    <th class="py-3 px-4">ID</th>
+                                    <th class="py-3">Nombre</th>
+                                    <th class="py-3">Correo</th>
+                                    <th class="py-3">Teléfono</th>
+                                    <th class="py-3">Estado</th>
+                                    <th class="py-3 px-4">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                @foreach (var providers in Model)
+                                {
+                                    <tr class="border-bottom">
+                                        <td class="px-4 fw-bold text-muted">@providers.Supplier_Id</td>
+                                        <td>@providers.Name</td>
+                                        <td>@providers.Email</td>
+                                        <td>@providers.Phone</td>
+                                        <td>
+                                            <span class="badge @(providers.Is_Active == 1 ? "bg-success" : "bg-danger")">
+                                                @(providers.Is_Active == 1 ? "Activo" : "Inactivo")
+                                            </span>
+                                        </td>
+                                        <td class="px-4">
+                                            <a href="@Url.Action("EditProvider", new { id = providers.Supplier_Id })" class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Editar">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <form action="@Url.Action("ToggleStatus", "Providers")" method="post" class="d-inline">
+                                                <input type="hidden" name="id" value="@providers.Supplier_Id" />
+                                                <button type="submit" class="btn btn-sm @(providers.Is_Active == 1 ? "btn-outline-danger" : "btn-outline-success") rounded-pill"
+                                                        title="@(providers.Is_Active == 1 ? "Desactivar" : "Activar")">
+                                                    <i class="fa @(providers.Is_Active == 1 ? "fa-ban" : "fa-check")"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <style>
+        .dataTables_wrapper .row {
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+
+        .dataTables_info {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .page-link {
+            border-radius: 5px !important;
+            margin: 0 3px;
+            border: none;
+            color: #555;
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--bs-primary);
+            color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        table.dataTable > thead > tr > th {
+            border-bottom: 2px solid rgba(0,0,0,0.1) !important;
+        }
+
+        .dt-search input {
+            border-radius: 20px;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .dt-length select {
+            border-radius: 10px;
+        }
+    </style>
+    <!-- DataTables CSS/JS -->
+    <script src="~/Template/js/functions/consultUser.js"></script>
+}
+
