@@ -50,6 +50,13 @@
         <EntityTypeShape EntityType="Espiga_DBModel.shopping_cart" Width="1.5" PointX="9" PointY="14.5" />
         <AssociationConnector Association="Espiga_DBModel.FK_shopping_cart_products" />
         <AssociationConnector Association="Espiga_DBModel.FK_shopping_cart_users" />
+        <EntityTypeShape EntityType="Espiga_DBModel.purchase_order_details" Width="1.5" PointX="8.25" PointY="19.5" />
+        <EntityTypeShape EntityType="Espiga_DBModel.purchase_orders" Width="1.5" PointX="6" PointY="32.625" />
+        <EntityTypeShape EntityType="Espiga_DBModel.sales_invoice_payments" Width="1.5" PointX="8.25" PointY="27.5" />
+        <AssociationConnector Association="Espiga_DBModel.FK_POD_Product" />
+        <AssociationConnector Association="Espiga_DBModel.FK_POD_Order" />
+        <AssociationConnector Association="Espiga_DBModel.FK_PO_Supplier" />
+        <AssociationConnector Association="Espiga_DBModel.FK_sales_invoice_payments_sales_invoices" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

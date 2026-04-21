@@ -273,6 +273,26 @@
           <Property Name="created_at" Type="datetime" />
           <Property Name="modified_at" Type="datetime" />
         </EntityType>
+        <EntityType Name="purchase_order_details">
+          <Key>
+            <PropertyRef Name="detail_id" />
+          </Key>
+          <Property Name="detail_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_id" Type="int" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="unit_cost" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="purchase_orders">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplier_id" Type="int" Nullable="false" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="is_active" Type="bit" />
+        </EntityType>
         <EntityType Name="supplier_payments">
           <Key>
             <PropertyRef Name="payment_id" />
@@ -320,6 +340,20 @@
           <Property Name="tax_amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="line_subtotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="line_total" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="created_by" Type="varchar" MaxLength="100" />
+          <Property Name="modified_by" Type="varchar" MaxLength="100" />
+          <Property Name="action" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="modified_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sales_invoice_payments">
+          <Key>
+            <PropertyRef Name="sales_invoice_payment_id" />
+          </Key>
+          <Property Name="sales_invoice_payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sales_invoice_id" Type="int" Nullable="false" />
+          <Property Name="payment_method" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="notes" Type="nvarchar" MaxLength="250" />
           <Property Name="created_by" Type="varchar" MaxLength="100" />
           <Property Name="modified_by" Type="varchar" MaxLength="100" />
           <Property Name="action" Type="varchar" MaxLength="100" />
@@ -407,6 +441,42 @@
               <PropertyRef Name="product_id" />
             </Principal>
             <Dependent Role="inventory_stock">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PO_Supplier">
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="1" />
+          <End Role="purchase_orders" Type="Self.purchase_orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplier_id" />
+            </Principal>
+            <Dependent Role="purchase_orders">
+              <PropertyRef Name="supplier_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POD_Order">
+          <End Role="purchase_orders" Type="Self.purchase_orders" Multiplicity="0..1" />
+          <End Role="purchase_order_details" Type="Self.purchase_order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchase_orders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="purchase_order_details">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POD_Product">
+          <End Role="products" Type="Self.products" Multiplicity="0..1" />
+          <End Role="purchase_order_details" Type="Self.purchase_order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="purchase_order_details">
               <PropertyRef Name="product_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -540,6 +610,18 @@
             </Principal>
             <Dependent Role="sales_invoice_lines">
               <PropertyRef Name="tax_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoice_payments_sales_invoices">
+          <End Role="sales_invoices" Type="Self.sales_invoices" Multiplicity="1" />
+          <End Role="sales_invoice_payments" Type="Self.sales_invoice_payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales_invoices">
+              <PropertyRef Name="sales_invoice_id" />
+            </Principal>
+            <Dependent Role="sales_invoice_payments">
+              <PropertyRef Name="sales_invoice_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -739,9 +821,12 @@
           <EntitySet Name="payment_terms" EntityType="Self.payment_terms" Schema="purchasing" store:Type="Tables" />
           <EntitySet Name="purchase_invoice_lines" EntityType="Self.purchase_invoice_lines" Schema="purchasing" store:Type="Tables" />
           <EntitySet Name="purchase_invoices" EntityType="Self.purchase_invoices" Schema="purchasing" store:Type="Tables" />
+          <EntitySet Name="purchase_order_details" EntityType="Self.purchase_order_details" Schema="purchasing" store:Type="Tables" />
+          <EntitySet Name="purchase_orders" EntityType="Self.purchase_orders" Schema="purchasing" store:Type="Tables" />
           <EntitySet Name="supplier_payments" EntityType="Self.supplier_payments" Schema="purchasing" store:Type="Tables" />
           <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="purchasing" store:Type="Tables" />
           <EntitySet Name="sales_invoice_lines" EntityType="Self.sales_invoice_lines" Schema="sales" store:Type="Tables" />
+          <EntitySet Name="sales_invoice_payments" EntityType="Self.sales_invoice_payments" Schema="sales" store:Type="Tables" />
           <EntitySet Name="sales_invoices" EntityType="Self.sales_invoices" Schema="sales" store:Type="Tables" />
           <EntitySet Name="shopping_cart" EntityType="Self.shopping_cart" Schema="sales" store:Type="Tables" />
           <AssociationSet Name="FK_cantons_provinces" Association="Self.FK_cantons_provinces">
@@ -759,6 +844,18 @@
           <AssociationSet Name="FK_inventory_stock_products" Association="Self.FK_inventory_stock_products">
             <End Role="products" EntitySet="products" />
             <End Role="inventory_stock" EntitySet="inventory_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PO_Supplier" Association="Self.FK_PO_Supplier">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="purchase_orders" EntitySet="purchase_orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POD_Order" Association="Self.FK_POD_Order">
+            <End Role="purchase_orders" EntitySet="purchase_orders" />
+            <End Role="purchase_order_details" EntitySet="purchase_order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POD_Product" Association="Self.FK_POD_Product">
+            <End Role="products" EntitySet="products" />
+            <End Role="purchase_order_details" EntitySet="purchase_order_details" />
           </AssociationSet>
           <AssociationSet Name="FK_products_product_categories" Association="Self.FK_products_product_categories">
             <End Role="product_categories" EntitySet="product_categories" />
@@ -803,6 +900,10 @@
           <AssociationSet Name="FK_sales_invoice_lines_taxes" Association="Self.FK_sales_invoice_lines_taxes">
             <End Role="taxes" EntitySet="taxes" />
             <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoice_payments_sales_invoices" Association="Self.FK_sales_invoice_payments_sales_invoices">
+            <End Role="sales_invoices" EntitySet="sales_invoices" />
+            <End Role="sales_invoice_payments" EntitySet="sales_invoice_payments" />
           </AssociationSet>
           <AssociationSet Name="FK_sales_invoices_users" Association="Self.FK_sales_invoices_users">
             <End Role="users" EntitySet="users" />
@@ -882,6 +983,7 @@
           <NavigationProperty Name="purchase_invoice_lines" Relationship="Self.FK_purchase_invoice_lines_products" FromRole="products" ToRole="purchase_invoice_lines" />
           <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_products" FromRole="products" ToRole="sales_invoice_lines" />
           <NavigationProperty Name="shopping_cart" Relationship="Espiga_DBModel.FK_shopping_cart_products" FromRole="products" ToRole="shopping_cart" />
+          <NavigationProperty Name="purchase_order_details" Relationship="Espiga_DBModel.FK_POD_Product" FromRole="products" ToRole="purchase_order_details" />
         </EntityType>
         <EntityType Name="promotions">
           <Key>
@@ -1177,6 +1279,7 @@
           <Property Name="created_at" Type="DateTime" Precision="3" />
           <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="purchase_invoices" Relationship="Self.FK_purchase_invoices_suppliers" FromRole="suppliers" ToRole="purchase_invoices" />
+          <NavigationProperty Name="purchase_orders" Relationship="Espiga_DBModel.FK_PO_Supplier" FromRole="suppliers" ToRole="purchase_orders" />
         </EntityType>
         <EntityType Name="sales_invoice_lines">
           <Key>
@@ -1227,6 +1330,7 @@
           <Property Name="modified_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="users" Relationship="Self.FK_sales_invoices_users" FromRole="sales_invoices" ToRole="users" />
           <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_sales_invoices" FromRole="sales_invoices" ToRole="sales_invoice_lines" />
+          <NavigationProperty Name="sales_invoice_payments" Relationship="Espiga_DBModel.FK_sales_invoice_payments_sales_invoices" FromRole="sales_invoices" ToRole="sales_invoice_payments" />
         </EntityType>
         <Association Name="FK_products_product_categories">
           <End Role="product_categories" Type="Self.product_categories" Multiplicity="1" />
@@ -1677,6 +1781,25 @@
             <End Role="users" EntitySet="users" />
             <End Role="shopping_cart" EntitySet="shopping_cart" />
           </AssociationSet>
+          <EntitySet Name="purchase_order_details" EntityType="Espiga_DBModel.purchase_order_details" />
+          <EntitySet Name="purchase_orders" EntityType="Espiga_DBModel.purchase_orders" />
+          <EntitySet Name="sales_invoice_payments" EntityType="Espiga_DBModel.sales_invoice_payments" />
+          <AssociationSet Name="FK_POD_Product" Association="Espiga_DBModel.FK_POD_Product">
+            <End Role="products" EntitySet="products" />
+            <End Role="purchase_order_details" EntitySet="purchase_order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POD_Order" Association="Espiga_DBModel.FK_POD_Order">
+            <End Role="purchase_orders" EntitySet="purchase_orders" />
+            <End Role="purchase_order_details" EntitySet="purchase_order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PO_Supplier" Association="Espiga_DBModel.FK_PO_Supplier">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="purchase_orders" EntitySet="purchase_orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sales_invoice_payments_sales_invoices" Association="Espiga_DBModel.FK_sales_invoice_payments_sales_invoices">
+            <End Role="sales_invoices" EntitySet="sales_invoices" />
+            <End Role="sales_invoice_payments" EntitySet="sales_invoice_payments" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GetUserById_Result">
           <Property Type="Int32" Name="user_id" Nullable="false" />
@@ -1751,6 +1874,93 @@
             </Principal>
             <Dependent Role="shopping_cart">
               <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="purchase_order_details">
+          <Key>
+            <PropertyRef Name="detail_id" />
+          </Key>
+          <Property Name="detail_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_id" Type="Int32" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="unit_cost" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="products" Relationship="Espiga_DBModel.FK_POD_Product" FromRole="purchase_order_details" ToRole="products" />
+          <NavigationProperty Name="purchase_orders" Relationship="Espiga_DBModel.FK_POD_Order" FromRole="purchase_order_details" ToRole="purchase_orders" />
+        </EntityType>
+        <EntityType Name="purchase_orders">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplier_id" Type="Int32" Nullable="false" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="is_active" Type="Boolean" />
+          <NavigationProperty Name="purchase_order_details" Relationship="Espiga_DBModel.FK_POD_Order" FromRole="purchase_orders" ToRole="purchase_order_details" />
+          <NavigationProperty Name="suppliers" Relationship="Espiga_DBModel.FK_PO_Supplier" FromRole="purchase_orders" ToRole="suppliers" />
+        </EntityType>
+        <EntityType Name="sales_invoice_payments">
+          <Key>
+            <PropertyRef Name="sales_invoice_payment_id" />
+          </Key>
+          <Property Name="sales_invoice_payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sales_invoice_id" Type="Int32" Nullable="false" />
+          <Property Name="payment_method" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="notes" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="sales_invoices" Relationship="Espiga_DBModel.FK_sales_invoice_payments_sales_invoices" FromRole="sales_invoice_payments" ToRole="sales_invoices" />
+        </EntityType>
+        <Association Name="FK_POD_Product">
+          <End Type="Espiga_DBModel.products" Role="products" Multiplicity="0..1" />
+          <End Type="Espiga_DBModel.purchase_order_details" Role="purchase_order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="purchase_order_details">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POD_Order">
+          <End Type="Espiga_DBModel.purchase_orders" Role="purchase_orders" Multiplicity="0..1" />
+          <End Type="Espiga_DBModel.purchase_order_details" Role="purchase_order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="purchase_orders">
+              <PropertyRef Name="order_id" />
+            </Principal>
+            <Dependent Role="purchase_order_details">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PO_Supplier">
+          <End Type="Espiga_DBModel.suppliers" Role="suppliers" Multiplicity="1" />
+          <End Type="Espiga_DBModel.purchase_orders" Role="purchase_orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplier_id" />
+            </Principal>
+            <Dependent Role="purchase_orders">
+              <PropertyRef Name="supplier_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sales_invoice_payments_sales_invoices">
+          <End Type="Espiga_DBModel.sales_invoices" Role="sales_invoices" Multiplicity="1" />
+          <End Type="Espiga_DBModel.sales_invoice_payments" Role="sales_invoice_payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales_invoices">
+              <PropertyRef Name="sales_invoice_id" />
+            </Principal>
+            <Dependent Role="sales_invoice_payments">
+              <PropertyRef Name="sales_invoice_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2195,6 +2405,43 @@
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="cart_item_id" ColumnName="cart_item_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchase_order_details">
+            <EntityTypeMapping TypeName="Espiga_DBModel.purchase_order_details">
+              <MappingFragment StoreEntitySet="purchase_order_details">
+                <ScalarProperty Name="unit_cost" ColumnName="unit_cost" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="detail_id" ColumnName="detail_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchase_orders">
+            <EntityTypeMapping TypeName="Espiga_DBModel.purchase_orders">
+              <MappingFragment StoreEntitySet="purchase_orders">
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="supplier_id" ColumnName="supplier_id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales_invoice_payments">
+            <EntityTypeMapping TypeName="Espiga_DBModel.sales_invoice_payments">
+              <MappingFragment StoreEntitySet="sales_invoice_payments">
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="payment_method" ColumnName="payment_method" />
+                <ScalarProperty Name="sales_invoice_id" ColumnName="sales_invoice_id" />
+                <ScalarProperty Name="sales_invoice_payment_id" ColumnName="sales_invoice_payment_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

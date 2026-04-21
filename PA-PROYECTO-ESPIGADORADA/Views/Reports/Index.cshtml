@@ -1,0 +1,74 @@
+﻿@using System.Linq
+@using System.Collections.Generic
+@using System.Web.Mvc.Html
+@using System.Web.Mvc
+
+@model PA_PROYECTO_ESPIGADORADA.Models.ReportFilterViewModel
+@{
+    ViewBag.Title = "Reportes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <h4 class="mb-4">
+        <i class="bi bi-bar-chart-fill me-2"></i>Generación de Reportes
+    </h4>
+
+    @using (Html.BeginForm("Index", "Reports", FormMethod.Post,
+        new { @class = "card p-4 shadow-sm mb-4" }))
+    {
+        <div class="row g-3 align-items-end">
+
+            <div class="col-md-3">
+                <label class="form-label fw-bold">Tipo de reporte</label>
+                @Html.DropDownListFor(m => m.TipoReporte,
+                    new SelectList(new[]
+                    {
+                        new { V = "ventas",     T = "Ventas" },
+                        new { V = "inventario", T = "Inventario" },
+                        new { V = "compras",    T = "Compras" }
+                    }, "V", "T"),
+                    "-- Seleccione --",
+                    new { @class = "form-select", id = "tipoReporte" })
+            </div>
+
+            <div class="col-md-2 campo-fecha">
+                <label class="form-label fw-bold">Fecha inicio</label>
+                @Html.TextBoxFor(m => m.FechaInicio, "{0:yyyy-MM-dd}",
+                    new { @class = "form-control", type = "date" })
+            </div>
+
+            <div class="col-md-2 campo-fecha">
+                <label class="form-label fw-bold">Fecha fin</label>
+                @Html.TextBoxFor(m => m.FechaFin, "{0:yyyy-MM-dd}",
+                    new { @class = "form-control", type = "date" })
+            </div>
+
+            <div class="col-md-3" id="divCategoria" style="display:none">
+                <label class="form-label fw-bold">Categoría</label>
+                @Html.DropDownListFor(m => m.CategoriaId,
+                    ViewBag.Categorias as IEnumerable<SelectListItem>,
+                    "Todas",
+                    new { @class = "form-select" })
+            </div>
+
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-search me-1"></i>Generar
+                </button>
+            </div>
+
+        </div>
+    }
+</div>
+
+<script>
+    document.getElementById('tipoReporte').addEventListener('change', function () {
+        var esFechas = this.value === 'ventas' || this.value === 'compras';
+        document.querySelectorAll('.campo-fecha').forEach(function (el) {
+            el.style.display = esFechas ? '' : 'none';
+        });
+        document.getElementById('divCategoria').style.display =
+            this.value === 'inventario' ? '' : 'none';
+    });
+</script>

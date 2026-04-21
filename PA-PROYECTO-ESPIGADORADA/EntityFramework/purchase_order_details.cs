@@ -12,20 +12,15 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class shopping_cart
+    public partial class purchase_order_details
     {
-        public int cart_item_id { get; set; }
-        public int user_id { get; set; }
-        public int product_id { get; set; }
-        public int quantity { get; set; }
-        public System.DateTime added_at { get; set; }
-        public string created_by { get; set; }
-        public string modified_by { get; set; }
-        public string action { get; set; }
-        public Nullable<System.DateTime> created_at { get; set; }
-        public Nullable<System.DateTime> modified_at { get; set; }
+        public int detail_id { get; set; }
+        public Nullable<int> order_id { get; set; }
+        public Nullable<int> product_id { get; set; }
+        public Nullable<int> quantity { get; set; }
+        public Nullable<decimal> unit_cost { get; set; }
     
         public virtual products products { get; set; }
-        public virtual users users { get; set; }
+        public virtual purchase_orders purchase_orders { get; set; }
     }
 }

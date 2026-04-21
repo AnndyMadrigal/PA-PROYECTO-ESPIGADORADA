@@ -12,25 +12,18 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
     using System;
     using System.Collections.Generic;
     
-    public partial class cantons
+    public partial class sales_invoice_payments
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public cantons()
-        {
-            this.districts = new HashSet<districts>();
-        }
-    
-        public int canton_id { get; set; }
-        public int province_id { get; set; }
-        public string canton_name { get; set; }
+        public int sales_invoice_payment_id { get; set; }
+        public int sales_invoice_id { get; set; }
+        public string payment_method { get; set; }
+        public string notes { get; set; }
         public string created_by { get; set; }
         public string modified_by { get; set; }
         public string action { get; set; }
         public Nullable<System.DateTime> created_at { get; set; }
         public Nullable<System.DateTime> modified_at { get; set; }
     
-        public virtual provinces provinces { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<districts> districts { get; set; }
+        public virtual sales_invoices sales_invoices { get; set; }
     }
 }
