@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Espiga_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Espiga_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="product_categories">
           <Key>
             <PropertyRef Name="category_id" />
@@ -837,7 +837,8 @@
             <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Espiga_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -881,7 +882,7 @@
           <NavigationProperty Name="taxes" Relationship="Self.FK_products_taxes" FromRole="products" ToRole="taxes" />
           <NavigationProperty Name="purchase_invoice_lines" Relationship="Self.FK_purchase_invoice_lines_products" FromRole="products" ToRole="purchase_invoice_lines" />
           <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_products" FromRole="products" ToRole="sales_invoice_lines" />
-          <NavigationProperty Name="shopping_cart" Relationship="Espiga_DBModel.FK_shopping_cart_products" FromRole="products" ToRole="shopping_cart" />
+          <NavigationProperty Name="shopping_cart" Relationship="Self.FK_shopping_cart_products" FromRole="products" ToRole="shopping_cart" />
         </EntityType>
         <EntityType Name="promotions">
           <Key>
@@ -1004,7 +1005,7 @@
           <NavigationProperty Name="user_addresses" Relationship="Self.FK_user_addresses_users" FromRole="users" ToRole="user_addresses" />
           <NavigationProperty Name="user_phones" Relationship="Self.FK_user_phones_users" FromRole="users" ToRole="user_phones" />
           <NavigationProperty Name="sales_invoices" Relationship="Self.FK_sales_invoices_users" FromRole="users" ToRole="sales_invoices" />
-          <NavigationProperty Name="shopping_cart" Relationship="Espiga_DBModel.FK_shopping_cart_users" FromRole="users" ToRole="shopping_cart" />
+          <NavigationProperty Name="shopping_cart" Relationship="Self.FK_shopping_cart_users" FromRole="users" ToRole="shopping_cart" />
         </EntityType>
         <EntityType Name="cantons">
           <Key>
@@ -1228,6 +1229,23 @@
           <NavigationProperty Name="users" Relationship="Self.FK_sales_invoices_users" FromRole="sales_invoices" ToRole="users" />
           <NavigationProperty Name="sales_invoice_lines" Relationship="Self.FK_sales_invoice_lines_sales_invoices" FromRole="sales_invoices" ToRole="sales_invoice_lines" />
         </EntityType>
+        <EntityType Name="shopping_cart">
+          <Key>
+            <PropertyRef Name="cart_item_id" />
+          </Key>
+          <Property Name="cart_item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="product_id" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="added_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="products" Relationship="Self.FK_shopping_cart_products" FromRole="shopping_cart" ToRole="products" />
+          <NavigationProperty Name="users" Relationship="Self.FK_shopping_cart_users" FromRole="shopping_cart" ToRole="users" />
+        </EntityType>
         <Association Name="FK_products_product_categories">
           <End Role="product_categories" Type="Self.product_categories" Multiplicity="1" />
           <End Role="products" Type="Self.products" Multiplicity="*" />
@@ -1296,6 +1314,18 @@
               <PropertyRef Name="product_id" />
             </Principal>
             <Dependent Role="sales_invoice_lines">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_shopping_cart_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="shopping_cart" Type="Self.shopping_cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="shopping_cart">
               <PropertyRef Name="product_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -1392,6 +1422,18 @@
               <PropertyRef Name="user_id" />
             </Principal>
             <Dependent Role="sales_invoices">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_shopping_cart_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="shopping_cart" Type="Self.shopping_cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="shopping_cart">
               <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -1502,6 +1544,7 @@
           <EntitySet Name="suppliers" EntityType="Self.suppliers" />
           <EntitySet Name="sales_invoice_lines" EntityType="Self.sales_invoice_lines" />
           <EntitySet Name="sales_invoices" EntityType="Self.sales_invoices" />
+          <EntitySet Name="shopping_cart" EntityType="Self.shopping_cart" />
           <AssociationSet Name="FK_products_product_categories" Association="Self.FK_products_product_categories">
             <End Role="product_categories" EntitySet="product_categories" />
             <End Role="products" EntitySet="products" />
@@ -1525,6 +1568,10 @@
           <AssociationSet Name="FK_sales_invoice_lines_products" Association="Self.FK_sales_invoice_lines_products">
             <End Role="products" EntitySet="products" />
             <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
+          </AssociationSet>
+          <AssociationSet Name="FK_shopping_cart_products" Association="Self.FK_shopping_cart_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="shopping_cart" EntitySet="shopping_cart" />
           </AssociationSet>
           <AssociationSet Name="FK_sales_invoice_lines_promotions" Association="Self.FK_sales_invoice_lines_promotions">
             <End Role="promotions" EntitySet="promotions" />
@@ -1558,6 +1605,10 @@
             <End Role="users" EntitySet="users" />
             <End Role="sales_invoices" EntitySet="sales_invoices" />
           </AssociationSet>
+          <AssociationSet Name="FK_shopping_cart_users" Association="Self.FK_shopping_cart_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="shopping_cart" EntitySet="shopping_cart" />
+          </AssociationSet>
           <AssociationSet Name="FK_cantons_provinces" Association="Self.FK_cantons_provinces">
             <End Role="provinces" EntitySet="provinces" />
             <End Role="cantons" EntitySet="cantons" />
@@ -1587,7 +1638,19 @@
             <End Role="sales_invoice_lines" EntitySet="sales_invoice_lines" />
           </AssociationSet>
           <FunctionImport Name="GetUserById" ReturnType="Collection(Espiga_DBModel.GetUserById_Result)">
-          <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertProduct">
+            <Parameter Name="product_name" Mode="In" Type="String" />
+            <Parameter Name="sku" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="image_url" Mode="In" Type="String" />
+            <Parameter Name="category_id" Mode="In" Type="Int32" />
+            <Parameter Name="unit_of_measure" Mode="In" Type="String" />
+            <Parameter Name="min_stock" Mode="In" Type="Decimal" />
+            <Parameter Name="tax_id" Mode="In" Type="Int32" />
+            <Parameter Name="is_active" Mode="In" Type="Boolean" />
+            <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="LoginUser" ReturnType="Collection(Espiga_DBModel.LoginUser_Result)">
             <Parameter Name="Email" Mode="In" Type="String" />
@@ -1613,47 +1676,14 @@
             <Parameter Name="Password" Mode="In" Type="String" />
             <Parameter Name="CreatedBy" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="ToggleProductStatus">
+            <Parameter Name="product_id" Mode="In" Type="Int32" />
+            <Parameter Name="user" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="UpdatePassword">
             <Parameter Name="Password" Mode="In" Type="String" />
             <Parameter Name="User_id" Mode="In" Type="Int32" />
             <Parameter Name="ModifiedBy" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="UpdateUser">
-            <Parameter Name="UserId" Mode="In" Type="Int32" />
-            <Parameter Name="Identification" Mode="In" Type="String" />
-            <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="ModifiedBy" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="ValidateEmail" ReturnType="Collection(Espiga_DBModel.ValidateEmail_Result)">
-          <Parameter Name="Email" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="AdministerPaymentTerms" ReturnType="Collection(Espiga_DBModel.AdministerPaymentTerms_Result)">
-            <Parameter Name="Accion" Mode="In" Type="String" />
-            <Parameter Name="TermId" Mode="In" Type="Int32" />
-            <Parameter Name="TermName" Mode="In" Type="String" />
-            <Parameter Name="DaysDue" Mode="In" Type="Int32" />
-            <Parameter Name="CreatedBy" Mode="In" Type="String" />
-            <Parameter Name="ModifiedBy" Mode="In" Type="String" />
-            <Parameter Name="ActionValue" Mode="In" Type="String" />
-            <Parameter Name="CreatedAt" Mode="In" Type="DateTime" />
-            <Parameter Name="ModifiedAt" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="InsertProduct">
-            <Parameter Name="product_name" Mode="In" Type="String" />
-            <Parameter Name="sku" Mode="In" Type="String" />
-            <Parameter Name="description" Mode="In" Type="String" />
-            <Parameter Name="image_url" Mode="In" Type="String" />
-            <Parameter Name="category_id" Mode="In" Type="Int32" />
-            <Parameter Name="unit_of_measure" Mode="In" Type="String" />
-            <Parameter Name="min_stock" Mode="In" Type="Decimal" />
-            <Parameter Name="tax_id" Mode="In" Type="Int32" />
-            <Parameter Name="is_active" Mode="In" Type="Boolean" />
-            <Parameter Name="user" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="ToggleProductStatus">
-            <Parameter Name="product_id" Mode="In" Type="Int32" />
-            <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="UpdateProduct">
             <Parameter Name="product_id" Mode="In" Type="Int32" />
@@ -1668,15 +1698,27 @@
             <Parameter Name="is_active" Mode="In" Type="Boolean" />
             <Parameter Name="user" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="shopping_cart" EntityType="Espiga_DBModel.shopping_cart" />
-          <AssociationSet Name="FK_shopping_cart_products" Association="Espiga_DBModel.FK_shopping_cart_products">
-            <End Role="products" EntitySet="products" />
-            <End Role="shopping_cart" EntitySet="shopping_cart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_shopping_cart_users" Association="Espiga_DBModel.FK_shopping_cart_users">
-            <End Role="users" EntitySet="users" />
-            <End Role="shopping_cart" EntitySet="shopping_cart" />
-          </AssociationSet>
+          <FunctionImport Name="UpdateUser">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="Identification" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="ModifiedBy" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ValidateEmail" ReturnType="Collection(Espiga_DBModel.ValidateEmail_Result)">
+            <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AdministerPaymentTerms" ReturnType="Collection(Espiga_DBModel.AdministerPaymentTerms_Result)">
+            <Parameter Name="Accion" Mode="In" Type="String" />
+            <Parameter Name="TermId" Mode="In" Type="Int32" />
+            <Parameter Name="TermName" Mode="In" Type="String" />
+            <Parameter Name="DaysDue" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedBy" Mode="In" Type="String" />
+            <Parameter Name="ModifiedBy" Mode="In" Type="String" />
+            <Parameter Name="ActionValue" Mode="In" Type="String" />
+            <Parameter Name="CreatedAt" Mode="In" Type="DateTime" />
+            <Parameter Name="ModifiedAt" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetUserById_Result">
           <Property Type="Int32" Name="user_id" Nullable="false" />
@@ -1713,47 +1755,6 @@
           <Property Type="DateTime" Name="CreatedAt" Nullable="true" Precision="23" />
           <Property Type="DateTime" Name="ModifiedAt" Nullable="true" Precision="23" />
         </ComplexType>
-        <EntityType Name="shopping_cart">
-          <Key>
-            <PropertyRef Name="cart_item_id" />
-          </Key>
-          <Property Name="cart_item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" Nullable="false" />
-          <Property Name="product_id" Type="Int32" Nullable="false" />
-          <Property Name="quantity" Type="Int32" Nullable="false" />
-          <Property Name="added_at" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="created_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="modified_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="created_at" Type="DateTime" Precision="3" />
-          <Property Name="modified_at" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="products" Relationship="Espiga_DBModel.FK_shopping_cart_products" FromRole="shopping_cart" ToRole="products" />
-          <NavigationProperty Name="users" Relationship="Espiga_DBModel.FK_shopping_cart_users" FromRole="shopping_cart" ToRole="users" />
-        </EntityType>
-        <Association Name="FK_shopping_cart_products">
-          <End Type="Espiga_DBModel.products" Role="products" Multiplicity="1" />
-          <End Type="Espiga_DBModel.shopping_cart" Role="shopping_cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="products">
-              <PropertyRef Name="product_id" />
-            </Principal>
-            <Dependent Role="shopping_cart">
-              <PropertyRef Name="product_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_shopping_cart_users">
-          <End Type="Espiga_DBModel.users" Role="users" Multiplicity="1" />
-          <End Type="Espiga_DBModel.shopping_cart" Role="shopping_cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="shopping_cart">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2124,6 +2125,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="shopping_cart">
+            <EntityTypeMapping TypeName="Espiga_DBModel.shopping_cart">
+              <MappingFragment StoreEntitySet="shopping_cart">
+                <ScalarProperty Name="cart_item_id" ColumnName="cart_item_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="added_at" ColumnName="added_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetUserById" FunctionName="Espiga_DBModel.Store.GetUserById">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Espiga_DBModel.GetUserById_Result">
@@ -2136,6 +2153,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertProduct" FunctionName="Espiga_DBModel.Store.InsertProduct" />
           <FunctionImportMapping FunctionImportName="LoginUser" FunctionName="Espiga_DBModel.Store.LoginUser">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Espiga_DBModel.LoginUser_Result">
@@ -2150,7 +2168,9 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegisterProduct" FunctionName="Espiga_DBModel.Store.RegisterProduct" />
           <FunctionImportMapping FunctionImportName="RegisterUser" FunctionName="Espiga_DBModel.Store.RegisterUser" />
+          <FunctionImportMapping FunctionImportName="ToggleProductStatus" FunctionName="Espiga_DBModel.Store.ToggleProductStatus" />
           <FunctionImportMapping FunctionImportName="UpdatePassword" FunctionName="Espiga_DBModel.Store.UpdatePassword" />
+          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="Espiga_DBModel.Store.UpdateProduct" />
           <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="Espiga_DBModel.Store.UpdateUser" />
           <FunctionImportMapping FunctionImportName="ValidateEmail" FunctionName="Espiga_DBModel.Store.ValidateEmail">
             <ResultMapping>
@@ -2179,25 +2199,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="InsertProduct" FunctionName="Espiga_DBModel.Store.InsertProduct" />
-          <FunctionImportMapping FunctionImportName="ToggleProductStatus" FunctionName="Espiga_DBModel.Store.ToggleProductStatus" />
-          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="Espiga_DBModel.Store.UpdateProduct" />
-          <EntitySetMapping Name="shopping_cart">
-            <EntityTypeMapping TypeName="Espiga_DBModel.shopping_cart">
-              <MappingFragment StoreEntitySet="shopping_cart">
-                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
-                <ScalarProperty Name="created_at" ColumnName="created_at" />
-                <ScalarProperty Name="action" ColumnName="action" />
-                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
-                <ScalarProperty Name="created_by" ColumnName="created_by" />
-                <ScalarProperty Name="added_at" ColumnName="added_at" />
-                <ScalarProperty Name="quantity" ColumnName="quantity" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="cart_item_id" ColumnName="cart_item_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

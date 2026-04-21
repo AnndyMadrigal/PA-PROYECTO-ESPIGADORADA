@@ -239,7 +239,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckoutViewModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
+    <Compile Include="Models\OrderProcessResult.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\ProvidersModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
@@ -316,6 +318,8 @@
     <Content Include="Template\img\product-2.jpg" />
     <Content Include="Template\img\product-3.jpg" />
     <Content Include="Template\img\products\0d17ba78-5746-4bb5-bf36-8ce178758943_cupcake.png" />
+    <Content Include="Template\img\products\donas_chocolate_surtidas.png" />
+    <Content Include="Template\img\products\porcion_pastel_cereza_chocolate.png" />
     <Content Include="Template\img\service-1.jpg" />
     <Content Include="Template\img\service-2.jpg" />
     <Content Include="Template\img\spighe.png" />
@@ -345,6 +349,7 @@
     <Content Include="Template\js\waypoints.min.js" />
     <Content Include="Template\js\wow.min.js" />
     <Content Include="Template\NotifyPassword.html" />
+    <Content Include="Template\OrderConfirmation.html" />
     <Content Include="Template\RecoverPassword.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -378,6 +383,9 @@
     <Content Include="Views\Providers\ConsultProviders.cshtml" />
     <Content Include="Views\Providers\RegisterProvider.cshtml" />
     <Content Include="Views\Providers\EditProvider.cshtml" />
+    <Content Include="Template\img\products\pastel_entero_chocolate.png" />
+    <Content Include="Template\img\products\pastel_mixto_chocolate_frutas.png" />
+    <Content Include="Views\ShoppingCart\ConfirmOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

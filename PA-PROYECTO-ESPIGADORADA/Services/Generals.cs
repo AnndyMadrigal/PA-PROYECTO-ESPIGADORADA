@@ -21,7 +21,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Services
                 mail.Body = body;
                 mail.IsBodyHtml = true;
 
-                using (SmtpClient smtp = new SmtpClient("smtp.office365.com", 587))
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
                 {
                     smtp.Credentials = new NetworkCredential(emailAccount, emailPassword);
                     smtp.EnableSsl = true;

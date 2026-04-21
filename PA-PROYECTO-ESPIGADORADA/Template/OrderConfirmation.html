@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Confirmación de pedido</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #FAF5F0; padding: 20px; color: #333333;">
+    <div style="max-width: 700px; margin: 0 auto; background-color: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); border-top: 5px solid #D48C29;">
+        <h2 style="color: #2C1E16; margin-top: 0;">Espiga Dorada</h2>
+        <h3 style="color: #D48C29; margin-bottom: 25px;">Pedido confirmado</h3>
+
+        <p>Hola <strong>{{USER_NAME}}</strong>,</p>
+        <p>Tu pedido ha sido registrado correctamente en el sistema.</p>
+
+        <div style="background-color: #FFF3CD; border-left: 4px solid #D48C29; padding: 15px; margin: 20px 0; border-radius: 4px; color: #856404;">
+            <strong>Número de pedido:</strong> {{ORDER_NUMBER}}<br>
+            <strong>Fecha:</strong> {{ORDER_DATE}}<br>
+            <strong>Estado:</strong> {{ORDER_STATUS}}
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #EEEEEE;"><strong>Método de pago</strong></td>
+                <td style="padding: 8px; border-bottom: 1px solid #EEEEEE;">{{PAYMENT_METHOD}}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #EEEEEE;"><strong>Referencia</strong></td>
+                <td style="padding: 8px; border-bottom: 1px solid #EEEEEE;">{{PAYMENT_REFERENCE}}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #EEEEEE;"><strong>Notas</strong></td>
+                <td style="padding: 8px; border-bottom: 1px solid #EEEEEE;">{{NOTES}}</td>
+            </tr>
+        </table>
+
+        <h4 style="color: #2C1E16; margin-bottom: 15px;">Detalle del pedido</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px;">
+            <thead>
+                <tr style="background-color: #F8F9FA;">
+                    <th style="padding: 10px; border: 1px solid #EEEEEE; text-align: left;">Producto</th>
+                    <th style="padding: 10px; border: 1px solid #EEEEEE; text-align: center;">Cantidad</th>
+                    <th style="padding: 10px; border: 1px solid #EEEEEE; text-align: right;">Precio</th>
+                    <th style="padding: 10px; border: 1px solid #EEEEEE; text-align: right;">Impuesto</th>
+                    <th style="padding: 10px; border: 1px solid #EEEEEE; text-align: right;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ORDER_ITEMS}}
+            </tbody>
+        </table>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <tr>
+                <td style="padding: 8px; text-align: right;"><strong>Subtotal:</strong></td>
+                <td style="padding: 8px; text-align: right; width: 160px;">{{SUBTOTAL}}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; text-align: right;"><strong>Descuento:</strong></td>
+                <td style="padding: 8px; text-align: right;">{{DISCOUNT_TOTAL}}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; text-align: right;"><strong>Impuestos:</strong></td>
+                <td style="padding: 8px; text-align: right;">{{TAX_TOTAL}}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; text-align: right; font-size: 18px;"><strong>Total:</strong></td>
+                <td style="padding: 8px; text-align: right; font-size: 18px; color: #D48C29;"><strong>{{TOTAL}}</strong></td>
+            </tr>
+        </table>
+
+        <hr style="border: none; border-top: 1px solid #EEEEEE; margin: 30px 0 15px 0;">
+        <p style="color: #999999; font-size: 12px; text-align: center; margin: 0;">Este es un correo automático, por favor no lo respondas.</p>
+    </div>
+</body>
+</html>
