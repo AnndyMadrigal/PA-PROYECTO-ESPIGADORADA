@@ -1,0 +1,108 @@
+@{
+    ViewBag.Title = "Testimonios";
+}
+
+<div class="container-fluid page-header py-6 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center pt-5 pb-3">
+        <h1 class="display-4 text-white animated slideInDown mb-3">Testimonios</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="@Url.Action("Index", "Home")">Inicio</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Testimonios</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container-xxl py-6">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <p class="text-primary text-uppercase mb-2">// Opiniones de clientes</p>
+            <h1 class="display-6 mb-4">Comentarios de clientes satisfechos con nuestros productos y servicio.</h1>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="testimonial-item bg-light rounded p-4 h-100 shadow-sm">
+                    <div class="d-flex align-items-center mb-4">
+                        <img class="img-fluid rounded-circle" src="~/Template/img/testimonial-1.jpg" style="width: 75px; height: 75px; object-fit: cover;" alt="Cliente 1" />
+                        <div class="ms-4">
+                            <h5 class="mb-1">María Fernanda Solís</h5>
+                            <span>Cliente frecuente</span>
+                        </div>
+                    </div>
+                    <p class="mb-0">Los cupcakes siempre llegan frescos y bien presentados. Me ha gustado mucho la constancia en sabor y la facilidad para pedir en línea.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="testimonial-item bg-light rounded p-4 h-100 shadow-sm">
+                    <div class="d-flex align-items-center mb-4">
+                        <img class="img-fluid rounded-circle" src="~/Template/img/testimonial-2.jpg" style="width: 75px; height: 75px; object-fit: cover;" alt="Cliente 2" />
+                        <div class="ms-4">
+                            <h5 class="mb-1">Carlos Rodríguez</h5>
+                            <span>Comprador en línea</span>
+                        </div>
+                    </div>
+                    <p class="mb-0">El proceso de compra es claro y el pedido llegó tal como lo esperaba. Me gustó mucho la atención y el seguimiento hasta la entrega.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="testimonial-item bg-light rounded p-4 h-100 shadow-sm">
+                    <div class="d-flex align-items-center mb-4">
+                        <img class="img-fluid rounded-circle" src="~/Template/img/testimonial-3.jpg" style="width: 75px; height: 75px; object-fit: cover;" alt="Cliente 3" />
+                        <div class="ms-4">
+                            <h5 class="mb-1">Daniela Chaves</h5>
+                            <span>Pedido personalizado</span>
+                        </div>
+                    </div>
+                    <p class="mb-0">Pedí repostería personalizada para una celebración y el resultado fue excelente. La presentación se veía muy cuidada y el sabor estuvo muy bien.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="testimonial-item bg-light rounded p-4 h-100 shadow-sm">
+                    <div class="d-flex align-items-center mb-4">
+                        <img class="img-fluid rounded-circle" src="~/Template/img/testimonial-4.jpg" style="width: 75px; height: 75px; object-fit: cover;" alt="Cliente 4" />
+                        <div class="ms-4">
+                            <h5 class="mb-1">José Pablo Vargas</h5>
+                            <span>Cliente nuevo</span>
+                        </div>
+                    </div>
+                    <p class="mb-0">Probé el catálogo por recomendación y quedé satisfecho. La calidad del producto y la atención al cliente hacen que uno quiera volver a comprar.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl bg-light py-6">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 550px;">
+            <p class="text-primary text-uppercase mb-2">// Lo que más valoran</p>
+            <h2 class="display-6 mb-4">Aspectos que destacan nuestros clientes.</h2>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="bg-white rounded-pill py-4 px-4 text-center shadow-sm h-100 d-flex flex-column justify-content-center">
+                    <i class="fa fa-check-circle text-primary fa-2x mb-3"></i>
+                    <h5>Buena presentación</h5>
+                    <p class="mb-0">Productos visualmente atractivos y listos para ocasiones especiales.</p>
+                </div>
+            </div>
+            <div class="col-md-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="bg-white rounded-pill py-4 px-4 text-center shadow-sm h-100 d-flex flex-column justify-content-center">
+                    <i class="fa fa-shipping-fast text-primary fa-2x mb-3"></i>
+                    <h5>Entrega confiable</h5>
+                    <p class="mb-0">Seguimiento del pedido y cumplimiento de lo solicitado por el cliente.</p>
+                </div>
+            </div>
+            <div class="col-md-4 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="bg-white rounded-pill py-4 px-4 text-center shadow-sm h-100 d-flex flex-column justify-content-center">
+                    <i class="fa fa-cookie-bite text-primary fa-2x mb-3"></i>
+                    <h5>Sabor y frescura</h5>
+                    <p class="mb-0">Productos con buena textura, sabor agradable y sensación de frescura.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

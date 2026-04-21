@@ -1,0 +1,99 @@
+@model PA_PROYECTO_ESPIGADORADA.Models.UserProfileViewModel
+@{
+    ViewBag.Title = "Mi Panel";
+}
+
+<div class="container py-5 my-4">
+    <div class="text-center mx-auto mb-5" style="max-width: 720px;">
+        <h6 class="text-primary text-uppercase mb-2">Mi cuenta</h6>
+        <h1 class="display-6 fw-bold mb-3">Panel de Usuario</h1>
+        <p class="text-muted mb-0">Consulta tu información personal y accede rápidamente a las opciones principales de tu cuenta.</p>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg rounded-4 h-100 overflow-hidden">
+                <div class="card-body p-4 p-md-5">
+                    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4 pb-3 border-bottom">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm me-3" style="width: 72px; height: 72px;">
+                                <i class="fa fa-user fa-2x"></i>
+                            </div>
+                            <div>
+                                <h3 class="fw-bold mb-1 text-dark">@Model.Name</h3>
+                                <p class="text-muted mb-0">@Model.Email</p>
+                            </div>
+                        </div>
+                        <span class="badge @(Model.IsActive ? "bg-success" : "bg-danger") rounded-pill px-3 py-2 fs-6">
+                            @(Model.IsActive ? "Activo" : "Inactivo")
+                        </span>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="bg-light rounded-4 p-4 h-100">
+                                <h5 class="fw-bold text-dark mb-3"><i class="fa fa-id-card text-primary me-2"></i>Información personal</h5>
+                                <div class="mb-3">
+                                    <small class="text-muted d-block">Identificación</small>
+                                    <span class="fw-semibold text-dark">@Model.Identification</span>
+                                </div>
+                                <div class="mb-3">
+                                    <small class="text-muted d-block">Nombre completo</small>
+                                    <span class="fw-semibold text-dark">@Model.Name</span>
+                                </div>
+                                <div>
+                                    <small class="text-muted d-block">Correo electrónico</small>
+                                    <span class="fw-semibold text-dark">@Model.Email</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="bg-light rounded-4 p-4 h-100">
+                                <h5 class="fw-bold text-dark mb-3"><i class="fa fa-chart-line text-primary me-2"></i>Resumen</h5>
+                                <div class="mb-3">
+                                    <small class="text-muted d-block">Rol</small>
+                                    <span class="fw-semibold text-dark">@Model.RoleName</span>
+                                </div>
+                                <div class="mb-3">
+                                    <small class="text-muted d-block">Pedidos realizados</small>
+                                    <span class="fw-semibold text-dark">@Model.TotalOrders</span>
+                                </div>
+                                <div class="mb-3">
+                                    <small class="text-muted d-block">Total comprado</small>
+                                    <span class="fw-semibold text-dark">₡@Model.TotalSpent.ToString("N2")</span>
+                                </div>
+                                <div>
+                                    <small class="text-muted d-block">Último pedido</small>
+                                    <span class="fw-semibold text-dark">
+                                        @(Model.LastOrderDate.HasValue ? Model.LastOrderDate.Value.ToString("dd/MM/yyyy hh:mm tt") : "Sin pedidos registrados")
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg rounded-4 h-100">
+                <div class="card-body p-4 p-md-5 d-flex flex-column">
+                    <h4 class="fw-bold mb-4"><i class="fa fa-bolt text-warning me-2"></i>Opciones</h4>
+
+                    <a href="@Url.Action("MyOrders", "Account")" class="btn btn-outline-primary rounded-pill py-3 mb-3 shadow-sm text-start">
+                        <i class="fa fa-shopping-bag me-2"></i> Ver mis pedidos
+                    </a>
+
+                    <a href="@Url.Action("EditProfile", "Account")" class="btn btn-primary rounded-pill py-3 mb-3 shadow-sm text-start">
+                        <i class="fa fa-user-edit me-2"></i> Editar mi información
+                    </a>
+
+                    <div class="mt-auto pt-3 border-top">
+                        <p class="text-muted mb-2">Desde aquí puedes consultar tus compras y mantener actualizados tus datos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

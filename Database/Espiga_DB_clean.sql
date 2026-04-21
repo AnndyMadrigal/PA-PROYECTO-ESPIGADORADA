@@ -3332,9 +3332,3 @@ VALUES
 ('Proveedor B', 1),
 ('Distribuidora Central', 1);
 
---- Deben de  existir
-SELECT * FROM purchasing.purchase_orders;
-SELECT * FROM purchasing.purchase_order_details;
-SELECT * FROM purchasing.suppliers;
-
-

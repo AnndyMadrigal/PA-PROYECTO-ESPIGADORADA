@@ -3,18 +3,14 @@ using PA_PROYECTO_ESPIGADORADA.Models;
 using PA_PROYECTO_ESPIGADORADA.Services;
 using PA_PROYECTO_ESPIGADORADA.Filters;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Web.Mvc;
-
 
 namespace PA_PROYECTO_ESPIGADORADA.Controllers
 {
     public class HomeController : BaseController
     {
-
         readonly Generals generals = new Generals();
 
         [ActiveSession]
@@ -24,7 +20,34 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
         {
             return View();
         }
-        #endregion 
+        #endregion
+
+        #region Team
+        [ActiveSession]
+        [HttpGet]
+        public ActionResult Team()
+        {
+            return View();
+        }
+        #endregion
+
+        #region Testimonials
+        [ActiveSession]
+        [HttpGet]
+        public ActionResult Testimonial()
+        {
+            return View();
+        }
+        #endregion
+
+        #region Contact
+        [ActiveSession]
+        [HttpGet]
+        public ActionResult Contact()
+        {
+            return View();
+        }
+        #endregion
 
         #region LOGIN
         [HttpGet]
@@ -81,7 +104,6 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
 
             using (var context = new Espiga_DBEntities())
             {
-
                 var result = context.RegisterUser(clientRole, model.Identification, model.Name, model.Email, model.Password, currentUser);
 
                 if (result <= 0)
@@ -99,7 +121,6 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
         [HttpGet]
         public ActionResult RecoverPassword()
         {
-
             return View();
         }
 
@@ -117,7 +138,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                     return View();
                 }
 
-                //Se genera la contraseña nueva
+
                 var newPassword = generals.GeneratePassword();
 
                 //Se actualiza la contraseña en la base de datos

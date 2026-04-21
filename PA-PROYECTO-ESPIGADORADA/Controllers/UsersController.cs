@@ -1,11 +1,10 @@
 using PA_PROYECTO_ESPIGADORADA.EntityFramework;
-using PA_PROYECTO_ESPIGADORADA.Models;
 using PA_PROYECTO_ESPIGADORADA.Filters;
+using PA_PROYECTO_ESPIGADORADA.Models;
+using PA_PROYECTO_ESPIGADORADA.Services;
+using System;
 using System.Linq;
 using System.Web.Mvc;
-using System;
-using PA_PROYECTO_ESPIGADORADA.Services;
-using System.Data.Entity;
 
 namespace PA_PROYECTO_ESPIGADORADA.Controllers
 {
@@ -31,7 +30,6 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
             return View(new UserModel());
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(UserModel model)
@@ -41,25 +39,24 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                 string currentUser = GetAuditUser();
                 using (var context = new Espiga_DBEntities())
                 {
-                    //asignamos el role_id = 3(app_user) por defecto según los roles existentes.
                     var result = context.RegisterUser(3, model.Identification, model.Name, model.Email, model.Password, currentUser);
                     if (result > 0)
                     {
                         return RedirectToAction("ConsultUsers");
                     }
+
                     ViewBag.Mensaje = "Ocurrió un error al registrar el usuario.";
                 }
             }
+
             return View(model);
         }
 
-
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, bool fromProfile = false)
         {
             using (var context = new Espiga_DBEntities())
             {
-                // Reemplazamos el .Where() por el llamado al SP
                 var user = context.GetUserById(id).FirstOrDefault();
 
                 if (user == null)
@@ -76,36 +73,42 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                     Is_Active = user.is_active
                 };
 
+                ViewBag.FromProfile = fromProfile;
+
                 return View(model);
             }
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(UserModel model)
+        public ActionResult Edit(UserModel model, bool fromProfile = false)
         {
+            ViewBag.FromProfile = fromProfile;
+
             if (ModelState.IsValid)
             {
                 string currentUser = GetAuditUser();
                 using (var context = new Espiga_DBEntities())
                 {
-
                     context.UpdateUser(model.User_id, model.Identification, model.Name, model.Email, currentUser);
 
-                    //si el usuario digitó una contraseña nueva, ejecutamos el SP
                     if (!string.IsNullOrEmpty(model.Password))
                     {
                         context.UpdatePassword(model.Password, model.User_id, currentUser);
                     }
-
-                    return RedirectToAction("ConsultUsers");
                 }
+
+                if (fromProfile)
+                {
+                    return RedirectToAction("Profile", "Account");
+                }
+
+                return RedirectToAction("ConsultUsers");
             }
+
             return View(model);
         }
 
-        // POST: Users/ToggleStatus
         [HttpPost]
         public ActionResult ToggleStatus(int id)
         {
@@ -122,6 +125,7 @@ namespace PA_PROYECTO_ESPIGADORADA.Controllers
                     context.SaveChanges();
                 }
             }
+
             return RedirectToAction("ConsultUsers");
         }
     }

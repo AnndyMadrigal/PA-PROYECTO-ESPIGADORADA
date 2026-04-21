@@ -1,0 +1,152 @@
+@model List<PA_PROYECTO_ESPIGADORADA.Models.MyOrderViewModel>
+@{
+    ViewBag.Title = "Mis Pedidos";
+}
+
+<div class="container py-5 my-4">
+    <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4">
+        <div>
+            <h2 class="text-primary fw-bold mb-2"><i class="fa fa-shopping-bag me-2"></i> Mis Pedidos</h2>
+            <p class="text-muted mb-0">Consulta el historial de pedidos realizados con tu cuenta.</p>
+        </div>
+        <a href="@Url.Action("Profile", "Account")" class="btn btn-outline-primary rounded-pill px-4">
+            <i class="fa fa-arrow-left me-2"></i> Volver al panel
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="accordion" id="ordersAccordion">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var order = Model[i];
+                var badgeClass = "bg-secondary";
+
+                if (!string.IsNullOrWhiteSpace(order.Status))
+                {
+                    var status = order.Status.ToUpper();
+                    if (status == "CONFIRMED")
+                    {
+                        badgeClass = "bg-success";
+                    }
+                    else if (status == "PENDING")
+                    {
+                        badgeClass = "bg-warning text-dark";
+                    }
+                    else if (status == "CANCELLED")
+                    {
+                        badgeClass = "bg-danger";
+                    }
+                }
+
+                <div class="accordion-item border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                    <h2 class="accordion-header" id="heading_@order.SalesInvoiceId">
+                        <button class="accordion-button @(i > 0 ? "collapsed" : string.Empty) fw-semibold px-4 py-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_@order.SalesInvoiceId" aria-expanded="@(i == 0 ? "true" : "false")" aria-controls="collapse_@order.SalesInvoiceId">
+                            <div class="w-100 pe-3">
+                                <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-2">
+                                    <div>
+                                        <span class="text-primary fw-bold d-block">Pedido #@order.SalesNumber</span>
+                                        <small class="text-muted">@order.SalesDate.ToString("dd/MM/yyyy hh:mm tt")</small>
+                                    </div>
+                                    <div class="d-flex flex-wrap align-items-center gap-2">
+                                        <span class="badge @badgeClass rounded-pill px-3 py-2">@order.Status</span>
+                                        <span class="fw-bold text-dark">₡@order.Total.ToString("N2")</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="collapse_@order.SalesInvoiceId" class="accordion-collapse collapse @(i == 0 ? "show" : string.Empty)" aria-labelledby="heading_@order.SalesInvoiceId" data-bs-parent="#ordersAccordion">
+                        <div class="accordion-body p-4">
+                            <div class="row g-4 mb-4">
+                                <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3 h-100">
+                                        <small class="text-muted d-block">Método de pago</small>
+                                        <span class="fw-semibold text-dark">@order.PaymentMethod</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3 h-100">
+                                        <small class="text-muted d-block">Referencia de pago</small>
+                                        <span class="fw-semibold text-dark">@(string.IsNullOrWhiteSpace(order.PaymentReference) ? "No registrada" : order.PaymentReference)</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3 h-100">
+                                        <small class="text-muted d-block">Notas</small>
+                                        <span class="fw-semibold text-dark">@(string.IsNullOrWhiteSpace(order.Notes) ? "Sin notas" : order.Notes)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive mb-4">
+                                <table class="table align-middle table-hover mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio unitario</th>
+                                            <th>IVA</th>
+                                            <th class="text-end">Total línea</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var line in order.Lines)
+                                        {
+                                            <tr>
+                                                <td class="fw-semibold text-dark">@line.ProductName</td>
+                                                <td>@line.Quantity.ToString("N2")</td>
+                                                <td>₡@line.UnitPrice.ToString("N2")</td>
+                                                <td>₡@line.TaxAmount.ToString("N2")</td>
+                                                <td class="text-end fw-bold text-primary">₡@line.LineTotal.ToString("N2")</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="row justify-content-end">
+                                <div class="col-lg-4">
+                                    <div class="card border-0 bg-primary text-white rounded-4 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <div class="d-flex justify-content-between mb-2 opacity-75">
+                                                <span>Subtotal</span>
+                                                <span>₡@order.Subtotal.ToString("N2")</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-2 opacity-75">
+                                                <span>Descuento</span>
+                                                <span>₡@order.DiscountTotal.ToString("N2")</span>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-3 opacity-75">
+                                                <span>Impuestos</span>
+                                                <span>₡@order.TaxTotal.ToString("N2")</span>
+                                            </div>
+                                            <hr class="border-light opacity-50" />
+                                            <div class="d-flex justify-content-between fw-bold fs-5">
+                                                <span>Total</span>
+                                                <span>₡@order.Total.ToString("N2")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5 my-5">
+            <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-4 shadow-sm" style="width: 120px; height: 120px;">
+                <i class="fa fa-receipt fa-4x text-muted opacity-50"></i>
+            </div>
+            <h3 class="text-dark fw-bold">Aún no tienes pedidos registrados</h3>
+            <p class="text-muted mb-4 fs-5">Cuando realices tu primera compra, aparecerá aquí con su detalle.</p>
+            <a href="@Url.Action("Catalog", "Products")" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm">
+                <i class="fa fa-store me-2"></i> Ir al catálogo
+            </a>
+        </div>
+    }
+</div>

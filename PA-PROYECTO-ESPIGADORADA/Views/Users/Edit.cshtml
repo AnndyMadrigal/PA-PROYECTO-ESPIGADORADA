@@ -1,6 +1,7 @@
-﻿@model PA_PROYECTO_ESPIGADORADA.Models.UserModel
+@model PA_PROYECTO_ESPIGADORADA.Models.UserModel
 @{
     ViewBag.Title = "Editar Usuario";
+    bool fromProfile = ViewBag.FromProfile != null && (bool)ViewBag.FromProfile;
 }
 
 <div class="container my-5">
@@ -17,11 +18,12 @@
                     </div>
                 }
 
-                @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { @id = "FormEdit" }))
+                @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { id = "FormEdit" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.User_id)
                     @Html.HiddenFor(m => m.Is_Active)
+                    @Html.Hidden("fromProfile", fromProfile)
 
                     <div class="form-floating mb-2">
                         @Html.TextBoxFor(m => m.Identification, new { @class = "form-control bg-light", @placeholder = "Identificación", @onkeyup = "CheckName()" })
@@ -48,7 +50,14 @@
                     </div>
 
                     <div class="text-center">
-                        <a href="@Url.Action("ConsultUsers", "Users")" class="text-secondary fw-bold text-decoration-none">Regresar a la Lista</a>
+                        @if (fromProfile)
+                        {
+                            <a href="@Url.Action("Profile", "Account")" class="text-secondary fw-bold text-decoration-none">Regresar a mi panel</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("ConsultUsers", "Users")" class="text-secondary fw-bold text-decoration-none">Regresar a la Lista</a>
+                        }
                     </div>
                 }
             </div>

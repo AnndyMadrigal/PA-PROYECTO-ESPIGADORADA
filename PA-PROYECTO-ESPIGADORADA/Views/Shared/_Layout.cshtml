@@ -1,7 +1,6 @@
 ﻿@using PA_PROYECTO_ESPIGADORADA.Models
-@using System.Collections.Generic
 @using System.Linq
-
+@using System.Collections.Generic
 @{
     var name = Session["Name"] ?? String.Empty;
 
@@ -57,7 +56,6 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto p-4 p-lg-0">
                 <a href="@Url.Action("Index", "Home")" class="nav-item nav-link">Inicio</a>
-
                 @if (Session["Role_ID"] != null && ((int)Session["Role_ID"] == 1 || (int)Session["Role_ID"] == 2))
                 {
                     <a class="nav-item nav-link" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
@@ -72,22 +70,20 @@
                 }
                 else
                 {
-                    <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>
+                    <a href="@Url.Action("Index", "Home")#about" class="nav-item nav-link">Sobre Nosotros</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Información</a>
                         <div class="dropdown-menu m-0">
-                            <a href="team.html" class="dropdown-item">Nuestro Equipo</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonios</a>
+                            <a href="@Url.Action("Team", "Home")" class="dropdown-item">Nuestro Equipo</a>
+                            <a href="@Url.Action("Testimonial", "Home")" class="dropdown-item">Testimonios</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                    <a href="@Url.Action("Contact", "Home")" class="nav-item nav-link">Contacto</a>
                 }
-
                 <a class="nav-item nav-link" href="service.html">Servicios</a>
                 <a class="nav-item nav-link" href="@Url.Action("Catalog", "Products")">Catálogo</a>
             </div>
-
-            <div class="d-none d-lg-flex align-items-center">
+            <div class=" d-none d-lg-flex align-items-center">
                 <a href="@Url.Action("Index", "ShoppingCart")" class="d-flex align-items-center text-light text-decoration-none me-4 position-relative">
                     <i class="fa fa-shopping-cart fa-2x"></i>
                     <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-2 border-dark" style="font-size: 0.70rem;">
@@ -96,8 +92,7 @@
                 </a>
 
                 <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle"
-                       id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-user-circle fa-2x me-2"></i>
                         <span>@name</span>
                     </a>
@@ -111,8 +106,7 @@
             </div>
         </div>
     </nav>
-    <!-- Navbar End -->
-    <!-- Alertas -->
+
     @if (TempData["Success"] != null)
     {
         <div class="alert alert-success text-center m-3">
@@ -124,7 +118,6 @@
         @RenderBody()
     </main>
 
-    <!-- Copyright Start -->
     <div class="container-fluid copyright text-light py-4 wow fadeIn" data-wow-delay="0.1s">
         <div class="container">
             <div class="row">
@@ -138,11 +131,9 @@
             </div>
         </div>
     </div>
-    <!-- Copyright End -->
 
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-    <!-- JavaScript Libraries -->
     <script src="https://cdn.datatables.net/2.3.7/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.3.7/js/dataTables.bootstrap5.js"></script>
     <script src="~/Template/js/wow.min.js"></script>

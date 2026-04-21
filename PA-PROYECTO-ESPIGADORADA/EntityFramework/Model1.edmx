@@ -803,6 +803,19 @@
           <Parameter Name="CreatedAt" Type="datetime" Mode="In" />
           <Parameter Name="ModifiedAt" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="InsertPurchaseOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="purchasing">
+          <Parameter Name="supplier_id" Type="int" Mode="In" />
+          <Parameter Name="created_by" Type="nvarchar" Mode="In" />
+          <Parameter Name="details" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="ProcessOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="sales">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="PaymentMethod" Type="varchar" Mode="In" />
+          <Parameter Name="PaymentReference" Type="nvarchar" Mode="In" />
+          <Parameter Name="Notes" Type="nvarchar" Mode="In" />
+          <Parameter Name="CreatedBy" Type="varchar" Mode="In" />
+          <Parameter Name="ItemsXml" Type="xml" Mode="In" />
+        </Function>
         <EntityContainer Name="Espiga_DBModelStoreContainer">
           <EntitySet Name="product_categories" EntityType="Self.product_categories" Schema="core" store:Type="Tables" />
           <EntitySet Name="products" EntityType="Self.products" Schema="core" store:Type="Tables" />
@@ -1800,6 +1813,19 @@
             <End Role="sales_invoices" EntitySet="sales_invoices" />
             <End Role="sales_invoice_payments" EntitySet="sales_invoice_payments" />
           </AssociationSet>
+          <FunctionImport Name="InsertPurchaseOrder" ReturnType="Collection(Int32)">
+            <Parameter Name="supplier_id" Mode="In" Type="Int32" />
+            <Parameter Name="created_by" Mode="In" Type="String" />
+            <Parameter Name="details" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ProcessOrder" ReturnType="Collection(Espiga_DBModel.ProcessOrder_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="PaymentMethod" Mode="In" Type="String" />
+            <Parameter Name="PaymentReference" Mode="In" Type="String" />
+            <Parameter Name="Notes" Mode="In" Type="String" />
+            <Parameter Name="CreatedBy" Mode="In" Type="String" />
+            <Parameter Name="ItemsXml" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetUserById_Result">
           <Property Type="Int32" Name="user_id" Nullable="false" />
@@ -1964,6 +1990,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="ProcessOrder_Result">
+          <Property Type="Int32" Name="SalesInvoiceId" Nullable="false" />
+          <Property Type="String" Name="SalesNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Message" Nullable="true" MaxLength="250" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2445,6 +2477,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsertPurchaseOrder" FunctionName="Espiga_DBModel.Store.InsertPurchaseOrder" />
+          <FunctionImportMapping FunctionImportName="ProcessOrder" FunctionName="Espiga_DBModel.Store.ProcessOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Espiga_DBModel.ProcessOrder_Result">
+                <ScalarProperty Name="SalesInvoiceId" ColumnName="SalesInvoiceId" />
+                <ScalarProperty Name="SalesNumber" ColumnName="SalesNumber" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
