@@ -62,6 +62,51 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUserById_Result>("GetUserById", userIdParameter);
         }
     
+        public virtual int InsertProduct(string product_name, string sku, string description, string image_url, Nullable<int> category_id, string unit_of_measure, Nullable<decimal> min_stock, Nullable<int> tax_id, Nullable<bool> is_active, string user)
+        {
+            var product_nameParameter = product_name != null ?
+                new ObjectParameter("product_name", product_name) :
+                new ObjectParameter("product_name", typeof(string));
+    
+            var skuParameter = sku != null ?
+                new ObjectParameter("sku", sku) :
+                new ObjectParameter("sku", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var image_urlParameter = image_url != null ?
+                new ObjectParameter("image_url", image_url) :
+                new ObjectParameter("image_url", typeof(string));
+    
+            var category_idParameter = category_id.HasValue ?
+                new ObjectParameter("category_id", category_id) :
+                new ObjectParameter("category_id", typeof(int));
+    
+            var unit_of_measureParameter = unit_of_measure != null ?
+                new ObjectParameter("unit_of_measure", unit_of_measure) :
+                new ObjectParameter("unit_of_measure", typeof(string));
+    
+            var min_stockParameter = min_stock.HasValue ?
+                new ObjectParameter("min_stock", min_stock) :
+                new ObjectParameter("min_stock", typeof(decimal));
+    
+            var tax_idParameter = tax_id.HasValue ?
+                new ObjectParameter("tax_id", tax_id) :
+                new ObjectParameter("tax_id", typeof(int));
+    
+            var is_activeParameter = is_active.HasValue ?
+                new ObjectParameter("is_active", is_active) :
+                new ObjectParameter("is_active", typeof(bool));
+    
+            var userParameter = user != null ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertProduct", product_nameParameter, skuParameter, descriptionParameter, image_urlParameter, category_idParameter, unit_of_measureParameter, min_stockParameter, tax_idParameter, is_activeParameter, userParameter);
+        }
+    
         public virtual ObjectResult<LoginUser_Result> LoginUser(string email, string password)
         {
             var emailParameter = email != null ?
@@ -149,6 +194,19 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RegisterUser", roleIdParameter, identificationParameter, nameParameter, emailParameter, passwordParameter, createdByParameter);
         }
     
+        public virtual int ToggleProductStatus(Nullable<int> product_id, string user)
+        {
+            var product_idParameter = product_id.HasValue ?
+                new ObjectParameter("product_id", product_id) :
+                new ObjectParameter("product_id", typeof(int));
+    
+            var userParameter = user != null ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ToggleProductStatus", product_idParameter, userParameter);
+        }
+    
         public virtual int UpdatePassword(string password, Nullable<int> user_id, string modifiedBy)
         {
             var passwordParameter = password != null ?
@@ -164,6 +222,55 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
                 new ObjectParameter("ModifiedBy", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdatePassword", passwordParameter, user_idParameter, modifiedByParameter);
+        }
+    
+        public virtual int UpdateProduct(Nullable<int> product_id, string product_name, string sku, string description, string image_url, Nullable<int> category_id, string unit_of_measure, Nullable<decimal> min_stock, Nullable<int> tax_id, Nullable<bool> is_active, string user)
+        {
+            var product_idParameter = product_id.HasValue ?
+                new ObjectParameter("product_id", product_id) :
+                new ObjectParameter("product_id", typeof(int));
+    
+            var product_nameParameter = product_name != null ?
+                new ObjectParameter("product_name", product_name) :
+                new ObjectParameter("product_name", typeof(string));
+    
+            var skuParameter = sku != null ?
+                new ObjectParameter("sku", sku) :
+                new ObjectParameter("sku", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var image_urlParameter = image_url != null ?
+                new ObjectParameter("image_url", image_url) :
+                new ObjectParameter("image_url", typeof(string));
+    
+            var category_idParameter = category_id.HasValue ?
+                new ObjectParameter("category_id", category_id) :
+                new ObjectParameter("category_id", typeof(int));
+    
+            var unit_of_measureParameter = unit_of_measure != null ?
+                new ObjectParameter("unit_of_measure", unit_of_measure) :
+                new ObjectParameter("unit_of_measure", typeof(string));
+    
+            var min_stockParameter = min_stock.HasValue ?
+                new ObjectParameter("min_stock", min_stock) :
+                new ObjectParameter("min_stock", typeof(decimal));
+    
+            var tax_idParameter = tax_id.HasValue ?
+                new ObjectParameter("tax_id", tax_id) :
+                new ObjectParameter("tax_id", typeof(int));
+    
+            var is_activeParameter = is_active.HasValue ?
+                new ObjectParameter("is_active", is_active) :
+                new ObjectParameter("is_active", typeof(bool));
+    
+            var userParameter = user != null ?
+                new ObjectParameter("user", user) :
+                new ObjectParameter("user", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateProduct", product_idParameter, product_nameParameter, skuParameter, descriptionParameter, image_urlParameter, category_idParameter, unit_of_measureParameter, min_stockParameter, tax_idParameter, is_activeParameter, userParameter);
         }
     
         public virtual int UpdateUser(Nullable<int> userId, string identification, string name, string email, string modifiedBy)
@@ -239,113 +346,6 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
                 new ObjectParameter("ModifiedAt", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AdministerPaymentTerms_Result>("AdministerPaymentTerms", accionParameter, termIdParameter, termNameParameter, daysDueParameter, createdByParameter, modifiedByParameter, actionValueParameter, createdAtParameter, modifiedAtParameter);
-        }
-    
-        public virtual int InsertProduct(string product_name, string sku, string description, string image_url, Nullable<int> category_id, string unit_of_measure, Nullable<decimal> min_stock, Nullable<int> tax_id, Nullable<bool> is_active, string user)
-        {
-            var product_nameParameter = product_name != null ?
-                new ObjectParameter("product_name", product_name) :
-                new ObjectParameter("product_name", typeof(string));
-    
-            var skuParameter = sku != null ?
-                new ObjectParameter("sku", sku) :
-                new ObjectParameter("sku", typeof(string));
-    
-            var descriptionParameter = description != null ?
-                new ObjectParameter("description", description) :
-                new ObjectParameter("description", typeof(string));
-    
-            var image_urlParameter = image_url != null ?
-                new ObjectParameter("image_url", image_url) :
-                new ObjectParameter("image_url", typeof(string));
-    
-            var category_idParameter = category_id.HasValue ?
-                new ObjectParameter("category_id", category_id) :
-                new ObjectParameter("category_id", typeof(int));
-    
-            var unit_of_measureParameter = unit_of_measure != null ?
-                new ObjectParameter("unit_of_measure", unit_of_measure) :
-                new ObjectParameter("unit_of_measure", typeof(string));
-    
-            var min_stockParameter = min_stock.HasValue ?
-                new ObjectParameter("min_stock", min_stock) :
-                new ObjectParameter("min_stock", typeof(decimal));
-    
-            var tax_idParameter = tax_id.HasValue ?
-                new ObjectParameter("tax_id", tax_id) :
-                new ObjectParameter("tax_id", typeof(int));
-    
-            var is_activeParameter = is_active.HasValue ?
-                new ObjectParameter("is_active", is_active) :
-                new ObjectParameter("is_active", typeof(bool));
-    
-            var userParameter = user != null ?
-                new ObjectParameter("user", user) :
-                new ObjectParameter("user", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertProduct", product_nameParameter, skuParameter, descriptionParameter, image_urlParameter, category_idParameter, unit_of_measureParameter, min_stockParameter, tax_idParameter, is_activeParameter, userParameter);
-        }
-    
-        public virtual int ToggleProductStatus(Nullable<int> product_id, string user)
-        {
-            var product_idParameter = product_id.HasValue ?
-                new ObjectParameter("product_id", product_id) :
-                new ObjectParameter("product_id", typeof(int));
-    
-            var userParameter = user != null ?
-                new ObjectParameter("user", user) :
-                new ObjectParameter("user", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ToggleProductStatus", product_idParameter, userParameter);
-        }
-    
-        public virtual int UpdateProduct(Nullable<int> product_id, string product_name, string sku, string description, string image_url, Nullable<int> category_id, string unit_of_measure, Nullable<decimal> min_stock, Nullable<int> tax_id, Nullable<bool> is_active, string user)
-        {
-            var product_idParameter = product_id.HasValue ?
-                new ObjectParameter("product_id", product_id) :
-                new ObjectParameter("product_id", typeof(int));
-    
-            var product_nameParameter = product_name != null ?
-                new ObjectParameter("product_name", product_name) :
-                new ObjectParameter("product_name", typeof(string));
-    
-            var skuParameter = sku != null ?
-                new ObjectParameter("sku", sku) :
-                new ObjectParameter("sku", typeof(string));
-    
-            var descriptionParameter = description != null ?
-                new ObjectParameter("description", description) :
-                new ObjectParameter("description", typeof(string));
-    
-            var image_urlParameter = image_url != null ?
-                new ObjectParameter("image_url", image_url) :
-                new ObjectParameter("image_url", typeof(string));
-    
-            var category_idParameter = category_id.HasValue ?
-                new ObjectParameter("category_id", category_id) :
-                new ObjectParameter("category_id", typeof(int));
-    
-            var unit_of_measureParameter = unit_of_measure != null ?
-                new ObjectParameter("unit_of_measure", unit_of_measure) :
-                new ObjectParameter("unit_of_measure", typeof(string));
-    
-            var min_stockParameter = min_stock.HasValue ?
-                new ObjectParameter("min_stock", min_stock) :
-                new ObjectParameter("min_stock", typeof(decimal));
-    
-            var tax_idParameter = tax_id.HasValue ?
-                new ObjectParameter("tax_id", tax_id) :
-                new ObjectParameter("tax_id", typeof(int));
-    
-            var is_activeParameter = is_active.HasValue ?
-                new ObjectParameter("is_active", is_active) :
-                new ObjectParameter("is_active", typeof(bool));
-    
-            var userParameter = user != null ?
-                new ObjectParameter("user", user) :
-                new ObjectParameter("user", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateProduct", product_idParameter, product_nameParameter, skuParameter, descriptionParameter, image_urlParameter, category_idParameter, unit_of_measureParameter, min_stockParameter, tax_idParameter, is_activeParameter, userParameter);
         }
     }
 }
