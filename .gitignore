@@ -419,3 +419,4 @@ FodyWeavers.xsd
 
 # Ignorar las conexiones locales de cada desarrollador
 connections.config
+/PA-PROYECTO-ESPIGADORADA/EntityFramework

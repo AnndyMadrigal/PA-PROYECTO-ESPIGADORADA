@@ -1,4 +1,6 @@
-﻿namespace PA_PROYECTO_ESPIGADORADA.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PA_PROYECTO_ESPIGADORADA.Models
 {
     public class PaymentTermsModel
     {

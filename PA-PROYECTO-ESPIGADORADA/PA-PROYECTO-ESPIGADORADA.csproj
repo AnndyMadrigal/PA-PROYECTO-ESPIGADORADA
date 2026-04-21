@@ -191,6 +191,9 @@
     <Compile Include="EntityFramework\payment_terms.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityFramework\ProcessOrder_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityFramework\products.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -259,7 +262,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CheckoutViewModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
+    <Compile Include="Models\OrderProcessResult.cs" />
+    <Compile Include="Models\OrderViewModel.cs.cs" />
+    <Compile Include="Models\PaymentTermsModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\ProvidersModel.cs" />
     <Compile Include="Models\ReportModels.cs" />
