@@ -4,34 +4,40 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b315a43949a3449c8affee6b2a074ff3" Name="Diagram1" ZoomLevel="116">
-        <EntityTypeShape EntityType="Espiga_DBModel.product_categories" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.products" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.promotions" Width="1.5" PointX="6" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.roles" Width="1.5" PointX="1.5" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.settings" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.taxes" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.user_addresses" Width="1.5" PointX="17.5" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.user_phones" Width="1.5" PointX="6" PointY="28.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.users" Width="1.5" PointX="3.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.cantons" Width="1.5" PointX="13" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.districts" Width="1.5" PointX="15.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.provinces" Width="1.5" PointX="10.75" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.inventory_movements" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.inventory_stock" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.payment_terms" Width="1.5" PointX="3.75" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.purchase_invoice_lines" Width="1.5" PointX="8.25" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.purchase_invoices" Width="1.5" PointX="6" PointY="22.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.supplier_payments" Width="1.5" PointX="8.25" PointY="23.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.suppliers" Width="1.5" PointX="3.75" PointY="25.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.sales_invoice_lines" Width="1.5" PointX="8.25" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Espiga_DBModel.sales_invoices" Width="1.5" PointX="6" PointY="15.5" IsExpanded="true" />
+      <Diagram DiagramId="b4b65d273da549ab86bf10803fb12c5d" Name="Diagram1">
+        <EntityTypeShape EntityType="Espiga_DBModel.product_categories" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.products" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.promotions" Width="1.5" PointX="6" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.roles" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.settings" Width="1.5" PointX="10.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.taxes" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.user_addresses" Width="1.5" PointX="15.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.user_phones" Width="1.5" PointX="5.25" PointY="37.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.users" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.cantons" Width="1.5" PointX="11" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.districts" Width="1.5" PointX="13.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.provinces" Width="1.5" PointX="8.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.inventory_movements" Width="1.5" PointX="5.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.inventory_stock" Width="1.5" PointX="5.25" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.payment_terms" Width="1.5" PointX="3.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.purchase_invoice_lines" Width="1.5" PointX="8.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.purchase_invoices" Width="1.5" PointX="6" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.purchase_order_details" Width="1.5" PointX="8.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.purchase_orders" Width="1.5" PointX="6" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.supplier_payments" Width="1.5" PointX="8.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.suppliers" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.sales_invoice_lines" Width="1.5" PointX="8.25" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.sales_invoice_payments" Width="1.5" PointX="8.25" PointY="32.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.sales_invoices" Width="1.5" PointX="6" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Espiga_DBModel.shopping_cart" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
         <AssociationConnector Association="Espiga_DBModel.FK_products_product_categories" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_inventory_movements_products" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_inventory_stock_products" ManuallyRouted="false" />
+        <AssociationConnector Association="Espiga_DBModel.FK_POD_Product" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_products_taxes" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_purchase_invoice_lines_products" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_sales_invoice_lines_products" ManuallyRouted="false" />
+        <AssociationConnector Association="Espiga_DBModel.FK_shopping_cart_products" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_sales_invoice_lines_promotions" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_users_roles" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_purchase_invoice_lines_taxes" ManuallyRouted="false" />
@@ -40,23 +46,17 @@
         <AssociationConnector Association="Espiga_DBModel.FK_user_addresses_users" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_user_phones_users" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_sales_invoices_users" ManuallyRouted="false" />
+        <AssociationConnector Association="Espiga_DBModel.FK_shopping_cart_users" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_cantons_provinces" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_districts_cantons" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_purchase_invoices_payment_terms" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_purchase_invoice_lines_purchase_invoices" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_purchase_invoices_suppliers" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_supplier_payments_purchase_invoices" ManuallyRouted="false" />
+        <AssociationConnector Association="Espiga_DBModel.FK_POD_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="Espiga_DBModel.FK_PO_Supplier" ManuallyRouted="false" />
         <AssociationConnector Association="Espiga_DBModel.FK_sales_invoice_lines_sales_invoices" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Espiga_DBModel.shopping_cart" Width="1.5" PointX="9" PointY="14.5" />
-        <AssociationConnector Association="Espiga_DBModel.FK_shopping_cart_products" />
-        <AssociationConnector Association="Espiga_DBModel.FK_shopping_cart_users" />
-        <EntityTypeShape EntityType="Espiga_DBModel.purchase_order_details" Width="1.5" PointX="8.25" PointY="19.5" />
-        <EntityTypeShape EntityType="Espiga_DBModel.purchase_orders" Width="1.5" PointX="6" PointY="32.625" />
-        <EntityTypeShape EntityType="Espiga_DBModel.sales_invoice_payments" Width="1.5" PointX="8.25" PointY="27.5" />
-        <AssociationConnector Association="Espiga_DBModel.FK_POD_Product" />
-        <AssociationConnector Association="Espiga_DBModel.FK_POD_Order" />
-        <AssociationConnector Association="Espiga_DBModel.FK_PO_Supplier" />
-        <AssociationConnector Association="Espiga_DBModel.FK_sales_invoice_payments_sales_invoices" />
+        <AssociationConnector Association="Espiga_DBModel.FK_sales_invoice_payments_sales_invoices" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

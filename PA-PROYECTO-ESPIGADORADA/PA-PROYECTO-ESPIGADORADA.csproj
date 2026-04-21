@@ -148,7 +148,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProvidersController.cs" />
-    <Compile Include="Controllers\PurchaseOrdersController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
@@ -419,8 +418,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Team.cshtml" />
     <Content Include="Views\Home\Testimonial.cshtml" />
-    <Content Include="Views\PurchaseOrders\Create.cshtml" />
-    <Content Include="Views\PurchaseOrders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

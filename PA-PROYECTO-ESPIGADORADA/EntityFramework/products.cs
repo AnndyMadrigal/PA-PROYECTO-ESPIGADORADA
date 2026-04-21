@@ -19,10 +19,10 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         {
             this.inventory_movements = new HashSet<inventory_movements>();
             this.inventory_stock = new HashSet<inventory_stock>();
+            this.purchase_order_details = new HashSet<purchase_order_details>();
             this.purchase_invoice_lines = new HashSet<purchase_invoice_lines>();
             this.sales_invoice_lines = new HashSet<sales_invoice_lines>();
             this.shopping_cart = new HashSet<shopping_cart>();
-            this.purchase_order_details = new HashSet<purchase_order_details>();
         }
     
         public int product_id { get; set; }
@@ -47,6 +47,8 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public virtual ICollection<inventory_movements> inventory_movements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<inventory_stock> inventory_stock { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<purchase_order_details> purchase_order_details { get; set; }
         public virtual taxes taxes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<purchase_invoice_lines> purchase_invoice_lines { get; set; }
@@ -54,7 +56,5 @@ namespace PA_PROYECTO_ESPIGADORADA.EntityFramework
         public virtual ICollection<sales_invoice_lines> sales_invoice_lines { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<shopping_cart> shopping_cart { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<purchase_order_details> purchase_order_details { get; set; }
     }
 }
