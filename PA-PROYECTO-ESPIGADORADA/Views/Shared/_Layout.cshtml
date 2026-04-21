@@ -72,22 +72,24 @@
                     <a class="nav-item nav-link" href="@Url.Action("ConsultUsers", "Users")">Gestión de Usuarios</a>
                     <a class="nav-item nav-link" href="@Url.Action("Index", "Products")">Gestión de Prod.</a>
                     <a class="nav-item nav-link" href="@Url.Action("Index", "Settings")">Configuración</a>
+                    <a class="nav-item nav-link" href="@Url.Action("Index", "PurchaseOrders")">Órdenes de Compra</a>
+
                 }
                 else
                 {
                     <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>
                     <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Información</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="team.html" class="dropdown-item">Nuestro Equipo</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonios</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Información</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="team.html" class="dropdown-item">Nuestro Equipo</a>
+                            <a href="testimonial.html" class="dropdown-item">Testimonios</a>
+                        </div>
                     </div>
-                </div>
-                <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
                 }
                 <a class="nav-item nav-link" href="service.html">Servicios</a>
                 <a class="nav-item nav-link" href="@Url.Action("Catalog", "Products")">Catálogo</a>
-                
+
             </div>
             <div class=" d-none d-lg-flex align-items-center">
                 <!-- Ícono de Carrito de Compras -->
