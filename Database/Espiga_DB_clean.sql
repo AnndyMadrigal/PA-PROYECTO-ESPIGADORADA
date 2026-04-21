@@ -596,6 +596,9 @@ BEGIN
 END
 GO
 
+SET IDENTITY_INSERT [core].[products] OFF
+GO
+
 INSERT INTO [Espiga_DB].[core].[products]
 (
     [sku],
@@ -710,6 +713,9 @@ IF NOT EXISTS (SELECT 1 FROM [inventory].[inventory_stock] WHERE [inventory_stoc
 BEGIN
     INSERT [inventory].[inventory_stock] ([inventory_stock_id], [product_id], [qty_available], [created_by], [modified_by], [action], [created_at], [modified_at]) VALUES (1, 1, CAST(2.000 AS Decimal(18, 3)), N'DELGADO MORA ANA JULIA', N'DELGADO MORA ANA JULIA', N'UPDATE', CAST(N'2026-04-05T18:49:33.833' AS DateTime), CAST(N'2026-04-05T19:35:10.720' AS DateTime))
 END
+GO
+
+SET IDENTITY_INSERT [inventory].[inventory_stock] OFF
 GO
 
 INSERT INTO [Espiga_DB].[inventory].[inventory_stock]
@@ -3328,13 +3334,9 @@ GO
 ---Agreg prov prueba
 INSERT INTO purchasing.suppliers (s.name, is_active)
 VALUES 
-('Proveedor A', 1),
-('Proveedor B', 1),
-('Distribuidora Central', 1);
+('Distribuidora del Caribe S.A.', 1),
+('Solcrea', 1),
+('Solera', 1);
 
---- Deben de  existir
-SELECT * FROM purchasing.purchase_orders;
-SELECT * FROM purchasing.purchase_order_details;
-SELECT * FROM purchasing.suppliers;
 
 
