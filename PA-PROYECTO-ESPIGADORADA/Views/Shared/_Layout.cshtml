@@ -46,25 +46,32 @@
     </div>
     <!-- Spinner End -->
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-lg-0 px-lg-5 sticky-top">
-        <a href="@Url.Action("Index", "Home")" class="navbar-brand ms-4 ms-lg-0">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <!-- Logo/Brand -->
+    <div class="container-fluid px-3 px-lg-5">
+        <a href="@Url.Action("Index", "Home")" class="navbar-brand">
             <h1 class="text-primary m-0"><i class="bi bi-flower1 me-2"></i>Espiga Dorada</h1>
         </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        
+        <!-- Hamburger Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+ 
+        <!-- Navbar Content -->
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav mx-auto p-4 p-lg-0">
-                <a href="@Url.Action("Index", "Home")" class="nav-item nav-link">Inicio</a>
+            <!-- Links principales -->
+            <div class="navbar-nav mx-auto">
+                <a href="@Url.Action("Index", "Home")" class="nav-link">Inicio</a>
+                
                 @if (Session["Role_ID"] != null && ((int)Session["Role_ID"] == 1 || (int)Session["Role_ID"] == 2))
                 {
-                    <a class="nav-item nav-link" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
-                    <a class="nav-item nav-link" href="@Url.Action("ConsultUsers", "Users")">Gestión de Usuarios</a>
-                    <a class="nav-item nav-link" href="@Url.Action("Index", "Products")">Gestión de Productos</a>
-                    <a class="nav-item nav-link" href="@Url.Action("ConsultProviders", "Providers")">Gestión de Proveedores</a>
-                    <a class="nav-item nav-link" href="@Url.Action("Index", "Settings")">Configuración</a>
-                    <!-- ✅ ENLACE NUEVO DE REPORTES -->
-                    <a class="nav-item nav-link" href="@Url.Action("Index", "Reports")">
+                    <a class="nav-link" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+                    <a class="nav-link" href="@Url.Action("ConsultUsers", "Users")">Gestión de Usuarios</a>
+                    <a class="nav-link" href="@Url.Action("Index", "Products")">Gestión de Productos</a>
+                    <a class="nav-link" href="@Url.Action("ConsultProviders", "Providers")">Gestión de Proveedores</a>
+                    <a class="nav-link" href="@Url.Action("Index", "Settings")">Configuración</a>
+                    <a class="nav-link" href="@Url.Action("Index", "Reports")">
                         <i class="bi bi-bar-chart me-1"></i>Reportes
                     </a>
                 }
@@ -72,42 +79,46 @@
                 {
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Información</a>
-                        <div class="dropdown-menu m-0">
+                        <div class="dropdown-menu">
                             <a href="@Url.Action("Team", "Home")" class="dropdown-item">Nuestro Equipo</a>
                             <a href="@Url.Action("Testimonial", "Home")" class="dropdown-item">Testimonios</a>
                         </div>
                     </div>
-                    <a href="@Url.Action("Contact", "Home")" class="nav-item nav-link">Contacto</a>
-                    <a class="nav-item nav-link" href="@Url.Action("Catalog", "Products")">Catálogo</a>
+                    <a href="@Url.Action("Contact", "Home")" class="nav-link">Contacto</a>
+                    <a class="nav-link" href="@Url.Action("Catalog", "Products")">Catálogo</a>
                 }
-
-
             </div>
-            <div class=" d-none d-lg-flex align-items-center">
+ 
+            <!-- User Profile & Cart -->
+            <div class="d-lg-flex align-items-center mt-3 mt-lg-0 ms-lg-auto">
+                <!-- Cart Icon (solo para Role_ID = 3) -->
                 @if (Session["Role_ID"] != null && ((int)Session["Role_ID"] == 3))
-                    {
-                    <a href="@Url.Action("Index", "ShoppingCart")" class="d-flex align-items-center text-light text-decoration-none me-4 position-relative">
+                {
+                    <a href="@Url.Action("Index", "ShoppingCart")" class="d-flex align-items-center text-light text-decoration-none position-relative me-4 mb-3 mb-lg-0">
                         <i class="fa fa-shopping-cart fa-2x"></i>
                         <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-2 border-dark" style="font-size: 0.70rem;">
                             @cartCount
                         </span>
                     </a>
-                    }
-                    <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-user-circle fa-2x me-2"></i>
-                            <span>@name</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="@Url.Action("Profile", "Account")"><i class="fa fa-user me-2"></i>Perfil</a></li>
-                            <li><a class="dropdown-item" href="@Url.Action("ChangePassword", "Security")"><i class="fa fa-lock me-2"></i>Seguridad</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="@Url.Action("Logout", "Home")"><i class="fa fa-sign-out-alt me-2"></i>Cerrar Sesión</a></li>
-                        </ul>
-                    </div>
+                }
+ 
+                <!-- User Dropdown -->
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-user-circle fa-2x me-2"></i>
+                        <span>@name</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="@Url.Action("Profile", "Account")"><i class="fa fa-user me-2"></i>Perfil</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("ChangePassword", "Security")"><i class="fa fa-lock me-2"></i>Seguridad</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="@Url.Action("Logout", "Home")"><i class="fa fa-sign-out-alt me-2"></i>Cerrar Sesión</a></li>
+                    </ul>
                 </div>
+            </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     @if (TempData["Success"] != null)
     {
